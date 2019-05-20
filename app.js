@@ -1,5 +1,5 @@
-const express = require('../node_modules/express')
-var bodyParser = require('../node_modules/body-parser')
+const express = require('./node_modules/express')
+var bodyParser = require('./node_modules/body-parser')
 //const routes = require('/routes.js')
 
 
