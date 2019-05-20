@@ -18,14 +18,14 @@ export class BranchService {
     ];
 
     getBranches() {
-        // const apiLink = 'http://192.168.0.105:3000/getBranches';
-        // this.rootService.callGet(apiLink).subscribe((response: Branch[])=>{
-        //     console.log('response from post data is ', response);
-        //     this.branches = response;
-        // },
-        // (error)=>{
-        //     console.log('error during post is ', error);
-        // });
+        const apiLink = '/getBranches';
+        this.rootService.callGet(apiLink).subscribe((response: Branch[])=>{
+            console.log('response from post data is ', response);
+            this.branches = response;
+        },
+        (error)=>{
+            console.log('error during post is ', error);
+        });
         return this.branches;
     }
 
@@ -45,17 +45,17 @@ export class BranchService {
 
         const _id:string = this.uniqueId();
         const newBranch = {_id, branch, city, address, email, phone, description, images, batch, status};
-        // const apiLink = 'http://192.168.0.105:3000/addBranches';
-        // this.rootService.callPost(apiLink, newBranch).subscribe((response)=>{
-        //     console.log('response from post data is ', response);      
-        //     console.log(newBranch);
+        const apiLink = '/addBranches';
+        this.rootService.callPost(apiLink, newBranch).subscribe((response)=>{
+            console.log('response from post data is ', response);      
+            console.log(newBranch);
 
             this.branches.push(newBranch);
-        // },
-        // (error)=>{
-        //     console.log('error during post is ', error);
-        // });
-        // return _id;
+        },
+        (error)=>{
+            console.log('error during post is ', error);
+        });
+        return _id;
     }
 
     //delete branch
