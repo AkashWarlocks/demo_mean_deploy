@@ -1,0 +1,74 @@
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand pointer" (click)="goToHome()">
+          <img src="../../assets/images/dancing-soul-logo.png" alt="Dancing Soul" class="logo">
+        </a>
+      </div>
+ 
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && user==='admin'">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/about" routerLinkActive="active" skipLocationChange>About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/faculty" routerLinkActive="active" skipLocationChange>Faculty</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/branch" routerLinkActive="active" skipLocationChange>Branch</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/student" routerLinkActive="active" skipLocationChange>Student</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/exams" routerLinkActive="active" skipLocationChange>Exams</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/article" routerLinkActive="active" skipLocationChange>Article</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/enquiry" routerLinkActive="active" skipLocationChange>Enquiries</a>
+            </li>
+
+          </ul>
+
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            </li>
+
+          </ul>
+
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
+
+            <li class="nav-item">
+              <!-- <a class="nav-link" routerLink="/mystudent" routerLinkActive="active">Student</a> -->
+            </li>
+
+          </ul>
+
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="" (click)="onLogout()" routerLinkActive="active">Logout</a>
+            </li>
+
+          </ul>
+
+
+        </div>
+
+    </div>
+  </nav>

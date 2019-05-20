@@ -1,0 +1,12 @@
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.active {
+    border-bottom: 2px solid #e67e22;
+  }
+
+  .pointer {
+      cursor: pointer;
+  }

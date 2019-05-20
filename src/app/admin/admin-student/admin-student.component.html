@@ -1,0 +1,62 @@
+<div class="row mt-2">
+  <div class="col-12 mx-auto">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <h3>Students</h3>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <button class="new-btn float-right" (click)="onNewStudent()">Add New student</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <select class="branch" type="text" name="branch" id="branch" ngModel #branch="ngModel" required (change)="onSelectBranch(branch.value)">
+          <option value="">Select Branch</option>
+          <option *ngFor="let branch of branches" [value]="branch._id">{{branch.branch}}</option>
+      </select>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="input-group mb-3">
+          <input type="text" placeholder="Search" id="search" name="search" ngModel #search="ngModel" (input)="onSearch(search.value)">
+          <div class="input-group-append">
+            <button class="btn-search" type="submit" [disabled]="search == ''" (click)="onSearch(search.value)">Go</button> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="students.length > 0; else empty_students">
+      <div class="table-responsive">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Student</th>
+              <th>Contact</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="student-tr" *ngFor="let student of students, let i = index" routerLinkActive="active">
+              <td>{{ i+1 }}</td>
+              <td>
+                <a [routerLink]="student._id" class="student" skipLocationChange>
+                  {{ student.name }}
+                </a>
+              </td>
+              <td>
+                +91 {{ student.phone }}
+              </td>
+              <td>
+                {{ student.status | uppercase }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #empty_students>
+      <h5 class="pl-3">{{noStudent}}</h5>
+    </ng-template>
+  </div>
+</div>
