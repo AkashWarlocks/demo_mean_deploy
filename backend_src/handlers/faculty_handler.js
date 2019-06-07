@@ -6,14 +6,15 @@ const User = require('../model/user')
 let hObj = {}
 
 hObj.addFaculty = async (req,res) =>{
-    console.log(req.body)
-    const faculty = new Faculty(req.body)
-    const user = new User({
-        "userId":req.body.facultyId,
-        "password":req.body.facultyId,
-        "userType":"faculty"
-    })
+    console.log(req.body.data)
+    
     try {
+            const faculty = new Faculty(req.body.data)
+            const user = new User({
+            "email":req.body.data.email,
+            "password":req.body.data.facultyPhone,
+           "userType":"faculty"
+        })
         await faculty.save()   
         await user.save()
         res.status(200).send(user)  
