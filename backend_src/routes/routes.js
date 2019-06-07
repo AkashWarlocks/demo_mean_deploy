@@ -26,7 +26,8 @@ router.post('/dancingSoul',(req,res) => {
                 branchHandler.getBranches(req,res);
                 break;
         case "login":
-                userHandler.loginUsers(req,res)
+                userHandler.loginUsers(req,res);
+                break
 
         default:
             res.status(400).send({
