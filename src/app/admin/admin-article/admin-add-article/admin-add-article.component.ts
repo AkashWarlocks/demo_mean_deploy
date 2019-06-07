@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../../services/articles.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ImageService } from '../../../services/image.service';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-add-article',
@@ -14,20 +13,20 @@ export class AdminAddArticleComponent implements OnInit {
   
   form: FormGroup;
 
+  loading : boolean = true;
+
   formError: boolean = false;
 
   image : string;
 
   imgExt: string[] = ['jpg', 'png'];
 
-  constructor(private articleService : ArticleService,
-              private imageService: ImageService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.image = this.imageService.getNoImage();
 
     this.form = new FormGroup({
       title: new FormControl(null, {
@@ -40,6 +39,8 @@ export class AdminAddArticleComponent implements OnInit {
         validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
+
+    this.loading = false;
   }
 
   onImagePicked(event: any) {
@@ -61,9 +62,6 @@ export class AdminAddArticleComponent implements OnInit {
     }
   }
 
-  
-
-  
   addArticle() {
     if(this.form.invalid) {
       this.formError = true;
@@ -71,14 +69,21 @@ export class AdminAddArticleComponent implements OnInit {
 
     if(this.form.valid) {
       this.formError = false;
-      this.articleService.addArticle(this.form.value.title, this.form.value.body, this.image);
-      this.form.reset();
-      this.cancel();
+      this.loading = true;
+      const article = { title: this.form.value.title, body : this.form.value.body, image : "image" }
+      const data = { api : "addArticle", data : article }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.form.reset();
+       this.cancel();
+      },
+      (error) => {
+      this.loading = false;
+      });
     }
   }
 
   cancel() {
+    this.loading = true;
     this.router.navigate(["/admin", "article"], {relativeTo: this.route, skipLocationChange:true});        
   }
-
 }

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AdminAuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isLoggedIn.pipe(
       take(1),
       map((login: {user: string, loginValidate: boolean}) => {
@@ -21,13 +21,17 @@ export class AdminAuthGuard implements CanActivate {
       })
     );
   }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
 }
 
 @Injectable()
 export class StudentAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isLoggedIn.pipe(
       take(1),
       map((login: {user: string, loginValidate: boolean}) => {
@@ -39,13 +43,17 @@ export class StudentAuthGuard implements CanActivate {
       })
     );
   }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
 }
 
 @Injectable()
 export class FacultuAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isLoggedIn.pipe(
       take(1),
       map((login: {user: string, loginValidate: boolean}) => {
@@ -57,13 +65,17 @@ export class FacultuAuthGuard implements CanActivate {
       })
     );
   }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
 }
 
 @Injectable()
 export class LoginAuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
   
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       return this.authService.isLoggedIn.pipe(
         take(1),
         map((login: {user: string, loginValidate: boolean}) => {
@@ -74,5 +86,9 @@ export class LoginAuthGuard implements CanActivate {
           return true;
         })
       );
+    }
+
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean {
+      return this.canActivate(route, state);
     }
   }

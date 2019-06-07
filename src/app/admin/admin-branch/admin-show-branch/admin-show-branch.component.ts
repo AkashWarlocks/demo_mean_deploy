@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchService } from '../../../services/branch.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Branch, BatchModel } from '../../../models/branch.model';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-show-branch',
@@ -14,11 +14,13 @@ export class AdminShowBranchComponent implements OnInit {
 
   batches : BatchModel[] = [];
 
+  loading : boolean = true;
+
   week: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   days: boolean[] = [true, false, false, false, false, false, false];
 
-  constructor(private branchService: BranchService,
+  constructor(private httpPostService: HttpPostService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -26,23 +28,43 @@ export class AdminShowBranchComponent implements OnInit {
     this.route.params
     .subscribe(
       (params:Params) => {
-        const id = params['id'];
-        this.branch = Object.assign(this.branchService.getBranch(id));
-        this.batches = this.branch.batch;
+        const _id = params['id'];
+        const data = { api : "getBranch", data : { _id }}
+        this.httpPostService.httpPost(data).subscribe((val) => {
+          this.branch = val[0];
+          this.batches = this.branch.batch;
+          this.loading = false;
+        },
+        (error) => {
+        });
       }
     );
   }
 
-  changeStatus(id:string, status: string) {
-    this.branchService.changeStatus(id, status);
-    this.cancel();
+  changeStatus(_id:string, status: string) {
+    let statusConfirm: any = true;
+    if(status === "deactivated") {
+      statusConfirm = confirm("do you really want to Deactivate Branch??");
+    }  
+    if(statusConfirm) {
+      this.loading = true;
+      const data = { api : "changeBranchStatus", data : { _id, status }}
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.cancel();
+      },
+      (error) => {
+      this.loading = false;     
+      });
+    }
   }
   
   editAddress() {
+    this.loading = true;
     this.router.navigate(['edit'], {relativeTo: this.route, skipLocationChange:true});
   }
   
   cancel() {
+    this.loading = true;
     this.router.navigate(['/admin', 'branch'], {relativeTo: this.route, skipLocationChange:true});
   }
 
@@ -65,5 +87,4 @@ export class AdminShowBranchComponent implements OnInit {
     }
     return false;
   }
-
 }

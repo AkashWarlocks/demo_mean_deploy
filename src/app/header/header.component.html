@@ -11,39 +11,35 @@
         </button>
         
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && user==='admin'">
 
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/about" routerLinkActive="active" skipLocationChange>About</a>
+              <a class="nav-link" routerLink="about">About Us</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/faculty" routerLinkActive="active" skipLocationChange>Faculty</a>
+              <a class="nav-link" routerLink="branches">Branches</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link"  routerLink="">Articles</a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/branch" routerLinkActive="active" skipLocationChange>Branch</a>
+              <a class="nav-link"  routerLink="">News Shelter</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/student" routerLinkActive="active" skipLocationChange>Student</a>
+              <a class="nav-link" routerLink="gallery">Photos/Videos</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/exams" routerLinkActive="active" skipLocationChange>Exams</a>
+              <a class="nav-link" routerLink="contactUs">Contact Us</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/article" routerLinkActive="active" skipLocationChange>Article</a>
+              <a class="nav-link"  routerLink="">Exams</a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/enquiry" routerLinkActive="active" skipLocationChange>Enquiries</a>
-            </li>
-
-          </ul>
-
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
 
             <li class="nav-item">
               <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
@@ -51,11 +47,15 @@
 
           </ul>
 
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'admin')">
 
-            <li class="nav-item">
-              <!-- <a class="nav-link" routerLink="/mystudent" routerLinkActive="active">Student</a> -->
-            </li>
+          </ul>
+
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
+            
+          </ul>
+
+          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'faculty')">
 
           </ul>
 
@@ -66,7 +66,6 @@
             </li>
 
           </ul>
-
 
         </div>
 

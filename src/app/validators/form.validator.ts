@@ -25,4 +25,14 @@ export class FormValidator {
     }
     return {'invalidDays': true};
   }
+
+  monthsValidator(formArray: FormArray): {[s: string]: boolean} {
+        
+    for (let x = 0; x < formArray.length; ++x) {
+        if (formArray.at(x).value) {
+            return null;
+        }
+    }
+    return {'invalidDays': true};
+  }
 }

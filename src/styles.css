@@ -1,3 +1,6 @@
+/*-----------------------------------------------------*/
+/*-----------BASIC SETUP---------*/
+/*-----------------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +21,85 @@ html, body {
 body {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 70px;
+  padding-bottom: 60px;
+}
+
+section{
+  padding: 80px 0;
+}
+
+.clearfix{zoom:1}
+.clearfix:after{
+    content: '.';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+/*---------LOADING-----------*/
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -39px;
+  margin-left: -39px;
+}
+
+/*-----------------------------------------------------*/
+/*-----------Animations---------*/
+/*-----------------------------------------------------*/
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform:translateY(0rem);
+    opacity: 1;
+  }
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+/*-----------------------------------------------------*/
+/*-----------REUSABLE COMPONENTS---------*/
+/*-----------------------------------------------------*/
+
+/*------Container----*/
+
+.flex-container{
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /*------BUTTONS----*/
@@ -42,7 +123,8 @@ body {
 .btn-save, 
 .btn-add, 
 .reply-btn, 
-.btn-activate {
+.btn-activate,
+.btn-submit {
   outline: none;
   border: 1px solid #e67e22;
   border-radius: 50px;
@@ -57,7 +139,8 @@ body {
 .btn-save:hover, 
 .btn-add:hover, 
 .reply-btn:hover, 
-.btn-activate:hover {
+.btn-activate:hover,
+.btn-submit:hover {
   background-color: #e67e22;
   color: #fff;
 }
@@ -93,7 +176,7 @@ body {
   transition: background-color 0.2s;
 }
 
-.brn-close:hover {
+.btn-close:hover {
   background-color: #f00;
 }
 
@@ -120,7 +203,8 @@ body {
 .reply-btn:focus, 
 .btn-deactivate:focus, 
 .btn-activate:focus,
-.brn-close:focus {
+.brn-close:focus,
+.btn-submit:focus {
   outline: none;
 }
 
@@ -185,7 +269,6 @@ a{
     color: #000;
 }
 
-
 .main-nav{
     margin-left: auto;
     list-style: none;
@@ -209,6 +292,13 @@ a{
 .main-nav li a:hover,
 .main-nav li a:active{
     border-bottom: 2px solid #e67e22;
+}
+
+.logo{
+  height:50px;
+  width: 50px;
+  float:left;
+  margin: 0  0  0 50px;
 }
 
 .mr-auto{
@@ -268,7 +358,7 @@ span {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
-}s
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -286,4 +376,3 @@ span {
 ::-webkit-scrollbar-thumb:hover {
   background: #d67118; 
 }
-

@@ -14,15 +14,16 @@ export class LoginComponent implements OnInit {
 
   loginAuth: boolean = true;
 
+  loading : boolean = true;
+
   constructor(private authService: AuthService,
               private roure: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.roure.params
+    this.roure.queryParams
     .subscribe((params: Params) => {
-      if(params['auth'] === 'false')
-      {
+      if(params.status == 'false') {
         this.loginAuth = false;
       }
     });
@@ -34,7 +35,9 @@ export class LoginComponent implements OnInit {
       password : new FormControl(null, {
         validators:[Validators.required]
       })
-    }); 
+    });
+
+    this.loading = false;
   }
 
   login() {
@@ -51,5 +54,4 @@ export class LoginComponent implements OnInit {
   alertDismiss() {
     this.loginAuth = true;
   }
-
 }

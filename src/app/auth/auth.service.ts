@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { HttpPostService } from '../services/httpPost.service';
 
 @Injectable()
 export class AuthService {
@@ -10,32 +11,38 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  constructor(private router: Router,
+  constructor(private httpPostService: HttpPostService,
+              private router: Router,
               private route: ActivatedRoute) {}
 
   login(userName: string, password: string) {
-    setTimeout(() => {
-        if (userName === 'admin' && password === 'admin' ) {
-            this.loggedIn.next({user: 'admin', loginValidate: true});
-            this.router.navigate(['/admin'], {relativeTo: this.route});
-        }
-        else if (userName === 'student' && password === 'student' ) {
-          this.loggedIn.next({user: 'student', loginValidate: true});
-          // this.router.navigate(['/student'], {relativeTo: this.route});
-        }
-        else if (userName === 'faculty' && password === 'faculty' ) {
-          this.loggedIn.next({user: 'faculty', loginValidate: true});
-          // this.router.navigate(['/faculty'], {relativeTo: this.route});
-        }
-        else {
-          this.loggedIn.next({user: null, loginValidate: false});
-          this.router.navigate(['/login', 'false'], {relativeTo: this.route, skipLocationChange: true});
-        }
-    }, 500);
+    const data = { api : "login", data : { userName, password } }
+    this.httpPostService.httpPost(data).subscribe((response: any)=>{
+      const userType = response[0].userType;
+      if(userType === "admin") {
+        this.loggedIn.next({user: 'admin', loginValidate: true});
+        this.router.navigate(['/admin'], {relativeTo: this.route});
+      }
+      else if(userType === "student") {
+        this.loggedIn.next({user: 'student', loginValidate: true});
+        this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response[0].student}});
+      }
+      else if(userType === "faculty") {
+        this.loggedIn.next({user: 'faculty', loginValidate: true});
+        this.router.navigate(['/faculty'], {relativeTo: this.route});
+      }
+      else {
+        this.loggedIn.next({user: null, loginValidate: false});
+        this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});  
+      }
+    },(error)=>{
+      this.loggedIn.next({user: null, loginValidate: false});
+      this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});
+    });
   }
 
   logout() {
     this.loggedIn.next({user: null, loginValidate: false});
-    this.router.navigate(['/login']);
+    this.router.navigate([''], {relativeTo: this.route});
   }
 }

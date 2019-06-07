@@ -1,10 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdminAboutComponent } from './admin/admin-aim/admin-about.component';
-import { AdminEditAimComponent } from './admin/admin-aim/admin-edit-aim/admin-edit-aim.component';
-import { AdminEditHistoryComponent } from './admin/admin-aim/admin-edit-history/admin-edit-history.component';
-import { AdminEditPhilosophyComponent } from './admin/admin-aim/admin-edit-philosophy/admin-edit-philosophy.component';
+import { AdminComponent } from './admin/admin.component';
+
+import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './login/change-password/change-password.component';
+
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+
+import { AdminAboutComponent } from './admin/admin-about/admin-about.component';
+import { AdminEditAimComponent } from './admin/admin-about/admin-edit-aim/admin-edit-aim.component';
+import { AdminHistoryComponent } from './admin/admin-about/admin-history/admin-history.component';
+import { AdminEditHistoryComponent } from './admin/admin-about/admin-edit-history/admin-edit-history.component';
+import { AdminPhilosophyComponent } from './admin/admin-about/admin-philosophy/admin-philosophy.component';
+import { AdminEditPhilosophyComponent } from './admin/admin-about/admin-edit-philosophy/admin-edit-philosophy.component';
 
 import { AdminArticleComponent } from './admin/admin-article/admin-article.component';
 import { AdminAddArticleComponent } from './admin/admin-article/admin-add-article/admin-add-article.component';
@@ -22,6 +33,11 @@ import { AdminReplyEnquiryComponent } from './admin/admin-enquiry/admin-reply-en
 
 import { AdminExamComponent } from './admin/admin-exam/admin-exam.component';
 
+import { AdminGallaryComponent } from './admin/admin-gallary/admin-gallary.component';
+import { AdminAddPhotosComponent } from './admin/admin-gallary/admin-add-photos/admin-add-photos.component';
+
+import { AdminAttendanceComponent } from './admin/admin-attendance/admin-attendance.component';
+
 import { AdminFacultyComponent } from './admin/admin-faculty/admin-faculty.component';
 import { AdminAddFacultyComponent } from './admin/admin-faculty/admin-add-faculty/admin-add-faculty.component';
 import { AdminShowFacultyComponent } from './admin/admin-faculty/admin-show-faculty/admin-show-faculty.component';
@@ -32,53 +48,104 @@ import { AdminAddStudentComponent } from './admin/admin-student/admin-add-studen
 import { AdminShowStudentComponent } from './admin/admin-student/admin-show-student/admin-show-student.component';
 import { AdminEditStudentComponent } from './admin/admin-student/admin-edit-student/admin-edit-student.component';
 
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
-import { LoginComponent } from './login/login.component';
+import { AdminStudentReceiptsComponent } from './admin/admin-student/admin-student-receipts/admin-student-receipts.component';
+import { AdminStudentGenerateReceiptComponent } from './admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component';
 
 import { AdminAuthGuard, LoginAuthGuard, StudentAuthGuard, FacultuAuthGuard } from './auth/auth.guard';
-import { AdminComponent } from './admin/admin.component';
+
+import { StudentComponent } from './student/student.component';
+import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
+import { StudentAttendanceComponent } from './student/student-attendance/student-attendance.component';
+import { StudentReceiptsComponent } from './student/student-receipts/student-receipts.component';
+import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
+
+import { FacultyComponent } from './faculty/faculty.component';
+import { HomePageComponent } from './content/home-page/home-page.component';
+import { AboutPageComponent } from './content/about-page/about-page.component';
+import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
+import { BranchesPageComponent } from './content/branches-page/branches-page.component';
+import { GalleryPageComponent } from './content/gallery-page/gallery-page.component';
 
 const appRoutes : Routes = [
-    {path:'', redirectTo:'/login', pathMatch:'full'},
+  
+    {path:'', redirectTo:'/home', pathMatch:'full'},
+    {path:'home', component:HomePageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'about', component:AboutPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'contactUs', component:ContactUsPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'branches', component:BranchesPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'gallery', component:GalleryPageComponent, canActivate: [ LoginAuthGuard ]},
     
     {path:'login', component : LoginComponent, canActivate: [ LoginAuthGuard ]},
-    {path:'login/:auth', component : LoginComponent, canActivate: [ LoginAuthGuard ]},
 
-    {path:'admin', component : AdminComponent, canActivate: [ AdminAuthGuard ]},
+    {path:'forgot_password', component : ForgotPasswordComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'reset_password', component : ResetPasswordComponent, canActivate: [ LoginAuthGuard ]},
+    
+    {path:'change_password', component : ChangePasswordComponent, canActivate: [  ]},
+
+    {path:'admin', component : AdminComponent, canActivate: [ AdminAuthGuard ], canActivateChild: [ AdminAuthGuard ], children: [
+
+      {path:'', redirectTo: "dashboard", pathMatch: 'full'},
+
+      {path:'dashboard', component : AdminDashboardComponent, canActivate: [ AdminAuthGuard ]},
+
+      {path:'about', redirectTo: "about/aim", pathMatch: 'full'},
+      {path:'about/aim', component : AdminAboutComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'about/aim/edit', component : AdminEditAimComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'about/history', component : AdminHistoryComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'about/history/edit', component : AdminEditHistoryComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'about/philosophy', component : AdminPhilosophyComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'about/philosophy/edit', component : AdminEditPhilosophyComponent, canActivate: [ AdminAuthGuard ]},
+      
+      {path:'faculty', component : AdminFacultyComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'faculty/new', component : AdminAddFacultyComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'faculty/:id', component : AdminShowFacultyComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'faculty/:id/edit', component : AdminEditFacultyComponent, canActivate: [ AdminAuthGuard ]},
+      
+      {path:'branch', component : AdminBranchComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'branch/new', component : AdminAddBranchComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'branch/:id', component : AdminShowBranchComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'branch/:id/edit', component : AdminEditBranchComponent, canActivate: [ AdminAuthGuard ]},
+      
+      {path:'exams', component : AdminExamComponent, canActivate: [ AdminAuthGuard ]},
   
-    {path:'admin/about', component : AdminAboutComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/about/editaim', component : AdminEditAimComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/about/edithistory', component : AdminEditHistoryComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/about/editphilosophy', component : AdminEditPhilosophyComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'gallery', component : AdminGallaryComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'gallery/new', component : AdminAddPhotosComponent, canActivate: [ AdminAuthGuard ]},
+      
+      {path:'article', component : AdminArticleComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'article/new', component : AdminAddArticleComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'article/:id', component : AdminShowArticleComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'article/:id/edit', component : AdminEditArticleComponent, canActivate: [ AdminAuthGuard ]},
+  
+      {path:'student', component : AdminStudentComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'student/new', component : AdminAddStudentComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'student/:id', component : AdminShowStudentComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'student/:id/edit', component : AdminEditStudentComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'student/:id/generate', component : AdminStudentGenerateReceiptComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'student/:id/receipts', component : AdminStudentReceiptsComponent, canActivate: [ AdminAuthGuard ]},
+      
+      {path:'attendance', component : AdminAttendanceComponent, canActivate: [ AdminAuthGuard ]},
+  
+      {path:'enquiry', component : AdminEnquiryComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'enquiry/:id', component: AdminShowEnquiryComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'enquiry/:id/reply', component: AdminReplyEnquiryComponent, canActivate: [ AdminAuthGuard ]},
+      
+    ]},
 
-    {path:'admin/faculty', component : AdminFacultyComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/faculty/new', component : AdminAddFacultyComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/faculty/:id', component : AdminShowFacultyComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/faculty/:id/edit', component : AdminEditFacultyComponent, canActivate: [ AdminAuthGuard ]},
-
-    {path:'admin/branch', component : AdminBranchComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/branch/new', component : AdminAddBranchComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/branch/:id', component : AdminShowBranchComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/branch/:id/edit', component : AdminEditBranchComponent, canActivate: [ AdminAuthGuard ]},
-
-    {path:'admin/exams', component : AdminExamComponent, canActivate: [ AdminAuthGuard ]},
+    {path:'student', component: StudentComponent, canActivate: [ StudentAuthGuard ], canActivateChild: [ StudentAuthGuard ], children: [
+      {path:'', redirectTo: "dashboard", pathMatch: 'full'},      
+      {path:'dashboard', component: StudentDashboardComponent, canActivate: [ StudentAuthGuard ]},
+      {path:'attendance', component: StudentAttendanceComponent, canActivate: [ StudentAuthGuard ]},
+      {path:'receipts', component: StudentReceiptsComponent, canActivate: [ StudentAuthGuard ]},
+      {path:'receipt', component: StudentShowReceiptComponent, canActivate: [ StudentAuthGuard ]},
+    ]},
     
-    {path:'admin/article', component : AdminArticleComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/article/new', component : AdminAddArticleComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/article/:id', component : AdminShowArticleComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/article/:id/edit', component : AdminEditArticleComponent, canActivate: [ AdminAuthGuard ]},
+    {path:'faculty', component: FacultyComponent, canActivate: [ FacultuAuthGuard ]},
 
-    {path:'admin/student', component : AdminStudentComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/student/new', component : AdminAddStudentComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/student/:id', component : AdminShowStudentComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/student/:id/edit', component : AdminEditStudentComponent, canActivate: [ AdminAuthGuard ]},
-
-    {path:'admin/enquiry', component : AdminEnquiryComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/enquiry/:id', component: AdminShowEnquiryComponent, canActivate: [ AdminAuthGuard ]},
-    {path:'admin/enquiry/:id/reply', component: AdminReplyEnquiryComponent, canActivate: [ AdminAuthGuard ]},
-    
     {path:'page-not-found', component: PageNotFoundComponent},
+    {path:'server-not-found', component: ServerErrorComponent},
     {path:'**', redirectTo:'page-not-found'}
   ];
   

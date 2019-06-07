@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FacultyService } from '../../../services/faculty.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ImageService } from '../../../services/image.service';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-add-faculty',
@@ -14,55 +13,75 @@ export class AdminAddFacultyComponent implements OnInit {
 
   form: FormGroup;
 
+  loading: boolean = true;
+
   formError: boolean = false;
 
   imgExt: string[] = ['jpg', 'png'];
 
   image: string;
 
-  constructor(private facultyService: FacultyService,
-              private imageService: ImageService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.image = this.imageService.getProfileImage();
+    this.image = "Image";
 
+    this.form = new FormGroup({
+      name: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      birthDate: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      email: new FormControl(null, {
+        validators: [Validators.required, Validators.email]
+      }),
+      phone: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+      }),
+      description: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      image: new FormControl(null, {
+        validators:[this.formValidator.imageValidate.bind(this)]
+      })
+    });
 
-      this.form = new FormGroup({
-        name: new FormControl(null, {
-          validators: [Validators.required]
-        }),
-        birthDate: new FormControl(null, {
-          validators: [Validators.required]
-        }),
-        email: new FormControl(null, {
-          validators: [Validators.required, Validators.email]
-        }),
-        phone: new FormControl(null, {
-          validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
-        }),
-        description: new FormControl(null, {
-          validators: [Validators.required]
-        }),
-        image: new FormControl(null, {
-          validators:[this.formValidator.imageValidate.bind(this)]
-        })
-      });
+    this.loading = false;
+
   }
 
   addFaculty() {
-  if(this.form.invalid) {
-    this.formError = true;
-  }
+    if(this.form.invalid) {
+      this.formError = true;
+    }
 
-  if(this.form.valid) {
-    this.formError = false;
-      this.facultyService.addFaculty(this.form.value.name, this.form.value.birthDate, this.form.value.description, this.image, this.form.value.email, this.form.value.phone, "activated");
-      this.form.reset();
-      this.cancel();
+    if(this.form.valid) {
+      this.formError = false;
+      this.loading = true;
+      
+      const faculty = {
+        facultyName : this.form.value.name, 
+        facultyBirthDate : this.form.value.birthDate, 
+        facultyDescription : this.form.value.description, 
+        facultyImage : this.image,
+        email: this.form.value.email, 
+        facultyPhone : this.form.value.phone, 
+        facultyStatus : "activated"
+      }
+      
+      const data = { api : "addFaculty", data : faculty }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+        this.form.reset();
+        this.cancel();
+      },(error) => {
+        console.log(error);
+        this.loading = false;
+      });
     }
   }
 
@@ -80,12 +99,12 @@ export class AdminAddFacultyComponent implements OnInit {
       reader.onload = (event: any) => {
         this.image = event.target.result; 
       }
-
       reader.readAsDataURL(file);
     }
   }
   
   cancel() {
+    this.loading = true;
     this.router.navigate(['/admin', 'faculty'], {relativeTo:this.route, skipLocationChange:true});
   }
 

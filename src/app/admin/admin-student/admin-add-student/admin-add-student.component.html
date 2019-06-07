@@ -1,4 +1,6 @@
-<div class="row mt-2">
+<img class="loading" src="../../../assets/images/Reload-1.3s-78px.svg" *ngIf="loading">
+
+<div class="row mt-2" *ngIf="!loading">
   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto">
     <h4 class="text-center mb-3">Add New Student</h4>
     <form class="" (submit)="addStudent()" [formGroup]="form">
@@ -134,7 +136,7 @@
         <div class="col-md-6 col-sm-12">
           <div class="form-group">
             <label for="batch">Select Batch : </label>
-            <select class="batch" type="date" name="batch" id="batch" formControlName="batch" (change)="changeWeekType()">
+            <select class="batch" type="text" name="batch" id="batch" formControlName="batch" (change)="changeWeekType()">
               <option value="weekDays">Week Day</option>
               <option value="weekEnds">Week End</option>
             </select>

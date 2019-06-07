@@ -30,16 +30,16 @@ export class HeaderComponent implements OnInit {
 
   goToHome() {
     if(this.user === 'admin') {
-      this.router.navigate(['/admin'], {relativeTo: this.route});
+      this.router.navigate(['/admin/dashboard'], {relativeTo: this.route});
     }
     else if(this.user === 'faculty') {
       this.router.navigate(['/faculty'], {relativeTo: this.route});
     }
     else if(this.user === 'student') {
-      this.router.navigate(['/student'], {relativeTo: this.route});
+      this.router.navigate(['/student/dashboard'], { relativeTo: this.route, queryParamsHandling: "preserve" });
     }
     else {
-      this.router.navigate(['/login'], {relativeTo: this.route});
+      this.router.navigate(['/'], {relativeTo: this.route});
     }
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FacultyService } from '../../../services/faculty.service';
 import { Faculty } from '../../../models/faculty.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-edit-faculty',
@@ -12,8 +12,10 @@ import { FormValidator } from '../../../validators/form.validator';
 })
 export class AdminEditFacultyComponent implements OnInit {
 
-  faculty: Faculty;
+  faculty: Faculty = null;
   form: FormGroup;
+
+  loading: boolean = true;
 
   formError: boolean = false;
 
@@ -21,41 +23,60 @@ export class AdminEditFacultyComponent implements OnInit {
 
   image: string;
   
-  constructor(private facultyService : FacultyService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params
-    .subscribe(
-      (params: Params) => {
-        const id = params['id'];
-        this.faculty = this.facultyService.getFaculty(id);
-        this.image = this.faculty.image;
-      }
-    );
 
     this.form = new FormGroup({
-      name: new FormControl(this.faculty.name, {
+      name: new FormControl(null, {
         validators: [Validators.required]
       }),
-      birthDate: new FormControl(this.faculty.birthDate, {
+      birthDate: new FormControl(null, {
         validators: [Validators.required]
       }),
-      email: new FormControl(this.faculty.email, {
+      email: new FormControl(null, {
         validators: [Validators.required, Validators.email]
       }),
-      phone: new FormControl(this.faculty.phone, {
+      phone: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
       }),
-      description: new FormControl(this.faculty.description, {
+      description: new FormControl(null, {
         validators: [Validators.required]
       }),
       image: new FormControl(null, {
         validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
+
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        const _id = params['id'];
+        const data = { api : "getFaculty", data : { _id }}
+        this.httpPostService.httpPost(data).subscribe((val) => {
+          this.faculty = val[0];
+          this.image = this.faculty.facultyImage;
+
+          this.form.setValue({
+            name: this.faculty.facultyName,
+            birthDate: this.faculty.facultyBirthDate,
+            email: this.faculty.email,
+            phone: this.faculty.facultyPhone,
+            description: this.faculty.facultyDescription,
+            image: null
+          });
+
+          this.loading = false;
+        },
+        (error) => {
+        });
+      }
+    );
+
+    
   }
 
   onImagePicked(event: any) {
@@ -84,24 +105,33 @@ export class AdminEditFacultyComponent implements OnInit {
   
     if(this.form.valid) {
       this.formError = false;
+      this.loading = true;
       const faculty: Faculty = {
         _id: this.faculty._id, 
-        name: this.form.value.name, 
-        birthDate: this.form.value.birthDate, 
-        description: this.form.value.description, 
-        image: this.image,
+        facultyName: this.form.value.name, 
+        facultyBirthDate: this.form.value.birthDate, 
+        facultyDescription: this.form.value.description, 
+        facultyImage: this.image,
         email: this.form.value.email, 
-        phone: this.form.value.phone, 
-        status: this.faculty.status
+        facultyPhone: this.form.value.phone, 
+        facultyStatus: this.faculty.facultyStatus
       }
+
+      this.loading = true;
       
-      this.facultyService.editFaculty(faculty);
-      this.form.reset();
-      this.cancel();
+      const data = { api : "editFaculty", data : faculty }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+        this.form.reset();
+        this.cancel();
+      },
+      (error) => {
+        this.loading = false;
+      });
     }
   }
   
   cancel() {
+    this.loading = true;
     this.router.navigate(['/admin', 'faculty', this.faculty._id], {relativeTo:this.route, skipLocationChange:true});
   }
 }

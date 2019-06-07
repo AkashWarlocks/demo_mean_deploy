@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Enquiry } from '../../models/enquiry.model';
-import { EnquiryService } from '../../services/enquiry.service';
+import { HttpPostService } from '../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-enquiry',
@@ -13,12 +13,20 @@ export class AdminEnquiryComponent implements OnInit {
 
   enquiries: Enquiry[];
 
-  constructor(private enquiryService: EnquiryService,
+  loading : boolean = true;
+
+  constructor(private httpPostService: HttpPostService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.enquiries = this.enquiryService.getEnquiries();
+    const data = { api : "getEnquiries", data : { }}
+    this.httpPostService.httpPost(data).subscribe((val) => {
+     this.enquiries = val;
+     this.loading = false;
+    },
+    (error) => {
+    });
   }
 
   limitData(data:string, limit:number = 25) {
@@ -34,5 +42,4 @@ export class AdminEnquiryComponent implements OnInit {
     }
     return data;
   }
-
 }

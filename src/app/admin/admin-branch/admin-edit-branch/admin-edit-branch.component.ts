@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchService } from '../../../services/branch.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Branch, BatchModel } from '../../../models/branch.model';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-edit-branch',
@@ -15,7 +15,10 @@ export class AdminEditBranchComponent implements OnInit {
   branchData: Branch;
 
   form: FormGroup;
+
   batchForm: FormGroup;
+
+  loading : boolean = true;
 
   week : string [] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -33,46 +36,37 @@ export class AdminEditBranchComponent implements OnInit {
 
   imgExt: string[] = ['jpg', 'png'];
 
-  constructor(private branchService: BranchService, 
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params
-    .subscribe(
-      (params:Params) => {
-        const id = params['id'];
-        this.branchData = this.branchService.getBranch(id);
-        this.images = this.branchData.images;
-        this.batches = this.branchData.batch;
-      }
-    );
-      
+
     this.form = new FormGroup({
-      city: new FormControl(this.branchData.city, {
+      city: new FormControl(null, {
         validators:[Validators.required]
       }),
-      branch: new FormControl(this.branchData.branch, {
+      branch: new FormControl(null, {
         validators:[Validators.required]
       }),
-      address: new FormControl(this.branchData.address, {
+      address: new FormControl(null, {
         validators:[Validators.required]
       }),
-      email: new FormControl(this.branchData.email, {
+      email: new FormControl(null, {
         validators:[Validators.required, Validators.email]
       }),
-      phone: new FormControl(this.branchData.phone, {
+      phone: new FormControl(null, {
         validators:[Validators.required]
       }),
-      descripton: new FormControl(this.branchData.description, {
+      description: new FormControl(null, {
         validators:[Validators.required]
       }),
       image: new FormControl(null, {
         validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
-
+    
     this.batchForm = new FormGroup({
       week: new FormControl(this.weekType, {
         validators:[Validators.required]
@@ -95,6 +89,33 @@ export class AdminEditBranchComponent implements OnInit {
         }
       )
     });
+      
+    this.route.params
+    .subscribe(
+      (params:Params) => {
+        const _id = params['id']; 
+        const data = { api : "getBranch", data : { _id }}
+        this.httpPostService.httpPost(data).subscribe(
+          (val) => {
+            this.branchData = val;
+            this.images = this.branchData.images;
+            this.batches = this.branchData.batch;
+            this.form.patchValue({
+              city: this.branchData.city,
+              branch : this.branchData.branch,
+              address : this.branchData.address,
+              email : this.branchData.email,
+              phone : this.branchData.phone,
+              description : this.branchData.description,
+              image : null
+            });
+            this.loading = false;
+          },
+          (error) => {
+          }
+        );
+      }
+    );
   }
 
   onImagePicked(event: any) {
@@ -138,6 +159,7 @@ export class AdminEditBranchComponent implements OnInit {
       this.batches.push(batch);
       this.weekDays = [];
       this.batchForm.reset({week: this.weekType});
+      this.weekdaysTouched = false;
     }
   }
 
@@ -155,6 +177,7 @@ export class AdminEditBranchComponent implements OnInit {
     }
 
     if(this.form.valid) {
+      this.loading = true;
       this.formError = null;
   
       const editedBranch : Branch = {
@@ -164,19 +187,26 @@ export class AdminEditBranchComponent implements OnInit {
         address: this.form.value.address, 
         email: this.form.value.email, 
         phone: this.form.value.phone, 
-        description: this.form.value.descripton, 
+        description: this.form.value.description, 
         images: this.images,
         batch: this.batches,
         status: this.branchData.status
       }
       
-      this.branchService.editBranch(editedBranch);
-      this.form.reset();
-      this.cancel();
+      const data = { api : "editBranch", data : editedBranch }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.form.reset();
+       this.cancel();
+      },
+      (error) => {
+       this.loading = false;
+      });
+      
     }
   }
 
   cancel() {
+    this.loading = true;
     this.router.navigate(["/admin", "branch", this.branchData._id], {relativeTo: this.route, skipLocationChange:true});
   }
 

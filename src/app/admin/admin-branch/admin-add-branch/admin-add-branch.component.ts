@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchService } from '../../../services/branch.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BatchModel } from '../../../models/branch.model';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-add-branch',
@@ -14,6 +14,8 @@ export class AdminAddBranchComponent implements OnInit {
 
   form: FormGroup;
   batchForm: FormGroup;
+
+  loading : boolean = true;
 
   week : string [] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -31,7 +33,7 @@ export class AdminAddBranchComponent implements OnInit {
 
   imgExt: string[] = ['jpg', 'png'];
 
-  constructor(private branchService: BranchService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -83,6 +85,8 @@ export class AdminAddBranchComponent implements OnInit {
         }
       )
     });
+
+    this.loading = false;
 
   }
 
@@ -137,6 +141,7 @@ export class AdminAddBranchComponent implements OnInit {
       this.batches.push(batch);
       this.weekDays = [];
       this.batchForm.reset({week: this.weekType});
+      this.weekdaysTouched = false;
     }
   }
 
@@ -155,14 +160,34 @@ export class AdminAddBranchComponent implements OnInit {
     }
 
     if(this.form.valid) {
+      this.loading = true;
       this.formError = null;
-      this.branchService.addBranch(this.form.value.city, this.form.value.branch, this.form.value.address, this.form.value.email, this.form.value.phone, this.form.value.descripton, this.images, this.batches, "activated");
-      this.form.reset();
-      this.cancel();
+      
+      const branch = {
+        city: this.form.value.city, 
+        branch: this.form.value.branch, 
+        address: this.form.value.address, 
+        email: this.form.value.email, 
+        phone: this.form.value.phone, 
+        description: this.form.value.descripton, 
+        images: this.images,
+        batch: this.batches,
+        status: "activated"
+      }
+
+      const data = { api : "addBranch", data : branch}
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.form.reset();
+       this.cancel();
+      },
+      (error) => {
+       this.loading = false;
+      });
     }
   }
 
   cancel() {
+    this.loading = true;
     this.router.navigate(["/admin", "branch"], {relativeTo: this.route, skipLocationChange:true});    
   }
 

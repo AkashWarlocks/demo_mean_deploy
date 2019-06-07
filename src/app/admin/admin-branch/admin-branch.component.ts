@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Branch } from '../../models/branch.model';
-import { BranchService } from '../../services/branch.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpPostService } from '../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-branch',
@@ -12,17 +12,25 @@ export class AdminBranchComponent implements OnInit {
 
     branches : Branch[] = [];
 
-    constructor(private branchService: BranchService,
-        private router: Router,
-        private route: ActivatedRoute) { }
+    loading : boolean = true;
+
+    constructor(private httpPostService: HttpPostService,
+                private router: Router,
+                private route: ActivatedRoute) { }
 
 
     ngOnInit() {
-        this.branches = this.branchService.getBranches();
+        const data = { api : "getBranches", data : { }}
+        this.httpPostService.httpPost(data).subscribe((val) => {
+         this.branches = val;
+         this.loading = false;
+        },
+        (error) => {        
+        });;
     }
 
     onNewBranch() {
+        this.loading = true;
         this.router.navigate(['new'], {relativeTo:this.route, skipLocationChange: true});
     }
-
 }

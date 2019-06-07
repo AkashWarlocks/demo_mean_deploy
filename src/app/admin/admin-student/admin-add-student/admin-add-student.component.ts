@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchService } from '../../../services/branch.service';
 import { Branch, BatchModel } from '../../../models/branch.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StudentService } from '../../../services/student.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ImageService } from '../../../services/image.service';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-add-student',
@@ -18,6 +16,8 @@ export class AdminAddStudentComponent implements OnInit {
 
   formError: boolean = false;
 
+  loading : boolean = true;
+
   image: string;
 
   imgExt: string[] = ['jpg', 'png'];
@@ -28,17 +28,12 @@ export class AdminAddStudentComponent implements OnInit {
 
   weekType: string = "weekDays";
 
-  constructor(private branchService: BranchService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
-              private imageService: ImageService,
-              private studentService: StudentService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.branches = this.branchService.getBranches();
-
-    this.image = this.imageService.getProfileImage();
 
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -82,6 +77,18 @@ export class AdminAddStudentComponent implements OnInit {
         validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
+
+    const data = { api : "getBranches", data : { }}
+    this.httpPostService.httpPost(data).subscribe((val) => {
+     this.branches = val;
+     this.loading = false;
+    },
+    (error) => {
+    });
+
+    this.image = "Image";
+
+    this.loading = false;
   }
 
   branchChanged() {
@@ -128,12 +135,40 @@ export class AdminAddStudentComponent implements OnInit {
   
     if(this.form.valid) {
       this.formError = false;
-      this.studentService.addStudent(this.form.value.name, this.form.value.birthDate, this.form.value.bloodGroup, this.form.value.workPlace, this.image, this.form.value.firstGuardianName, this.form.value.firstGuardianRelation,  this.form.value.secondGuardianName, this.form.value.secondGuardianRelation, this.form.value.medicalHistory, this.form.value.phone, this.form.value.email, this.form.value.address, this.form.value.branch, this.form.value.batch, this.form.value.batchName, "activated");
-      this.cancel();
+      this.loading = true;
+
+      const student = {
+        name: this.form.value.name, 
+        birthDate: this.form.value.birthDate, 
+        bloodGroup: this.form.value.bloodGroup, 
+        workPlace: this.form.value.workPlace, 
+        image: this.image, 
+        firstGuardianName: this.form.value.firstGuardianName, 
+        firstGuardianRelation: this.form.value.firstGuardianRelation, 
+        secondGuardianName: this.form.value.secondGuardianName, 
+        secondGuardianRelation: this.form.value.secondGuardianRelation, 
+        medicalHistory: this.form.value.medicalHistory, 
+        phone: this.form.value.phone, 
+        email: this.form.value.email, 
+        address: this.form.value.address, 
+        branch: this.form.value.branch, 
+        batch: this.form.value.batch, 
+        batchName: this.form.value.batchName, 
+        status: "activated"
+      }
+
+      const data = { api : "addStudent", data : student }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.cancel();
+      },
+      (error) => {
+       this.loading = false;
+      });
     }
   }
 
   cancel() {
+    this.loading = true;
     this.router.navigate(['/admin', 'student'],{relativeTo:this.route, skipLocationChange:true})
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../../services/articles.service';
 import { Article } from '../../../models/articles.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { FormValidator } from '../../../validators/form.validator';
+import { HttpPostService } from '../../../services/httpPost.service';
 
 
 @Component({
@@ -18,37 +18,52 @@ export class AdminEditArticleComponent implements OnInit {
 
   image: string;
 
+  loading : boolean = true;
+
   imgExt: string[] = ['jpg', 'png'];
   
   form: FormGroup;
 
   formError: boolean = false;
 
-  constructor(private articleService: ArticleService,
+  constructor(private httpPostService: HttpPostService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
-
+              
   ngOnInit() {
-    this.route.params
-    .subscribe(
-      (params:Params) => {
-        const id = params['id'];
-        this.article = this.articleService.getArticle(id);
-        this.image = this.article.image;
-      }
-    );
+
     this.form = new FormGroup({
-      title: new FormControl(this.article.title, {
+      title: new FormControl(null, {
         validators: [Validators.required]
       }),
-      body: new FormControl(this.article.body, {
+      body: new FormControl(null, {
         validators: [Validators.required]
       }),
       image: new FormControl(null, {
         validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
+
+    this.route.params
+    .subscribe(
+      (params:Params) => {
+        const _id = params['id'];
+        const data = { api : "getArticle", data : { _id }}
+        this.httpPostService.httpPost(data).subscribe((val) => {
+          this.article = val[0];
+          this.image = this.article.image;
+          this.form.setValue({
+           title: this.article.title,
+           body: this.article.body,
+           image: null
+          });
+          this.loading = false;
+        },
+        (error) => {
+        });
+      }
+    );
   }
 
   onImagePicked(event: any) {
@@ -76,19 +91,26 @@ export class AdminEditArticleComponent implements OnInit {
     }
 
     if(this.form.valid) {
+      this.loading = true;
       this.formError = false;
       const editedArticle : Article = {
-        _id: this.article._id, 
-        title: this.form.value.title, 
+        _id: this.article._id,
+        title: this.form.value.title,
         body: this.form.value.body,
         image: this.image
       }
-      this.articleService.editArticle(editedArticle);
-      this.cancel();
+      const data = { api : "editArticle", data : editedArticle }
+      this.httpPostService.httpPost(data).subscribe((val) => {
+       this.cancel();
+      },
+      (error) => {
+      this.loading = false;   
+      });
     }
   }
   
   cancel() {
+    this.loading = true;
     this.router.navigate(['/admin', 'article', this.article._id],{relativeTo: this.route, skipLocationChange:true});
   }
 }

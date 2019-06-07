@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentModel } from '../../models/student.model';
-import { StudentService } from '../../services/student.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Branch } from '../../models/branch.model';
-import { BranchService } from '../../services/branch.service';
+import { Branch, BatchModel } from '../../models/branch.model';
+import { HttpPostService } from '../../services/httpPost.service';
 
 @Component({
   selector: 'app-admin-student',
@@ -12,54 +11,86 @@ import { BranchService } from '../../services/branch.service';
 })
 export class AdminStudentComponent implements OnInit {
 
+  weekType = "weekDays";
+
+  loading: boolean = true;
+
   allStudents : StudentModel[] = [];
   students : StudentModel[] = [];
 
-  noStudent = 'Please Select Branch or Search Student Name..';
+  noStudent = 'Please Select Branch';
 
   branches: Branch[] = [];
+  branch : string = '';
 
-    constructor(private studentService: StudentService,
-                private branchService: BranchService,
-                private router: Router,
-                private route: ActivatedRoute) { }
+  batches: BatchModel[] = [];
+  batch: string = '';
 
+  constructor(private httpPostService: HttpPostService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
-    ngOnInit() {
-        this.allStudents = this.studentService.getStudents();
-        if(this.allStudents.length > 0) {
-          this.branches = this.branchService.getBranches();
-        }
+  ngOnInit() {
+    const branchData = { api : "getBranches", data : { }}
+    this.httpPostService.httpPost(branchData).subscribe((val) => {
+     this.branches = val;
+     if(this.branches.length > 0) {
+       const studentData = { api : "getStudents", data : { }}
+       this.httpPostService.httpPost(studentData).subscribe((val) => {
+         this.allStudents = val;
+         this.loading = false;
+       },
+       (error) => {
+       });
+     }
+    },
+    (error) => {
+    });
+    
+  }
+
+  onNewStudent() {
+    this.loading = true;
+      this.router.navigate(['new'], {relativeTo:this.route, skipLocationChange: true});
+  }
+
+  onSelectBranch(id:string) {
+    if(id !== '') {
+      this.branch = id;
+      this.batches = this.branches.find((branch) => (branch._id === id)).batch;
+      this.noStudent = 'Please Select ' + this.weekType + ' Batch';
     }
+  }
 
-    onNewStudent() {
-        this.router.navigate(['new'], {relativeTo:this.route, skipLocationChange: true});
+  onSelectBatchName(batch:string) {
+    if(batch !== '') {
+      this.batch = batch;
+      this.searchStudent();
     }
+  }
 
-    onSearch(search:string) {
-      if(search != '') {
-        const students : StudentModel[] = this.allStudents;
-        this.students = [];
-        students.forEach((student) => {
-          if(student.name.toLowerCase().includes(search.toLowerCase())) {
-            this.students.push(student);
-          }
-        });
-        if(this.students.length === 0) {
-          this.noStudent = "No Students Found..";
-        }
+  onSelectBatchType(weekType:string) {
+    if(this.batch !== '') {
+      this.weekType = weekType;
+      this.searchStudent();
+    }
+  }
+
+  searchStudent() {
+    this.loading = true;
+    const students : StudentModel[] = [];
+    this.allStudents.forEach((student) => {
+      if((student.branch === this.branch) && (student.batchName === this.batch) && (student.batch === this.weekType)) {
+        students.push(student);
       }
+    });
+    if(students.length > 0) {
+      this.students = students;
     }
-
-    onSelectBranch(branch:string) {
-      if(branch != '') {
-        const students : StudentModel[] = this.allStudents;
-        this.students = [];
-        students.forEach((student) => {
-          if(student.branch === branch) {
-            this.students.push(student);
-          }
-        });
-      }
+    else {
+      this.noStudent = "No Students Found";
+      this.students = [];
     }
-}
+    this.loading = false;
+  }
+} 
