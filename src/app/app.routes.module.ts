@@ -67,6 +67,7 @@ import { HomePageComponent } from './content/home-page/home-page.component';
 import { AboutPageComponent } from './content/about-page/about-page.component';
 import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
 import { BranchesPageComponent } from './content/branches-page/branches-page.component';
+import { GalleryPageComponent } from './content/gallery-page/gallery-page.component';
 
 const appRoutes : Routes = [
   
@@ -75,6 +76,7 @@ const appRoutes : Routes = [
     {path:'about', component:AboutPageComponent, canActivate: [ LoginAuthGuard ]},
     {path:'contactUs', component:ContactUsPageComponent, canActivate: [ LoginAuthGuard ]},
     {path:'branches', component:BranchesPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'gallery', component:GalleryPageComponent, canActivate: [ LoginAuthGuard ]},
     
     {path:'login', component : LoginComponent, canActivate: [ LoginAuthGuard ]},
 

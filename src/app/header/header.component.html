@@ -1,73 +1,71 @@
   <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand pointer" (click)="goToHome()">
-          <img src="../../assets/images/dancing-soul-logo.png" alt="Dancing Soul" class="logo">
-        </a>
-      </div>
- 
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="navbar-header">
+      <a class="navbar-brand pointer" (click)="goToHome()">
+        <img src="../../assets/images/dancing-soul-logo.png" alt="Dancing Soul" class="logo">
+      </a>
+    </div>
+    
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about">About Us</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="branches">Branches</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="">Articles</a>
+        </li>
         
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="">News Shelter</a>
+        </li>
 
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
-            <li class="nav-item">
-              <a class="nav-link" routerLink="about">About Us</a>
-            </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="gallery">Photos/Videos</a>
+        </li>
 
-            <li class="nav-item">
-              <a class="nav-link" routerLink="branches">Branches</a>
-            </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contactUs">Contact Us</a>
+        </li>
 
-            <li class="nav-item">
-              <a class="nav-link"  routerLink="">Articles</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link"  routerLink="">News Shelter</a>
-            </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="">Exams</a>
+        </li>
 
-            <li class="nav-item">
-              <a class="nav-link" routerLink="gallery">Photos/Videos</a>
-            </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
 
-            <li class="nav-item">
-              <a class="nav-link" routerLink="contactUs">Contact Us</a>
-            </li>
+      </ul>
 
-            <li class="nav-item">
-              <a class="nav-link"  routerLink="">Exams</a>
-            </li>
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'admin')">
 
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-            </li>
+      </ul>
 
-          </ul>
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
+        
+      </ul>
 
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'admin')">
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'faculty')">
 
-          </ul>
+      </ul>
 
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
-            
-          </ul>
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn">
 
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'faculty')">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" (click)="onLogout()" routerLinkActive="active">Logout</a>
+        </li>
 
-          </ul>
-
-          <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn">
-
-            <li class="nav-item">
-              <a class="nav-link" routerLink="" (click)="onLogout()" routerLinkActive="active">Logout</a>
-            </li>
-
-          </ul>
-
-        </div>
+      </ul>
 
     </div>
+    
   </nav>

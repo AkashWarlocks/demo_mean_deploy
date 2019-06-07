@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
+import { Angular2ImageGalleryModule } from 'angular2-image-gallery';
 
 //ROUTES
 import { AppRoutes } from './app.routes.module';
@@ -25,6 +27,7 @@ import { ContentComponent } from './content/content.component';
 import { HomePageComponent } from './content/home-page/home-page.component';
 import { AboutPageComponent } from './content/about-page/about-page.component';
 import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
+import { GalleryPageComponent } from './content/gallery-page/gallery-page.component';
 import { BranchesPageComponent } from './content/branches-page/branches-page.component';
 
 import { LoginComponent } from './login/login.component';
@@ -104,6 +107,7 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
     AboutPageComponent,
     ContactUsPageComponent,
     BranchesPageComponent,
+    GalleryPageComponent,
     
     LoginComponent,
     ForgotPasswordComponent,
@@ -172,7 +176,11 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
     ReactiveFormsModule,
     FormsModule,
     AppRoutes,
-    HttpClientModule
+    HttpClientModule,
+    Angular2ImageGalleryModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk'
+    })
   ],
 
   providers: [
