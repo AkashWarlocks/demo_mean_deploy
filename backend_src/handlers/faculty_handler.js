@@ -64,4 +64,13 @@ hObj.getFaculties = async (req,res)=>{
         res.send(error)
     })
 }
+hObj.getFaculty = async (req,res)=>{
+    try {
+        const faculty = await Faculty.findById(req.body.data._id)    
+        return res.send(faculty)
+    }   catch (error) {
+        res.send(error)
+    }
+    
+}
 module.exports = hObj;
