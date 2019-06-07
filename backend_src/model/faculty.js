@@ -12,7 +12,7 @@ const facultySchema = new mongoose.Schema({
         required:true,
     },
 
-    facultyEmail:{
+    email:{
         type:String,
         required:true
     },
@@ -24,11 +24,6 @@ const facultySchema = new mongoose.Schema({
     facultyBirthDate:{
         type:String,
         required:true
-    },
-    facultyId:{
-        type:String,
-        required:true,
-        unique:true
     }
 
 })
