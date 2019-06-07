@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../header/header.component';
 
 declare var $:any;
 
@@ -12,7 +11,7 @@ export class AboutPageComponent implements OnInit {
 
   constructor() { 
     
-  } 
+  }
   ngOnInit() {
     document.body.classList.add('bg-about');
 

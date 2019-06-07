@@ -15,8 +15,8 @@ export class AuthService {
               private router: Router,
               private route: ActivatedRoute) {}
 
-  login(userName: string, password: string) {
-    const data = { api : "login", data : { userName, password } }
+  login(email: string, password: string) {
+    const data = { api : "login", data : { email, password } }
     this.httpPostService.httpPost(data).subscribe((response: any)=>{
       const userType = response[0].userType;
       if(userType === "admin") {

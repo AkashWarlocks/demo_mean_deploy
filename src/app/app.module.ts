@@ -29,6 +29,9 @@ import { AboutPageComponent } from './content/about-page/about-page.component';
 import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
 import { GalleryPageComponent } from './content/gallery-page/gallery-page.component';
 import { BranchesPageComponent } from './content/branches-page/branches-page.component';
+import { ExamsPageComponent } from './content/exams-page/exams-page.component';
+import { NewsShelterPageComponent } from './content/news-shelter-page/news-shelter-page.component';
+import { ArticlesPageComponent } from './content/articles-page/articles-page.component';
 
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
@@ -94,7 +97,6 @@ import { FormValidator } from './validators/form.validator';
 import { HttpPostService } from './services/httpPost.service';
 import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,11 +105,15 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
     FooterComponent,
 
     ContentComponent,
+    
     HomePageComponent,
     AboutPageComponent,
     ContactUsPageComponent,
     BranchesPageComponent,
     GalleryPageComponent,
+    ArticlesPageComponent,
+    NewsShelterPageComponent,
+    ExamsPageComponent,
     
     LoginComponent,
     ForgotPasswordComponent,
