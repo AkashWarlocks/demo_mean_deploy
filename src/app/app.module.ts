@@ -14,14 +14,6 @@ import { AppRoutes } from './app.routes.module';
 import { AdminAuthGuard, LoginAuthGuard, StudentAuthGuard, FacultuAuthGuard } from './auth/auth.guard';
 
 //SERVICES
-import { AboutService } from './services/about.service';
-import { ArticleService } from './services/articles.service';
-import { BranchService } from './services/branch.service';
-import { EnquiryService } from './services/enquiry.service';
-import { FacultyService } from './services/faculty.service';
-import { StudentService } from './services/student.service';
-import { ReceiptService } from './services/receipt.service';
-import { ImageService } from './services/image.service';
 
 import { AuthService } from './auth/auth.service';
 
@@ -192,13 +184,6 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
   ],
 
   providers: [
-    AboutService,
-    ArticleService,
-    BranchService,
-    EnquiryService,
-    FacultyService,
-    StudentService,
-    ReceiptService,
     
     HttpPostService,
     
@@ -208,8 +193,6 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
     StudentAuthGuard,
 
     AuthService,
-
-    ImageService,
 
     FormValidator
   ],
