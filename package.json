@@ -1,6 +1,9 @@
 {
   "name": "dancing-soul-forms",
   "version": "0.0.0",
+  "engines": {
+    "node": "8.11.3"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
