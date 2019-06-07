@@ -18,7 +18,8 @@ export class AuthService {
   login(email: string, password: string) {
     const data = { api : "login", data : { email, password } }
     this.httpPostService.httpPost(data).subscribe((response: any)=>{
-      const userType = response[0].user.userType;
+      console.log(response);
+      const userType = response[0].userType;
       if(userType === "admin") {
         this.loggedIn.next({user: 'admin', loginValidate: true});
         this.router.navigate(['/admin'], {relativeTo: this.route});
