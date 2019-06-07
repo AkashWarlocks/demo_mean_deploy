@@ -6,7 +6,7 @@ hObj.loginUsers = async (req,res) =>{
     try {
         const user = await User.findByCredentials(req.body.data.email, req.body.data.password)
         const token = await user.generateAuthToken()
-        res.send({user,token})
+        res.send({user, token})
 
     } catch (e) {
         console.log('HI in catch')
