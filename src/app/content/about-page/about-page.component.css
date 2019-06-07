@@ -2,7 +2,7 @@
   background-image: url('/assets/images/back.jpg');
   background-position: 50% 70%;
   background-repeat: no-repeat; 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),url("../../../assets/images/historyBackground.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),url("src/assets/images/historyBackground.jpg");
   background-size: cover;
   height: 65vh;
   width: 100%;
