@@ -58,6 +58,7 @@ hObj.editFaculty = async(req,res) =>{
 }
 
 hObj.getFaculties = async (req,res)=>{
+    console.log('getFaculties 2')
     await Faculty.find().then((data)=>{
         res.send(data)
     }).catch((error)=>{
