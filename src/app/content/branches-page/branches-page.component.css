@@ -1,0 +1,33 @@
+.branches-page{
+    padding: 40px;
+}
+.branch-card{
+    margin: 20px;
+    background-color: #fff;
+    flex-basis: 300px;
+    height: 550px;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    transition: box-shadow 0.5s;
+}
+.branch-card:hover,
+.branch-card:active{
+ box-shadow: 0 .1rem 3rem rgba(0,0,0,0.175)!important;
+}
+
+.branch-img{
+    flex:1;
+    height: 550px;
+    background-color: #f4f4f4;
+}
+
+.branch-details{
+    flex:1;
+    height: 100%;
+    background-color: yellow;
+}
+
+.branch-details .description{
+    height: 20%;
+    padding : 5px 20px;
+    text-align: center;
+}

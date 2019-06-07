@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AgmCoreModule } from '@agm/core';
-import { Angular2ImageGalleryModule } from 'angular2-image-gallery';
 
 //ROUTES
 import { AppRoutes } from './app.routes.module';
@@ -22,6 +20,12 @@ import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+
+import { ContentComponent } from './content/content.component';
+import { HomePageComponent } from './content/home-page/home-page.component';
+import { AboutPageComponent } from './content/about-page/about-page.component';
+import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
+import { BranchesPageComponent } from './content/branches-page/branches-page.component';
 
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
@@ -94,6 +98,12 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
 
     HeaderComponent,
     FooterComponent,
+
+    ContentComponent,
+    HomePageComponent,
+    AboutPageComponent,
+    ContactUsPageComponent,
+    BranchesPageComponent,
     
     LoginComponent,
     ForgotPasswordComponent,

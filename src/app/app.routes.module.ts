@@ -63,10 +63,18 @@ import { StudentReceiptsComponent } from './student/student-receipts/student-rec
 import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
 
 import { FacultyComponent } from './faculty/faculty.component';
+import { HomePageComponent } from './content/home-page/home-page.component';
+import { AboutPageComponent } from './content/about-page/about-page.component';
+import { ContactUsPageComponent } from './content/contact-us-page/contact-us-page.component';
+import { BranchesPageComponent } from './content/branches-page/branches-page.component';
 
 const appRoutes : Routes = [
   
-    {path:'', redirectTo:'/login', pathMatch:'full'},
+    {path:'', redirectTo:'/home', pathMatch:'full'},
+    {path:'home', component:HomePageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'about', component:AboutPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'contactUs', component:ContactUsPageComponent, canActivate: [ LoginAuthGuard ]},
+    {path:'branches', component:BranchesPageComponent, canActivate: [ LoginAuthGuard ]},
     
     {path:'login', component : LoginComponent, canActivate: [ LoginAuthGuard ]},
 
