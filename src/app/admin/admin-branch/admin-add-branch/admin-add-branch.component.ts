@@ -29,7 +29,7 @@ export class AdminAddBranchComponent implements OnInit {
 
   weekType: string = "weekDays";
 
-  images: string[] = [];
+  images: string;
 
   imgExt: string[] = ['jpg', 'png'];
 
@@ -39,6 +39,9 @@ export class AdminAddBranchComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.images = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
+
     this.form = new FormGroup({
       city: new FormControl(null, {
         validators:[Validators.required]
@@ -114,7 +117,7 @@ export class AdminAddBranchComponent implements OnInit {
         let reader = new FileReader();
 
         reader.onload = (event:any) => {
-          this.images.push(event.target.result); 
+          this.images = event.target.result; 
         }
         reader.readAsDataURL(event.target.files[i]);
       }
