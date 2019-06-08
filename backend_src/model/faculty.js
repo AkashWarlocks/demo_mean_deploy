@@ -26,7 +26,7 @@ const facultySchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    status:{
+    facultyStatus:{
         type:String,
         required:true
     }
