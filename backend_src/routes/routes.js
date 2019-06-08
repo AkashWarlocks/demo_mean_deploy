@@ -1,15 +1,29 @@
 const express = require('../../node_modules/express')
-router = express()
-
+const auth = require('../middleware/auth')
+const router = new express.Router()
+const User = require('../model/user')
+var bodyParser = require('../../node_modules/body-parser')
 let branchHandler = require('../handlers/branch_handler')
 let facultyHandler = require('../handlers/faculty_handler')
 let contactUsHandler = require('../handlers/contactUs_handler')
 let userHandler = require('../handlers/user_handler')
+let studentHandler = require('../handlers/student_handler')
 
+    
+router.get('/getUsers',auth,async (req,res)=>{
+        
+        try {
+                const user = await User.find({})
+                res.send(user)
+            } catch (error) {
+                console.log(error)
+                res.status(400).send()
+            }
+        // userHandler.getUsers(req,res)
+})
 
 router.post('/dancingSoul',(req,res) => {
-
-    const api = req.body.api
+    //const api = req.body.api
     console.log(api)
     switch(api){
     
@@ -34,7 +48,24 @@ router.post('/dancingSoul',(req,res) => {
         case "login":
                 userHandler.loginUsers(req,res);
                 break
-
+        case "getUsers":
+                userHandler.getUsers(req,res);
+                break
+        case "editStudent":
+                studentHandler.editStudent(req,res);
+                break
+        case "getStudent":
+                studentHandler.getStudent(req,res)
+                break
+        case "getStudents":
+                studentHandler.getStudents(req,res)
+                break
+        case "addStudent":
+                studentHandler.addStudent(req,res)
+                break
+        case "changeStatus":
+                studentHandler.changeStatus(req,res)
+                break                        
         default:
             res.status(400).send({
                 "type":"wrong api"
