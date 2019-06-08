@@ -28,13 +28,15 @@ export class Branch {
 }
 
 export class BatchModel {
+    public _id : string;
     public batchType: string;
     public days: string;
     public batchName: string;
     public time: string;
     public fees: string;
     
-    constructor(batchType : string, days: string, batchname: string, time: string, fees: string) {
+    constructor(_id : string, batchType : string, days: string, batchname: string, time: string, fees: string) {
+        this._id = _id;
         this.batchType = batchType;
         this.days = days;
         this.batchName = batchname;

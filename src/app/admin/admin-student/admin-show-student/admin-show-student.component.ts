@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModuleFactoryLoader } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { StudentModel } from '../../../models/student.model';
 import { Branch, BatchModel } from '../../../models/branch.model';
