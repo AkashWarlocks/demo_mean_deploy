@@ -23,7 +23,7 @@ router.get('/getUsers',auth,async (req,res)=>{
 })
 
 router.post('/dancingSoul',(req,res) => {
-    //const api = req.body.api
+        const api = req.body.api
   //  console.log(api)
     switch(api){
     
