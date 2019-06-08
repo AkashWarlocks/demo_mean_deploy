@@ -24,7 +24,7 @@ export class AdminShowArticleComponent implements OnInit {
         const _id = params['id'];
         const data = { api : "getArticle", data : { _id }}
         this.httpPostService.httpPost(data).subscribe((val) => {
-          this.article = val[0];
+          this.article = val;
           this.loading = false;
         },
         (error) => {

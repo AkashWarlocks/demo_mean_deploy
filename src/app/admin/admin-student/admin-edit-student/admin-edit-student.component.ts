@@ -94,7 +94,7 @@ export class AdminEditStudentComponent implements OnInit {
           this.branches = val;
           const data = { api : "getStudent", data : { _id }}
           this.httpPostService.httpPost(data).subscribe((val) => {
-            this.student = val[0];
+            this.student = val;
             this.branch = this.branches.find((branch) => branch._id === this.student.branch);
             this.image = this.student.image;
             this.form.patchValue({

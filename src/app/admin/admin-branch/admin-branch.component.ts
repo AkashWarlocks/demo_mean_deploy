@@ -26,7 +26,7 @@ export class AdminBranchComponent implements OnInit {
          this.loading = false;
         },
         (error) => {        
-        });;
+        });
     }
 
     onNewBranch() {

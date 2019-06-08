@@ -30,7 +30,7 @@ export class AdminEditPhilosophyComponent implements OnInit {
 
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-      this.philosophy = val[0].philosophy;
+      this.philosophy = val.philosophy;
       this.form.patchValue({philosophy: this.philosophy});
       this.loading = false;
     },

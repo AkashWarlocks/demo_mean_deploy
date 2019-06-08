@@ -39,7 +39,7 @@ export class AdminReplyEnquiryComponent implements OnInit {
       (params:Params) => {
         this.id = params['id'];
         this.httpPostService.httpPost(this.id).subscribe((val) => {
-         this.enquiry = val[0];
+         this.enquiry = val;
          this.loading = false;
         },
         (error) => {

@@ -26,7 +26,7 @@ export class AuthService {
       }
       else if(userType === "student") {
         this.loggedIn.next({user: 'student', loginValidate: true});
-        this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response[0].student}});
+        this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
       }
       else if(userType === "faculty") {
         this.loggedIn.next({user: 'faculty', loginValidate: true});
