@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Branch, BatchModel } from '../../../models/branch.model';
+import { Branch } from '../../../models/branch.model';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { FormValidator } from '../../../validators/form.validator';
 import { HttpPostService } from '../../../services/httpPost.service';
@@ -24,7 +24,7 @@ export class AdminEditBranchComponent implements OnInit {
 
   weekDays: number[] = [];
 
-  batches: BatchModel[] = [];
+  batches: any[] = [];
 
   weekdaysTouched: boolean = false;
 
@@ -149,7 +149,7 @@ export class AdminEditBranchComponent implements OnInit {
         days.push(this.week[week[i]]);
       }
 
-      const batch: BatchModel = {
+      const batch = {
         batchType: this.weekType,
         days: days.join(', '),
         batchName: this.batchForm.value.batchName,
