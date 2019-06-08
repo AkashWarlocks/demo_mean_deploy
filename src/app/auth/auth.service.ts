@@ -21,8 +21,7 @@ export class AuthService {
       console.log(response);
       const userType = response.user.userType;
       if(userType === "admin") {
-        localStorage.setItem('access_token', response.token);
-        this.loggedIn.next({user: 'admin', loginValidate: (localStorage.getItem('access_token') !== null)});
+        this.loggedIn.next({user: 'admin', loginValidate: true});
         this.router.navigate(['/admin'], {relativeTo: this.route});
       }
       else if(userType === "student") {
@@ -44,7 +43,6 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("access_token");
     this.loggedIn.next({user: null, loginValidate: false});
     this.router.navigate([''], {relativeTo: this.route});
   }

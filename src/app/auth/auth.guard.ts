@@ -13,13 +13,11 @@ export class AdminAuthGuard implements CanActivate, CanActivateChild {
     return this.authService.isLoggedIn.pipe(
       take(1),
       map((login: {user: string, loginValidate: boolean}) => {
-        if (login.loginValidate && (login.user === 'admin')) {
-          if (localStorage.getItem('access_token')) {
-            return true;
-          }
+        if (!login.loginValidate && (login.user !== 'admin')) {
+          this.router.navigate(['/login']);
+          return false;
         }
-        this.router.navigate(['/login']);
-        return false;
+        return true;
       })
     );
   }
