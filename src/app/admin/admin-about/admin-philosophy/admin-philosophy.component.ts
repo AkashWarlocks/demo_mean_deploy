@@ -24,5 +24,4 @@ export class AdminPhilosophyComponent implements OnInit {
     (error) => {
     });
   }
-
 }

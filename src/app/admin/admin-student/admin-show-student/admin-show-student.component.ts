@@ -30,7 +30,8 @@ export class AdminShowStudentComponent implements OnInit {
         const _id = params['id'];
         const studentData = { api : "getStudent", data : { _id }}
         this.httpPostService.httpPost(studentData).subscribe((val) => {
-         this.student = val;
+         this.student = val;0
+         
          const branchData = { api : "getBranch", data : { _id : this.student.branch }}
          this.httpPostService.httpPost(branchData).subscribe((val) => {
            this.branch = val;

@@ -23,5 +23,4 @@ export class AdminAboutComponent implements OnInit {
     (error) => {
     });
   }
-
 }
