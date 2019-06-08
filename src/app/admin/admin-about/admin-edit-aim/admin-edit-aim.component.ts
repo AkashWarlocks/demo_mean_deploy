@@ -29,7 +29,7 @@ export class AdminEditAimComponent implements OnInit {
     });
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.about = val;
+     this.about = val[0];
      this.form.patchValue({ aim: this.about.aim});
      this.loading = false;
     },
