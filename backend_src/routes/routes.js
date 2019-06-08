@@ -19,6 +19,12 @@ router.post('/dancingSoul',(req,res) => {
         case "addFaculty":
                 facultyHandler.addFaculty(req,res);
                 break;
+        case "getFaculties":
+                facultyHandler.getFaculties(req,res);
+                break;
+        case "getFaculty":
+                facultyHandler.getFaculty(req,res);
+                break;
         case "getBranch":
                 branchHandler.getBranch(req,res);
                 break;

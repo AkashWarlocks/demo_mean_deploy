@@ -58,10 +58,20 @@ hObj.editFaculty = async(req,res) =>{
 }
 
 hObj.getFaculties = async (req,res)=>{
+    console.log('getFaculties 2')
     await Faculty.find().then((data)=>{
         res.send(data)
     }).catch((error)=>{
         res.send(error)
     })
+}
+hObj.getFaculty = async (req,res)=>{
+    try {
+        const faculty = await Faculty.findById(req.body.data._id)    
+        return res.send(faculty)
+    }   catch (error) {
+        res.send(error)
+    }
+    
 }
 module.exports = hObj;
