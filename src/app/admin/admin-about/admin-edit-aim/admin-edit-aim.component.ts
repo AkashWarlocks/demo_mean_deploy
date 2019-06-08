@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { AboutModel } from '../../../models/about.model';
 
 @Component({
   selector: 'app-admin-edit-aim',
@@ -12,7 +13,7 @@ export class AdminEditAimComponent implements OnInit {
 
   form: FormGroup;
 
-  aim: string;
+  about: AboutModel;
 
   loading: boolean = true;
 
@@ -28,8 +29,8 @@ export class AdminEditAimComponent implements OnInit {
     });
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.aim = val.aim;
-     this.form.patchValue({aim: this.aim});
+     this.about = val;
+     this.form.patchValue({ aim: this.about.aim});
      this.loading = false;
     },
     (error) => {
@@ -41,7 +42,8 @@ export class AdminEditAimComponent implements OnInit {
   saveAim() {
     if(this.form.valid) {
       this.loading = true;
-      const data = { api : "saveAim", data : { aim : this.form.value.aim }}
+      this.about.aim = this.form.value.aim;
+      const data = { api : "editAbout", data : this.about }
       this.httpPostService.httpPost(data).subscribe((val) => {
        this.form.reset();
        this.cancel();

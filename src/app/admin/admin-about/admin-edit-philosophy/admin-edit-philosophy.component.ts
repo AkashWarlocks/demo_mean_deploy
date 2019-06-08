@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { AboutModel } from '../../../models/about.model';
 
 @Component({
   selector: 'app-admin-edit-philosophy',
@@ -14,6 +15,8 @@ export class AdminEditPhilosophyComponent implements OnInit {
 
   philosophy: string;
 
+  about : AboutModel;
+
   loading: boolean = true;
 
   constructor(private httpPostService: HttpPostService,
@@ -23,26 +26,26 @@ export class AdminEditPhilosophyComponent implements OnInit {
   ngOnInit() {
 
     this.form = new FormGroup({
-      philosophy: new FormControl(this.philosophy, {
+      philosophy: new FormControl(null, {
         validators: [Validators.required]
       })
     });
 
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-      this.philosophy = val.philosophy;
-      this.form.patchValue({philosophy: this.philosophy});
+      this.about = val;
+      this.form.patchValue({philosophy: this.about.philosophy});
       this.loading = false;
     },
     (error) => {
     });
-
   }
 
   savePhilisophy() {
     if(this.form.valid) {
       this.loading = true;
-      const data = { api : "savePhillosophy", data : { philosophy : this.form.value.philosophy }}
+      this.about.philosophy = this.form.value.philosophy;
+      const data = { api : "editAbout", data : this.about }
       this.httpPostService.httpPost(data).subscribe((val) => {
         this.form.reset();
         this.cancel();
@@ -50,7 +53,6 @@ export class AdminEditPhilosophyComponent implements OnInit {
       (error) => {
        this.loading = false;
       });
-
     }
   }
   
@@ -58,5 +60,4 @@ export class AdminEditPhilosophyComponent implements OnInit {
     this.loading = true;
     this.router.navigate(['/admin', 'about', 'philosophy'], {relativeTo: this.route, skipLocationChange:true});
   }
-
 }

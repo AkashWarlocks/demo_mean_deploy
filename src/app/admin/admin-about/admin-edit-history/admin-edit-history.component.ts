@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { AboutModel } from '../../../models/about.model';
 
 @Component({
   selector: 'app-admin-edit-history',
@@ -12,7 +13,7 @@ export class AdminEditHistoryComponent implements OnInit {
 
   form: FormGroup;
 
-  history: string;
+  about: AboutModel;
 
   loading: boolean = true;
 
@@ -22,15 +23,15 @@ export class AdminEditHistoryComponent implements OnInit {
     
   ngOnInit() {
     this.form = new FormGroup({
-      history: new FormControl(this.history, {
+      history: new FormControl(null, {
         validators: [Validators.required]
       })
     });
 
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.history = val.history;
-     this.form.patchValue({history: this.history});
+     this.about = val;
+     this.form.patchValue({history: this.about.history});
      this.loading = false;
     },
     (error) => {
@@ -40,7 +41,8 @@ export class AdminEditHistoryComponent implements OnInit {
   saveHistory() {
     if(this.form.valid) {
       this.loading = true;
-      const data = { api : "saveHistory", data : { history : this.form.value.history }}
+      this.about.history = this.form.value.history;
+      const data = { api : "editAbout", data : this.about }
       this.httpPostService.httpPost(data).subscribe((val) => {
        this.form.reset();
        this.cancel();
