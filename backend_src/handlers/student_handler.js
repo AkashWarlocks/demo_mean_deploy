@@ -23,7 +23,7 @@ hObj.getStudents = async (req,res)=>{
 
 hObj.getStudent = async(req,res) =>{
     try {
-        const student = await Student.findById(req.body._id)
+        const student = await Student.findById(req.body.data._id)
         res.status(200).send(student)
 
     } catch (error) {
