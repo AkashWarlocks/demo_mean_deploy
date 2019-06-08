@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from 'src/app/header/header.component';
 
 declare var $:any;
 
