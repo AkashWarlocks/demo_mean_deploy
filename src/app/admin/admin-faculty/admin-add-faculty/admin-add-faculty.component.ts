@@ -30,7 +30,7 @@ export class AdminAddFacultyComponent implements OnInit {
 
   ngOnInit() {
 
-    this.image = this.imageService.getProfileImage();
+    this.image = "";
 
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -81,7 +81,6 @@ export class AdminAddFacultyComponent implements OnInit {
         this.form.reset();
         this.cancel();
       },(error) => {
-        console.log(error);
         this.loading = false;
       });
     }
