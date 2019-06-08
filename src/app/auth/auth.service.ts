@@ -21,7 +21,8 @@ export class AuthService {
       console.log(response);
       const userType = response.user.userType;
       if(userType === "admin") {
-        this.loggedIn.next({user: 'admin', loginValidate: true});
+        
+        this.loggedIn.next({user: 'admin', loginValidate: (localStorage.getItem('access_token') !== null)});
         this.router.navigate(['/admin'], {relativeTo: this.route});
       }
       else if(userType === "student") {

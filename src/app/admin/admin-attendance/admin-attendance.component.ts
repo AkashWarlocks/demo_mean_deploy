@@ -5,7 +5,6 @@ import { Branch } from '../../models/branch.model';
 import { HttpPostService } from '../../services/httpPost.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-attendance',
@@ -138,8 +137,16 @@ export class AdminAttendanceComponent implements OnInit {
   addAttendance() {
     if(this.form.valid) {
       this.loading = true;
+      const attendance = {
+        date : this.form.value.date,
+        branch : this.form.value.branch,
+        batch : this.form.value.batch,
+        batchType : this.form.value.weekType,
+        present : this.present,
+        absent : this.absent
+      }
       console.log(this.form.value, this.present, this.absent);
-      const data = { api : "saveAttendance", data : { }}
+      const data = { api : "saveAttendance", data : attendance}
       this.httpPostService.httpPost(data).subscribe((val) => {
         this.loading = false;
       },(error) => {

@@ -13,9 +13,9 @@
     <div class="details-box">
         <h1>Contact Us</h1>
         <ul>
-            <li><i class="fa fa-phone" aria-hidden="true"></i>9876543210</li>
-            <li> <i class="fa fa-envelope" aria-hidden="true"></i>dancingSoul.mail.com</li>
-            <li><i class="fa fa-map-marker" aria-hidden="true"></i>kasarvadavali,Thane</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>{{contactDetailsJson.phone}}</li>
+            <li> <i class="fa fa-envelope" aria-hidden="true"></i>{{contactDetailsJson.email}}}</li>
+            <li><i class="fa fa-map-marker" aria-hidden="true"></i>{{contactDetailsJson.address}}</li>
         </ul>
     </div>
     <div class="form-box">
@@ -41,7 +41,7 @@
                  (focusout)="checkIfEmpty($event,'message')">
             </div>
             <div class="clearfix"></div>
-            <div class="btn">
+            <div class="btn" (click)="formSubmit()"  >
                 Submit
             </div>
             

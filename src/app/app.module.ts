@@ -97,6 +97,11 @@ import { FormValidator } from './validators/form.validator';
 import { HttpPostService } from './services/httpPost.service';
 import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
 
+import { JwtModule } from '@auth0/angular-jwt'; 
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -186,6 +191,13 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
     Angular2ImageGalleryModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk'
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4000'],
+        blacklistedRoutes: ['localhost:4000/api/auth']
+      }
     })
   ],
 

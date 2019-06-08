@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-us-page.component.css']
 })
 export class ContactUsPageComponent implements OnInit {
+
+  contactDetailsJson ={"phone":"9876543210","email":"dancingSoul@mail.com","address":"kasarvadavali,Thane"};
+
   yourName = "your name";
  yourEmail = "your e-mail"
   yourMessage = "message"
@@ -41,6 +44,15 @@ export class ContactUsPageComponent implements OnInit {
     }    
   }
 
+  reset(){
+    this.userName = this.yourName;
+    this.emailId = this.yourEmail;
+    this.message = this.yourMessage;
+  }
+
+  formSubmit(){
+    this.reset();
+  }
 
   constructor() { }
 
