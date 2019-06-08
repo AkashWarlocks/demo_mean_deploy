@@ -29,7 +29,7 @@ export class AdminEditHistoryComponent implements OnInit {
 
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.history = val[0].history;
+     this.history = val.history;
      this.form.patchValue({history: this.history});
      this.loading = false;
     },

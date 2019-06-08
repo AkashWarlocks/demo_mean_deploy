@@ -18,7 +18,7 @@ export class AdminPhilosophyComponent implements OnInit {
   ngOnInit() {
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-      this.about = val[0];
+      this.about = val;
       this.loading = false;
     },
     (error) => {

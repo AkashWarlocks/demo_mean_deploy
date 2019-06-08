@@ -28,7 +28,7 @@ export class AdminEditAimComponent implements OnInit {
     });
     const data = { api : "getAbout", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.aim = val[0].aim;
+     this.aim = val.aim;
      this.form.patchValue({aim: this.aim});
      this.loading = false;
     },

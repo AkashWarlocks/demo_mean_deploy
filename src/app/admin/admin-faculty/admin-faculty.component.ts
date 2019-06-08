@@ -19,7 +19,7 @@ export class AdminFacultyComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const data = { api : "getFaculties", data : { }}
+    const data = { api : "getFaculties", data : {}}
     this.httpPostService.httpPost(data).subscribe((val: any) => {
       this.faculties = val;
       this.loading = false;

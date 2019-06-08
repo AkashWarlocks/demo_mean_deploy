@@ -15,16 +15,16 @@ export class AdminGallaryComponent implements OnInit {
   constructor(private httpPostService: HttpPostService) {}
 
   ngOnInit() {
-    // const data = { api : "getImages", data : {}}    
-    // this.httpPostService.httpImagePost(data.api, data.data)
-    // .subscribe(responseData => {
-    //   this.images = responseData[0].imagePath;
-    //   this.loading = false;
-    // },
-    // (error) => {
-    //   this.loading = false;
-    //   console.log(error);
-    // });
+    const data = { api : "getImages", data : {}}    
+    this.httpPostService.httpImagePost(data.api, data.data)
+    .subscribe(responseData => {
+      this.images = responseData.imagePath;
+      this.loading = false;
+    },
+    (error) => {
+      this.loading = false;
+      console.log(error);
+    });
     
     this.loading = false;
   }

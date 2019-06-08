@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AdminAuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
-
+ 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isLoggedIn.pipe(
       take(1),
