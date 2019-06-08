@@ -13,7 +13,7 @@ hObj.addFaculty = async (req,res) =>{
             const user = new User({
             "email":req.body.data.email,
             "password":req.body.data.facultyPhone,
-           "userType":"faculty"
+            "userType":"faculty"
         })
         await faculty.save()   
         await user.save()
@@ -26,8 +26,8 @@ hObj.addFaculty = async (req,res) =>{
 
 hObj.deleteFaculty = async (req,res)=>{
     
-    console.log("DEl:",req.body.id)
-    await Faculty.findByIdAndDelete(req.body.id).then((data)=>{
+    console.log("DEl:",req.body.data.id)
+    await Faculty.findByIdAndDelete(req.body.data.id).then((data)=>{
         if(data == null){
             return res.status(400).send({
                 "status":false,

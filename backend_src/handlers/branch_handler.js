@@ -4,7 +4,7 @@ let hObj = {}
 hObj.addBranch = async (req,res) => {
     console.log("add branch body ",req.body)
 
-    const branch = new Branch(req.body)
+    const branch = new Branch(req.body.data)
 
     await branch.save().then((branchD)=>{
         
@@ -29,7 +29,7 @@ hObj.addBranch = async (req,res) => {
 hObj.deleteBranch = async (req,res)=>{
     console.log(req.body)
 
-    await Branch.findByIdAndDelete(req.body.id).then((data)=>{
+    await Branch.findByIdAndDelete(req.body.data.id).then((data)=>{
         console.log(req.body)
         if(data == null){
            return res.status(200).send({
@@ -51,7 +51,7 @@ hObj.deleteBranch = async (req,res)=>{
 }
 
 hObj.editBranch = async (req,res) =>{
-    await Branch.findByIdAndUpdate(req.body.id,req.body).then((data)=>{
+    await Branch.findByIdAndUpdate(req.body.data.id,req.body.data).then((data)=>{
         if(data == null){
             return res.status(200).send(data)
         }
@@ -61,7 +61,7 @@ hObj.editBranch = async (req,res) =>{
     })
 }
 hObj.getBranch = async(req,res)=>{
-    await Branch.findById(req.body.id).then((data)=>{
+    await Branch.findById(req.body.data.id).then((data)=>{
         return res.send(data)
 
     }).catch((error)=>{
