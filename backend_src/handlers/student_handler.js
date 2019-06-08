@@ -3,14 +3,16 @@ const Student = require('../model/student')
 const User = require('../model/user')
 
 hObj.getStudents = async (req,res)=>{
+    console.log("in get students")
     try {
-        const students = await Student.find({})
+        const students = await Student.find()
         if(!students){
             res.send({
                 "message":"No student Available"
             })
-            res.status(200).send(students)
         }
+        res.status(200).send(students)
+
     } catch (error) {
         res.status(400).send({
             "error":error

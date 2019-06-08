@@ -4,7 +4,7 @@ const studentSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    brthDate:{
+    birthDate:{
         type:String,
         required:true
     },
@@ -18,7 +18,6 @@ const studentSchema = new mongoose.Schema({
     }, 
     image:{
         type:String,
-        required:true
     }, 
     firstGuardianName:{
         type:String,
