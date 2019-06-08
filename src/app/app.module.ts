@@ -204,7 +204,7 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
   providers: [
     
     HttpPostService,
-    
+  
     LoginAuthGuard,
     AdminAuthGuard,
     FacultuAuthGuard,
