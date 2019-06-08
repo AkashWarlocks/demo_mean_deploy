@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpPostService } from '../../../services/httpPost.service';
 import { AboutModel } from '../../../models/about.model';
+import { AdminEditPhilosophyComponent } from '../admin-edit-philosophy/admin-edit-philosophy.component';
 
 @Component({
   selector: 'app-admin-edit-aim',
@@ -42,8 +43,13 @@ export class AdminEditAimComponent implements OnInit {
   saveAim() {
     if(this.form.valid) {
       this.loading = true;
-      this.about.aim = this.form.value.aim;
-      const data = { api : "editAbout", data : this.about }
+      const about : AboutModel = {
+        _id : this.about._id,
+        aim : this.form.value.aim,
+        history : this.about.history,
+        philosophy : this.about.philosophy
+      }
+      const data = { api : "editAbout", data : about }
       this.httpPostService.httpPost(data).subscribe((val) => {
        this.form.reset();
        this.cancel();

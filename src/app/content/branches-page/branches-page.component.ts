@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpPostService } from '../../services/httpPost.service';
+import { Branch } from '../../models/branch.model';
 
 @Component({
   selector: 'app-branches-page',
@@ -7,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BranchesPageComponent implements OnInit {
 
-  constructor() { }
+  branches : Branch[] = [];
 
-  ngOnInit() {
-  }
-  branches = [{"_id":"string","branch":"Thane branch","city":"Thane","address":"kasarvadavali","mail":"dancingSoul@mail.com","phone":"9876543210","description":"Fully air conditioned and spacious","images":["sring"],"batches":[{"batchType":"Weekdays","days":"Mon,Tue","batchName":"Beginner","time":"2-3","fees":"string"},{"batchType":"Weekends","days":"Sat,Sun","batchName":"Intermediate","time":"3 - 6","fees":"string"}],"status":"string"},{"_id":"string","branch":"Thane branch","city":"Thane","address":"kasarvadavali","mail":"dancingSoul@mail.com","phone":"9876543210","description":"Fully air conditioned and spacious","images":["sring"],"batches":[{"batchType":"Weekdays","days":"Mon,Tue","batchName":"Beginner","time":"2-3","fees":"string"},{"batchType":"Weekends","days":"Sat,Sun","batchName":"Intermediate","time":"3 - 6","fees":"string"}],"status":"string"}];
+    constructor(private httpPostService: HttpPostService) { }
 
+
+    ngOnInit() {
+        const data = { api : "getBranches", data : { }}
+        this.httpPostService.httpPost(data).subscribe((val) => {
+         this.branches = val;
+        },
+        (error) => {        
+        });
+    }
 }

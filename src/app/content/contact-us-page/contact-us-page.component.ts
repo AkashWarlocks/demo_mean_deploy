@@ -58,5 +58,4 @@ export class ContactUsPageComponent implements OnInit {
 
   ngOnInit() { 
   }
-
 }
