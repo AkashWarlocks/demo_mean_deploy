@@ -28,11 +28,11 @@
                 <img class="faculty-image" [src]="faculty.image" [alt]="faculty.name" width="40px">              
                 &nbsp;
                 <a [routerLink]="faculty._id" class="faculty-name" skipLocationChange>
-                  {{ faculty.name }}
+                  {{ faculty.facultyName }}
                 </a>
               </td>
               <td>
-                {{ faculty.status | uppercase }}
+                {{ faculty.facultyStatus | uppercase }}
               </td>
             </tr>
           </tbody>

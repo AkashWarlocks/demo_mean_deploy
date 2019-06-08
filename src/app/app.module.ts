@@ -89,13 +89,15 @@ import { StudentComponent } from './student/student.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { StudentAttendanceComponent } from './student/student-attendance/student-attendance.component';
 import { StudentReceiptsComponent } from './student/student-receipts/student-receipts.component';
+import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
 
 import { FacultyComponent } from './faculty/faculty.component';
 
 import { FormValidator } from './validators/form.validator';
 
 import { HttpPostService } from './services/httpPost.service';
-import { StudentShowReceiptComponent } from './student/student-receipts/student-show-receipt/student-show-receipt.component';
+import { ImageService } from './services/image.service';
+
 
 // import { JwtModule } from '@auth0/angular-jwt'; 
 
@@ -204,6 +206,8 @@ import { StudentShowReceiptComponent } from './student/student-receipts/student-
   providers: [
     
     HttpPostService,
+
+    ImageService,
   
     LoginAuthGuard,
     AdminAuthGuard,
