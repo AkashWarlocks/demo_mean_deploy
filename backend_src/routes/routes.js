@@ -8,6 +8,7 @@ let facultyHandler = require('../handlers/faculty_handler')
 let contactUsHandler = require('../handlers/contactUs_handler')
 let userHandler = require('../handlers/user_handler')
 let studentHandler = require('../handlers/student_handler')
+let aboutUsHandler = require('../handlers/about_handler')
 
     
 router.get('/getUsers',auth,async (req,res)=>{
@@ -65,7 +66,13 @@ router.post('/dancingSoul',(req,res) => {
                 break
         case "changeStatus":
                 studentHandler.changeStatus(req,res)
-                break                        
+                break
+        case "getAbout":
+                aboutUsHandler.getAbout(req,res)
+                break;
+        case "editAbout":
+                aboutUsHandler.getAbout(req,res)
+                break;
         default:
             res.status(400).send({
                 "type":"wrong api"
