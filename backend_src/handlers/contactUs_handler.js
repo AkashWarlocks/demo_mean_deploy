@@ -15,9 +15,9 @@ function sendEmail (data) {
       });
       var mailOptions = {
         from: 'akashgamer96@gmail.com',
-        to: data.body.Email,
+        to: data.body.data.Email,
         subject: 'Support: The Dancing Soul Academy',
-        text: "Name: "+data.body.Name+"\nContact: "+data.body.Contact+"\nEmail: "+data.body.Email+"\nDescription: "+data.body.Description+"\n\n\n Thank you for contacting"
+        text: "Name: "+data.body.data.Name+"\nContact: "+data.body.data.Contact+"\nEmail: "+data.body.data.Email+"\nDescription: "+data.body.data.Description+"\n\n\n Thank you for contacting"
       };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {

@@ -11,7 +11,7 @@ hObj.getAbout = async(req,res)=>{
 }
 
 hObj.editAbout = async(req,res)=>{
-    
+    console.log(req.body)
     try {
         const about =  await About.findByIdAndUpdate(req.body.data._id ,req.body.data)
         res.status(200).send(about)
