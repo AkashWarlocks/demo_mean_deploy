@@ -32,7 +32,7 @@ export class AdminEditBranchComponent implements OnInit {
 
   weekType: string = "weekDays";
 
-  images: string[] = [];
+  images: string;
 
   imgExt: string[] = ['jpg', 'png'];
 
@@ -132,7 +132,7 @@ export class AdminEditBranchComponent implements OnInit {
         let reader = new FileReader();
 
         reader.onload = (event:any) => {
-          this.images.push(event.target.result); 
+          this.images = event.target.result; 
         }
         reader.readAsDataURL(event.target.files[i]);
       }

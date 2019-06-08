@@ -3,7 +3,6 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../../../validators/form.validator';
 import { HttpPostService } from '../../../services/httpPost.service';
-import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-admin-add-faculty',
@@ -23,14 +22,13 @@ export class AdminAddFacultyComponent implements OnInit {
   image: string;
 
   constructor(private httpPostService: HttpPostService,
-              private imageService: ImageService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.image = "";
+    this.image = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
 
     this.form = new FormGroup({
       name: new FormControl(null, {

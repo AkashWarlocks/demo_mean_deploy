@@ -96,7 +96,6 @@ import { FacultyComponent } from './faculty/faculty.component';
 import { FormValidator } from './validators/form.validator';
 
 import { HttpPostService } from './services/httpPost.service';
-import { ImageService } from './services/image.service';
 
 
 // import { JwtModule } from '@auth0/angular-jwt'; 
@@ -206,8 +205,6 @@ import { ImageService } from './services/image.service';
   providers: [
     
     HttpPostService,
-
-    ImageService,
   
     LoginAuthGuard,
     AdminAuthGuard,

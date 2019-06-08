@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../../../validators/form.validator';
 import { HttpPostService } from '../../../services/httpPost.service';
-import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-admin-add-student',
@@ -30,12 +29,13 @@ export class AdminAddStudentComponent implements OnInit {
   weekType: string = "weekDays";
 
   constructor(private httpPostService: HttpPostService,
-              private imageService: ImageService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.image = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
 
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -88,7 +88,6 @@ export class AdminAddStudentComponent implements OnInit {
     (error) => {
     });
 
-    this.image = this.imageService.getProfileImage();
   }
 
   branchChanged() {
