@@ -48,8 +48,9 @@ hObj.addStudent = async(req,res)=>{
             "password":req.body.data.phone,
             "userType":"student"
         })
-        await student.save()
         await user.save()
+
+        await student.save()
         res.status(200).send(student)   
     } catch (error) {
         res.status(401).send(error)
