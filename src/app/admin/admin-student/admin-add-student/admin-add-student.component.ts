@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../../../validators/form.validator';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-admin-add-student',
@@ -29,6 +30,7 @@ export class AdminAddStudentComponent implements OnInit {
   weekType: string = "weekDays";
 
   constructor(private httpPostService: HttpPostService,
+              private imageService: ImageService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -80,15 +82,13 @@ export class AdminAddStudentComponent implements OnInit {
 
     const data = { api : "getBranches", data : { }}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.branches = val;
-     this.loading = false;
+      this.branches = val;
+      this.loading = false;
     },
     (error) => {
     });
 
-    this.image = "Image";
-
-    this.loading = false;
+    this.image = this.imageService.getProfileImage();
   }
 
   branchChanged() {

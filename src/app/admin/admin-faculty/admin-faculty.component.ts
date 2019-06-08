@@ -22,6 +22,7 @@ export class AdminFacultyComponent implements OnInit {
     const data = { api : "getFaculties", data : {}}
     this.httpPostService.httpPost(data).subscribe((val: any) => {
       this.faculties = val;
+      console.log(this.faculties);
       this.loading = false;
     },
     (error) => {

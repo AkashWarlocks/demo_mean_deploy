@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../../../validators/form.validator';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-admin-add-faculty',
@@ -22,13 +23,14 @@ export class AdminAddFacultyComponent implements OnInit {
   image: string;
 
   constructor(private httpPostService: HttpPostService,
+              private imageService: ImageService,
               private formValidator: FormValidator,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.image = "Image";
+    this.image = this.imageService.getProfileImage();
 
     this.form = new FormGroup({
       name: new FormControl(null, {

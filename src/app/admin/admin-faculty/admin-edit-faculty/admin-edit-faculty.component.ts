@@ -74,9 +74,7 @@ export class AdminEditFacultyComponent implements OnInit {
         (error) => {
         });
       }
-    );
-
-    
+    ); 
   }
 
   onImagePicked(event: any) {

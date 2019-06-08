@@ -17,8 +17,6 @@ export class AdminAddArticleComponent implements OnInit {
 
   formError: boolean = false;
 
-  image : string;
-
   imgExt: string[] = ['jpg', 'png'];
 
   constructor(private httpPostService: HttpPostService,
@@ -34,32 +32,10 @@ export class AdminAddArticleComponent implements OnInit {
       }),
       body: new FormControl(null, {
         validators: [Validators.required]
-      }),
-      image: new FormControl(null, {
-        validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
 
     this.loading = false;
-  }
-
-  onImagePicked(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-
-      const ext : string = file.name.substring(file.name.lastIndexOf('.') + 1);
-      if(!(this.imgExt.indexOf(ext)!=-1)) {
-        return;
-      }
-
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.image = event.target.result; 
-      }
-
-      reader.readAsDataURL(file);
-    }
   }
 
   addArticle() {
@@ -70,7 +46,7 @@ export class AdminAddArticleComponent implements OnInit {
     if(this.form.valid) {
       this.formError = false;
       this.loading = true;
-      const article = { title: this.form.value.title, body : this.form.value.body, image : "image" }
+      const article = { title: this.form.value.title, body : this.form.value.body}
       const data = { api : "addArticle", data : article }
       this.httpPostService.httpPost(data).subscribe((val) => {
        this.form.reset();

@@ -16,8 +16,6 @@ export class AdminEditArticleComponent implements OnInit {
   article: Article;
   id:string;
 
-  image: string;
-
   loading : boolean = true;
 
   imgExt: string[] = ['jpg', 'png'];
@@ -39,9 +37,6 @@ export class AdminEditArticleComponent implements OnInit {
       }),
       body: new FormControl(null, {
         validators: [Validators.required]
-      }),
-      image: new FormControl(null, {
-        validators:[this.formValidator.imageValidate.bind(this)]
       })
     });
 
@@ -52,11 +47,9 @@ export class AdminEditArticleComponent implements OnInit {
         const data = { api : "getArticle", data : { _id }}
         this.httpPostService.httpPost(data).subscribe((val) => {
           this.article = val;
-          this.image = this.article.image;
           this.form.setValue({
            title: this.article.title,
-           body: this.article.body,
-           image: null
+           body: this.article.body
           });
           this.loading = false;
         },
@@ -64,25 +57,6 @@ export class AdminEditArticleComponent implements OnInit {
         });
       }
     );
-  }
-
-  onImagePicked(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-
-      const ext : string = file.name.substring(file.name.lastIndexOf('.') + 1);
-      if(!(this.imgExt.indexOf(ext)!=-1)) {
-        return;
-      }
-
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.image = event.target.result; 
-      }
-
-      reader.readAsDataURL(file);
-    }
   }
 
   editArticle() {
@@ -96,8 +70,7 @@ export class AdminEditArticleComponent implements OnInit {
       const editedArticle : Article = {
         _id: this.article._id,
         title: this.form.value.title,
-        body: this.form.value.body,
-        image: this.image
+        body: this.form.value.body
       }
       const data = { api : "editArticle", data : editedArticle }
       this.httpPostService.httpPost(data).subscribe((val) => {
