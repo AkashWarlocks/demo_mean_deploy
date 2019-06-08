@@ -61,7 +61,7 @@ hObj.editBranch = async (req,res) =>{
     })
 }
 hObj.getBranch = async(req,res)=>{
-    await Branch.findById(req.body.data.id).then((data)=>{
+    await Branch.findById(req.body.data._id).then((data)=>{
         return res.send(data)
 
     }).catch((error)=>{
