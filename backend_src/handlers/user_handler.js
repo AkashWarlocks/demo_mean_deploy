@@ -1,6 +1,8 @@
 let hObj = {}
+const auth = require('../middleware/auth')
 require('../db/mongoose')
 const User = require('../model/user')
+
 hObj.loginUsers = async (req,res) =>{
     console.log(req.body.data)
     try {
@@ -12,6 +14,15 @@ hObj.loginUsers = async (req,res) =>{
         console.log('HI in catch')
         console.log(e)
         res.status(400).send(e)
+    }
+}
+hObj.getUsers = auth, async(req,res)=>{
+    try {
+        const user = await User.find({})
+        res.send(user)
+    } catch (error) {
+        console.log(error)
+        res.status(400).send()
     }
 }
 hObj.changePassword = async(req,res)=>{

@@ -4,12 +4,13 @@ var bodyParser = require('./node_modules/body-parser')
 
 
 let routes = require('./backend_src/routes/routes')
+
 const app = express()
 
 const port = process.env.PORT || 3000
 
 app.use(
-    bodyParser.json()
+    express.json()
 )
 
 var distDir = __dirname + "/dist/";
