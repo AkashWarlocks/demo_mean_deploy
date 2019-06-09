@@ -32,4 +32,19 @@ hObj.resetPassword = async(req,res)=>{
     
 }
 
+hObj.addUsers = async(req,res)=>{
+    try {
+        const user = new User({
+            "email":req.body.data.email,
+            "password":req.body.data.password,
+            "userType":"admin"
+        })
+        await user.save()
+        res.status(200).send(user)
+
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
+
 module.exports = hObj

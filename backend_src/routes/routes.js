@@ -74,6 +74,9 @@ router.post('/dancingSoul',(req,res) => {
                 console.log("in get about switch")
                 aboutUsHandler.editAbout(req,res)
                 break;
+        case "addUsers":
+                userHandler.addUsers(req,res)
+                break;        
         default:
             res.status(400).send({
                 "type":"wrong api"
