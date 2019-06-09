@@ -10,7 +10,7 @@
             <span>{{branch.description}}</span>
           </div>
           <div class="detail">
-            <a href="mailto:{{branch.email}}?subject=Class%20Enquiry"><i class="fas fa-envelope"></i>{{branch.mail}}</a>
+            <a href="mailto:{{branch.email}}?subject=Class%20Enquiry"><i class="fas fa-envelope"></i>{{branch.email}}</a>
             <a><i class="fa fa-phone"></i>{{branch.phone}}</a>
             <a><i class="fa fa-map-marker"></i>{{branch.address}}</a>
             <a><i class="fa fa-building"></i>{{branch.branch}}</a>
@@ -25,7 +25,7 @@
                     <th>Timing</th>
                   </tr>
                 <ng-container *ngFor="let batch of branch.batches; let i = index">
-                  <tr *ngIf="batch.batchType==='Weekdays'">
+                  <tr *ngIf="batch.batchType === 'WeekDays'">
                     <td>{{batch.days}}</td>
                     <td>{{batch.batchName}}</td>
                     <td>{{batch.time}}</td>
@@ -42,7 +42,7 @@
                   <th>Timing</th>
                 </tr>
                 <ng-container *ngFor="let batch of branch.batches; let i = index">
-                  <tr *ngIf="batch.batchType==='Weekends'">
+                  <tr *ngIf="batch.batchType === 'WeekEnds'">
                     <td>{{batch.days}}</td>
                     <td>{{batch.batchName}}</td>
                     <td>{{batch.time}}</td>

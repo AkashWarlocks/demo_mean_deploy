@@ -4,11 +4,11 @@ export class Branch {
 
     public _id:string; 
     public branch:string;
-    public city: string;
+    public city:string;
     public address:string;
     public email:string;
     public phone:string;
-    public description : string;
+    public description:string;
     public images: string;
     public batch: BatchModel[];
     public status: string;
