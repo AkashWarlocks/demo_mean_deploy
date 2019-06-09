@@ -36,8 +36,8 @@ hObj.addUsers = async(req,res)=>{
     try {
         const user = new User({
             "email":req.body.data.email,
-            "password":req.body.data.phone,
-            "userType":"student"
+            "password":req.body.data.password,
+            "userType":"admin"
         })
         await user.save()
         res.status(200).send(user)
