@@ -25,7 +25,7 @@ router.get('/getUsers',auth,async (req,res)=>{
 
 router.post('/dancingSoul',(req,res) => {
         const api = req.body.api
-  //  console.log(api)
+        console.log(api)
     switch(api){
     
         case "addBranch":
@@ -71,7 +71,8 @@ router.post('/dancingSoul',(req,res) => {
                 aboutUsHandler.getAbout(req,res)
                 break;
         case "editAbout":
-                aboutUsHandler.getAbout(req,res)
+                console.log("in get about switch")
+                aboutUsHandler.editAbout(req,res)
                 break;
         default:
             res.status(400).send({

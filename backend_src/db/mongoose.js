@@ -5,7 +5,8 @@ const localhost = "mongodb://localhost:27017/dancing_soul"
 mongoose.connect(uri, {
     dbName:"dancing_soul",
     useNewUrlParser:true,
-    useCreateIndex:true
+    useCreateIndex:true,
+    //useFindAndModify:false
 })
 
 const db = mongoose.connection;

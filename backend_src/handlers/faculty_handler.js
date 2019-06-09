@@ -46,7 +46,7 @@ hObj.deleteFaculty = async (req,res)=>{
 
 hObj.editFaculty = async(req,res) =>{
     console.log(req.body)
-    await Faculty.findByIdAndUpdate(req.body.data.id,req.body.data).then((data)=>{
+    await Faculty.findByIdAndUpdate(req.body.data._id,req.body.data).then((data)=>{
         if(data == null){
             console.log("tp ",data)
             return res.status(200).send(data)
