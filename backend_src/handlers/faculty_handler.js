@@ -14,9 +14,10 @@ hObj.addFaculty = async (req,res) =>{
             "email":req.body.data.email,
             "password":req.body.data.facultyPhone,
             "userType":"faculty"
-        })
-        await faculty.save()   
+        })    
         await user.save()
+        
+        await faculty.save()       
         res.status(200).send(user)  
     } catch (error) {
         console.log(error)
