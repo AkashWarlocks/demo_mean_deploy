@@ -39,14 +39,16 @@ export class AdminStudentComponent implements OnInit {
        this.httpPostService.httpPost(studentData).subscribe((val) => {
          this.allStudents = val;
          this.loading = false;
-       },
-       (error) => {
-       });
+        },
+        (error) => {
+        });
+      }
+      else {
+        this.loading = false;
      }
     },
     (error) => {
     });
-    
   }
 
   onNewStudent() {
