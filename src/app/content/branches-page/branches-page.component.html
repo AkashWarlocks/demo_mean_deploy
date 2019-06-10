@@ -41,7 +41,7 @@
                   <th>Batch Name</th>
                   <th>Timing</th>
                 </tr>
-                <ng-container *ngFor="let batch of branch.batches; let i = index">
+                <ng-container *ngFor="let batch of branch.batch; let i = index">
                   <tr *ngIf="batch.batchType === 'WeekEnds'">
                     <td>{{batch.days}}</td>
                     <td>{{batch.batchName}}</td>
