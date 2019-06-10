@@ -2,12 +2,22 @@ let hObj = {}
 const auth = require('../middleware/auth')
 require('../db/mongoose')
 const User = require('../model/user')
+const Student = require('../model/student')
+const Faculty = require('../model/faculty')
 
 hObj.loginUsers = async (req,res) =>{
     console.log(req.body.data)
     try {
         const user = await User.findByCredentials(req.body.data.email, req.body.data.password)
         const token = await user.generateAuthToken()
+        if(user.userType === 'student'){
+            const student = await Student.findOne({email:user.email})
+            return res.send({user, token, student})    
+        } else if(user.userType === 'faculty'){
+            const faculty = await Faculty.findOne({email:user.email})
+            return res.send({user, token, faculty})    
+
+        }
         res.send({user, token})
 
     } catch (e) {
