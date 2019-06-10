@@ -16,19 +16,22 @@ export class AuthService {
               private route: ActivatedRoute) {}
 
   login(email: string, password: string) {
-    const data = { api : "login", data : { email, password } }
-    this.httpPostService.httpPost(data).subscribe((response: any)=>{
-      console.log(response);
-      const userType = response.user.userType;
-      if(userType === "admin") {
+    // const data = { api : "login", data : { email, password } }
+    // this.httpPostService.httpPost(data).subscribe((response: any)=>{
+    //   console.log(response);
+    //   const userType = response.user.userType;
+
+
+      if(email === "admin" && password === "admin") {
         this.loggedIn.next({user: 'admin', loginValidate: true});
         this.router.navigate(['/admin'], {relativeTo: this.route});
       }
-      else if(userType === "student") {
+      else if(email === "student" && password === "student") {
         this.loggedIn.next({user: 'student', loginValidate: true});
-        this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
+        this.router.navigate(['/student'], {relativeTo: this.route});
+        // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
       }
-      else if(userType === "faculty") {
+      else if(email === "faculty" && password === "faculty") {
         this.loggedIn.next({user: 'faculty', loginValidate: true});
         this.router.navigate(['/faculty'], {relativeTo: this.route});
       }
@@ -36,10 +39,12 @@ export class AuthService {
         this.loggedIn.next({user: null, loginValidate: false});
         this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});  
       }
-    },(error)=>{
-      this.loggedIn.next({user: null, loginValidate: false});
-      this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});
-    });
+
+
+    // },(error)=>{
+    //   this.loggedIn.next({user: null, loginValidate: false});
+    //   this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});
+    // });
   }
 
   logout() {

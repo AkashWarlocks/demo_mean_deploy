@@ -39,7 +39,6 @@ hObj.changePassword = async(req,res)=>{
 
 }
 hObj.resetPassword = async(req,res)=>{
-    
 }
 
 hObj.addUsers = async(req,res)=>{
