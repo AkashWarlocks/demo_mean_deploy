@@ -32,6 +32,14 @@ import { AdminShowEnquiryComponent } from './admin/admin-enquiry/admin-show-enqu
 import { AdminReplyEnquiryComponent } from './admin/admin-enquiry/admin-reply-enquiry/admin-reply-enquiry.component';
 
 import { AdminExamComponent } from './admin/admin-exam/admin-exam.component';
+import { AdminAddExamComponent } from './admin/admin-exam/admin-add-exam/admin-add-exam.component';
+import { AdminShowExamComponent } from './admin/admin-exam/admin-show-exam/admin-show-exam.component';
+import { AdminEditExamComponent } from './admin/admin-exam/admin-edit-exam/admin-edit-exam.component';
+
+import { AdminNewsComponent } from './admin/admin-news/admin-news.component';
+import { AdminAddNewsComponent } from './admin/admin-news/admin-add-news/admin-add-news.component';
+import { AdminShowNewsComponent } from './admin/admin-news/admin-show-news/admin-show-news.component';
+import { AdminEditNewsComponent } from './admin/admin-news/admin-edit-news/admin-edit-news.component';
 
 import { AdminGallaryComponent } from './admin/admin-gallary/admin-gallary.component';
 import { AdminAddPhotosComponent } from './admin/admin-gallary/admin-add-photos/admin-add-photos.component';
@@ -118,6 +126,14 @@ const appRoutes : Routes = [
       {path:'branch/:id/edit', component : AdminEditBranchComponent, canActivate: [ AdminAuthGuard ]},
       
       {path:'exams', component : AdminExamComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'exams/new', component : AdminAddExamComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'exams/:id', component : AdminShowExamComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'exams/:id/edit', component : AdminEditExamComponent, canActivate: [ AdminAuthGuard ]},
+
+      {path:'news', component : AdminNewsComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'news/new', component : AdminAddNewsComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'news/:id', component : AdminShowNewsComponent, canActivate: [ AdminAuthGuard ]},
+      {path:'news/:id/edit', component : AdminEditNewsComponent, canActivate: [ AdminAuthGuard ]},
   
       {path:'gallery', component : AdminGallaryComponent, canActivate: [ AdminAuthGuard ]},
       {path:'gallery/new', component : AdminAddPhotosComponent, canActivate: [ AdminAuthGuard ]},
