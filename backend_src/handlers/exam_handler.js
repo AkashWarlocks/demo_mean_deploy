@@ -23,6 +23,7 @@ hObj.getSingleExams = async(req,res)=>{
 }
 
 hObj.addExams = async(req,res)=>{
+    console.log(req.body)
     try {
         const exams =new Exams(req.body.data)
         await exams.save()
