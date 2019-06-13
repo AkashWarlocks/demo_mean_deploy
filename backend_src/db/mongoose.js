@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 //"mongodb+srv://userDB:user123@bingbot-3awwl.mongodb.net/test?retryWrites=true"
-const uri = process.env.MONGODB_ATLAS;
+const uri = process.env.MONGODB_ATLAS||"mongodb+srv://userDB:user123@bingbot-3awwl.mongodb.net/test?retryWrites=true; 
 const localhost = "mongodb://localhost:27017/dancing_soul"
 mongoose.connect(uri, {
     dbName:"dancing_soul",

@@ -14,7 +14,7 @@ const attendanceSchema = new mongoose.Schema({
         required:true
     },
     batchType:{
-        type:true,
+        type:String,
         required:true
     },
     present:[
