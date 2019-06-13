@@ -11,6 +11,7 @@ let studentHandler = require('../handlers/student_handler')
 let aboutUsHandler = require('../handlers/about_handler')
 let examsHandler = require('../handlers/exam_handler')
 let newsHandler = require('../handlers/news_handler')
+let attendanceHandler = require('../handlers/attendance_handler')
     
 router.get('/getUsers',auth,async (req,res)=>{
         
@@ -107,7 +108,11 @@ router.post('/dancingSoul',(req,res) => {
                 break
         case "addExam":
                 examsHandler.addExams(req,res)
-                break                
+                break   
+        case "saveAttendance":
+                attendanceHandler.saveAttendance(req,res)
+                break
+                             
         default:
             res.status(400).send({
                 "type":"wrong api"
