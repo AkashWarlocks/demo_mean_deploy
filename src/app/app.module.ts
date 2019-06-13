@@ -69,6 +69,14 @@ import { AdminShowFacultyComponent } from './admin/admin-faculty/admin-show-facu
 import { AdminEditFacultyComponent } from './admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component';
 
 import { AdminExamComponent } from './admin/admin-exam/admin-exam.component';
+import { AdminAddExamComponent } from './admin/admin-exam/admin-add-exam/admin-add-exam.component';
+import { AdminShowExamComponent } from './admin/admin-exam/admin-show-exam/admin-show-exam.component';
+import { AdminEditExamComponent } from './admin/admin-exam/admin-edit-exam/admin-edit-exam.component';
+
+import { AdminNewsComponent } from './admin/admin-news/admin-news.component';
+import { AdminAddNewsComponent } from './admin/admin-news/admin-add-news/admin-add-news.component';
+import { AdminShowNewsComponent } from './admin/admin-news/admin-show-news/admin-show-news.component';
+import { AdminEditNewsComponent } from './admin/admin-news/admin-edit-news/admin-edit-news.component';
 
 import { AdminGallaryComponent } from './admin/admin-gallary/admin-gallary.component';
 import { AdminAddPhotosComponent } from './admin/admin-gallary/admin-add-photos/admin-add-photos.component';
@@ -152,6 +160,14 @@ import { HttpPostService } from './services/httpPost.service';
     AdminReplyEnquiryComponent,
     
     AdminExamComponent,
+    AdminAddExamComponent,
+    AdminEditExamComponent,
+    AdminShowExamComponent,
+
+    AdminNewsComponent,
+    AdminAddNewsComponent,
+    AdminEditNewsComponent,
+    AdminShowNewsComponent,
 
     AdminGallaryComponent,
     AdminAddPhotosComponent,
@@ -179,8 +195,7 @@ import { HttpPostService } from './services/httpPost.service';
     StudentDashboardComponent,
     StudentReceiptsComponent,
     StudentAttendanceComponent,
-    StudentShowReceiptComponent
-        
+    StudentShowReceiptComponent        
   ],
 
   imports: [

@@ -21,7 +21,6 @@ export class AuthService {
     //   console.log(response);
     //   const userType = response.user.userType;
 
-
       if(email === "admin" && password === "admin") {
         this.loggedIn.next({user: 'admin', loginValidate: true});
         this.router.navigate(['/admin'], {relativeTo: this.route});
@@ -39,7 +38,6 @@ export class AuthService {
         this.loggedIn.next({user: null, loginValidate: false});
         this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});  
       }
-
 
     // },(error)=>{
     //   this.loggedIn.next({user: null, loginValidate: false});

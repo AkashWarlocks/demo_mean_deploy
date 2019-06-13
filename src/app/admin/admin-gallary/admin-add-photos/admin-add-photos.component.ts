@@ -26,7 +26,6 @@ export class AdminAddPhotosComponent implements OnInit {
         validators: [Validators.required]
       })
     });
-
     this.loading = false;
   }
 

@@ -3,13 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpPostService } from '../../services/httpPost.service';
 
 @Component({
-  selector: 'app-admin-exam',
-  templateUrl: './admin-exam.component.html',
-  styleUrls: ['./admin-exam.component.css']
+  selector: 'app-admin-news',
+  templateUrl: './admin-news.component.html',
+  styleUrls: ['./admin-news.component.css']
 })
-export class AdminExamComponent implements OnInit {
+export class AdminNewsComponent implements OnInit {
 
-  exams: any[] = [];
+  news: any[] = [];
 
   loading: boolean = true;
 
@@ -18,20 +18,20 @@ export class AdminExamComponent implements OnInit {
               private route:ActivatedRoute) { }
 
   ngOnInit() {
-    const data = { api : "getExams", data : {}}
+    const data = { api : "getAllNews", data : {}}
     this.httpPostService.httpPost(data).subscribe((val) => {
-     this.exams = val;
-     this.loading = false;
+      this.news = val;
+      this.loading = false;
     },
     (error) => {
     });
   }
 
-  deleteExam(_id:string) {
-    const deleteConfirm = confirm("do you really want to Delete this Exam??");  
+  deleteNews(_id:string) {
+    const deleteConfirm = confirm("do you really want to Delete News??");  
     if(deleteConfirm) {
       this.loading = true;
-      const data = { api : "deleteExam", data : { _id }}
+      const data = { api : "deleteNews", data : { _id }}
       this.httpPostService.httpPost(data).subscribe((val) => {
        this.loading = false;
       },
@@ -41,7 +41,7 @@ export class AdminExamComponent implements OnInit {
     }    
   }
 
-  onNewExam() {
+  onNewNews() {
     this.loading = true;
     this.router.navigate(['new'], {relativeTo:this.route, skipLocationChange:true});
   }
