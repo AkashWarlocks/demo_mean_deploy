@@ -9,7 +9,8 @@ let contactUsHandler = require('../handlers/contactUs_handler')
 let userHandler = require('../handlers/user_handler')
 let studentHandler = require('../handlers/student_handler')
 let aboutUsHandler = require('../handlers/about_handler')
-
+let examsHandler = require('../handlers/exam_handler')
+let newsHandler = require('../handlers/news_handler')
     
 router.get('/getUsers',auth,async (req,res)=>{
         
@@ -76,7 +77,37 @@ router.post('/dancingSoul',(req,res) => {
                 break;
         case "addUsers":
                 userHandler.addUsers(req,res)
-                break;        
+                break;   
+        case "contactUs":
+                contactUsHandler.contactUs(req,res)
+                break;
+        case "getAllNews":
+                newsHandler.getAllNews(req,res)
+                break
+        case "getNews":
+                newsHandler.getSingleNews(req,res)
+                break;
+        case "deleteNews":
+                newsHandler.deleteNews(req,res)
+                break;
+        case "editNews":
+                newsHandler.editNews(req,res)
+                break;
+        case "addNews":
+                newsHandler.addNews(req,res)
+                break;
+        case "getExams":
+                examsHandler.getAllExams(req,res)
+                break
+        case "getExam":
+                examsHandler.getSingleExams(req,res)
+                break
+        case "deleteExam":
+                examsHandler.deleteExams(req,res)
+                break
+        case "addExam":
+                examsHandler.addExams(req,res)
+                break                
         default:
             res.status(400).send({
                 "type":"wrong api"

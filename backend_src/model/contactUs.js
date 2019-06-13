@@ -1,23 +1,23 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const contactSchema = new mongoose.Schema({
-    contactName:{
+    Name:{
         type:String,
         required:true
     },
-    contactEmail:{
+    Email:{
         type:String,
         required:true
     },
-    contactPhone:{
+    Contact:{
         type:String,
         required:true
     },
-    contactDescription:{
+    Description:{
         type:String,
         required:true
     }
 })
-const Contact = mongoose.model('ContactUs',contactSchema)
+const Contact = mongoose.model('contactUs',contactSchema)
 
 module.exports = Contact
