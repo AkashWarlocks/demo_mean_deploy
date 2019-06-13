@@ -23,6 +23,7 @@ hObj.getSingleNews = async(req,res)=>{
 }
 
 hObj.addNews = async(req,res)=>{
+    console.log(req.body)
     try {
         const news =new News(req.body.data)
         res.status(200).send(news)
