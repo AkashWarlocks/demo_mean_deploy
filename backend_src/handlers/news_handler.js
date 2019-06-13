@@ -26,6 +26,7 @@ hObj.addNews = async(req,res)=>{
     console.log(req.body)
     try {
         const news =new News(req.body.data)
+        await news.save()
         res.status(200).send(news)
     } catch (error) {
         console.log(error)
