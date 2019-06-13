@@ -25,6 +25,7 @@ hObj.getSingleExams = async(req,res)=>{
 hObj.addExams = async(req,res)=>{
     try {
         const exams =new Exams(req.body.data)
+        await exams.save()
         res.status(200).send(exams)
     } catch (error) {
         console.log(error)
