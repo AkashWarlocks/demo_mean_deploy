@@ -13,7 +13,7 @@
               <th>Date</th>
               <th>Attendance</th>>
             </tr>
-            <tr class="receipt" *ngFor="let atten of attendance; let i = index" routerLinkActive="active">
+            <tr class="attendance" *ngFor="let atten of attendance; let i = index" routerLinkActive="active">
               <td>{{ i+1 }}</td>
               <td>
                 {{ atten.date }}
