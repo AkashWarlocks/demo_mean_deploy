@@ -71,6 +71,7 @@ export class AdminAttendanceComponent implements OnInit {
          this.loading = false;
        },
        (error) => {
+        this.loading = false;
        });
      }
     },
@@ -78,7 +79,7 @@ export class AdminAttendanceComponent implements OnInit {
     });
   }
 
-  zeroAppend(n : number) {
+  zeroAppend(n : number) : string {
     if(n < 10) {
       return ("0" + n).toString();
     }
@@ -145,7 +146,7 @@ export class AdminAttendanceComponent implements OnInit {
         present : this.present,
         absent : this.absent
       }
-      console.log(this.form.value, this.present, this.absent);
+      console.log(attendance);
       const data = { api : "saveAttendance", data : attendance}
       this.httpPostService.httpPost(data).subscribe((val) => {
         this.loading = false;
@@ -173,5 +174,4 @@ export class AdminAttendanceComponent implements OnInit {
       }
     }
   }
-  
 }
