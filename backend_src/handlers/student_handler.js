@@ -51,6 +51,8 @@ hObj.addStudent = async(req,res)=>{
         await user.save()
 
         await student.save()
+
+        
         res.status(200).send(student)   
     } catch (error) {
         res.status(401).send(error)
