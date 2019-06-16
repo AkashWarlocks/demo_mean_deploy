@@ -150,6 +150,10 @@ export class AdminAttendanceComponent implements OnInit {
       const data = { api : "saveAttendance", data : attendance}
       this.httpPostService.httpPost(data).subscribe((val) => {
         this.loading = false;
+        this.form.reset();
+        this.students = [];
+        this.absent = [];
+        this.present = [];
       },(error) => {
         this.loading = false;
       });
