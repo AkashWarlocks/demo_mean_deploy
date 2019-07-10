@@ -12,7 +12,7 @@ let aboutUsHandler = require('../handlers/about_handler')
 let examsHandler = require('../handlers/exam_handler')
 let newsHandler = require('../handlers/news_handler')
 let attendanceHandler = require('../handlers/attendance_handler')
-    
+let receiptHandler = require('../handlers/receipt_handler')    
 router.get('/getUsers',auth,async (req,res)=>{
         
         try {
@@ -112,7 +112,18 @@ router.post('/dancingSoul',(req,res) => {
         case "saveAttendance":
                 attendanceHandler.saveAttendance(req,res)
                 break
-                             
+        case "addReceipt":
+                receiptHandler.addReceipt(req,res)
+                break;
+        case"getReceipt":
+                receiptHandler.getReceipt(req,res)
+                break;
+        case "getReceipts":
+                receiptHandler.getReceipts(req,res)
+                break;
+        case "deleteReceipt":
+                receiptHandler.deleteReceipt(req,res)
+                break;                             
         default:
             res.status(400).send({
                 "type":"wrong api"
