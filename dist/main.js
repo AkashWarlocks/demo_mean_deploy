@@ -148,8 +148,8 @@ var AdminEditAimComponent = /** @class */ (function () {
         });
         var data = { api: "getAbout", data: {} };
         this.httpPostService.httpPost(data).subscribe(function (val) {
-            _this.aim = val[0].aim;
-            _this.form.patchValue({ aim: _this.aim });
+            _this.about = val[0];
+            _this.form.patchValue({ aim: _this.about.aim });
             _this.loading = false;
         }, function (error) {
         });
@@ -158,7 +158,13 @@ var AdminEditAimComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             this.loading = true;
-            var data = { api: "saveAim", data: { aim: this.form.value.aim } };
+            var about = {
+                _id: this.about._id,
+                aim: this.form.value.aim,
+                history: this.about.history,
+                philosophy: this.about.philosophy
+            };
+            var data = { api: "editAbout", data: about };
             this.httpPostService.httpPost(data).subscribe(function (val) {
                 _this.form.reset();
                 _this.cancel();
@@ -206,7 +212,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"edit-history col-md-8 col-sm-10 mx-auto\">\n      <form (submit)=\"saveHistory()\" [formGroup]=\"form\">\n        <div class=\"header\">\n          <h3>history</h3>\n        </div>\n        <hr>\n        <div class=\"body\">\n          <textarea class=\"history\" name=\"history\" id=\"history\" rows=\"6\" formControlName=\"history\" placeholder=\"Enter history\"></textarea>\n          <span *ngIf=\"!form.get('history').valid && form.get('history').touched\">*Please Enter History</span>\n        </div>\n        <hr>\n        <div class=\"footer\">\n          <div class=\"row\">\n            <div class=\"col-6\">\n              <button type=\"submit\" class=\"btn-save\">Save</button>\n            </div>\n            <div class=\"col-6\">\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </form>\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"edit-history col-md-8 col-sm-10 mx-auto\">\r\n      <form (submit)=\"saveHistory()\" [formGroup]=\"form\">\r\n        <div class=\"header\">\r\n          <h3>history</h3>\r\n        </div>\r\n        <hr>\r\n        <div class=\"body\">\r\n          <textarea class=\"history\" name=\"history\" id=\"history\" rows=\"6\" formControlName=\"history\" placeholder=\"Enter history\"></textarea>\r\n          <span *ngIf=\"!form.get('history').valid && form.get('history').touched\">*Please Enter History</span>\r\n        </div>\r\n        <hr>\r\n        <div class=\"footer\">\r\n          <div class=\"row\">\r\n            <div class=\"col-6\">\r\n              <button type=\"submit\" class=\"btn-save\">Save</button>\r\n            </div>\r\n            <div class=\"col-6\">\r\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -240,14 +246,14 @@ var AdminEditHistoryComponent = /** @class */ (function () {
     AdminEditHistoryComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            history: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](this.history, {
+            history: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
             })
         });
         var data = { api: "getAbout", data: {} };
         this.httpPostService.httpPost(data).subscribe(function (val) {
-            _this.history = val[0].history;
-            _this.form.patchValue({ history: _this.history });
+            _this.about = val[0];
+            _this.form.patchValue({ history: _this.about.history });
             _this.loading = false;
         }, function (error) {
         });
@@ -256,7 +262,13 @@ var AdminEditHistoryComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             this.loading = true;
-            var data = { api: "saveHistory", data: { history: this.form.value.history } };
+            var about = {
+                _id: this.about._id,
+                aim: this.about.aim,
+                history: this.form.value.history,
+                philosophy: this.about.philosophy
+            };
+            var data = { api: "editAbout", data: about };
             this.httpPostService.httpPost(data).subscribe(function (val) {
                 _this.form.reset();
                 _this.cancel();
@@ -304,7 +316,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"edit-philosophy col-md-8 col-sm-10 mx-auto\">\n      <form (submit)=\"savePhilisophy()\" [formGroup]=\"form\">\n        <div class=\"header\">\n          <h3>philosophy</h3>\n        </div>\n        <hr>\n        <div class=\"body\">\n          <textarea class=\"philosophy\" name=\"philosophy\" id=\"philosophy\" rows=\"6\" formControlName=\"philosophy\" placeholder=\"Enter philosophy\"></textarea>\n          <span *ngIf=\"!form.get('philosophy').valid && form.get('philosophy').touched\">*Please Enter Philosophy</span>\n        </div>\n        <hr>\n        <div class=\"footer\">\n          <div class=\"row\">\n            <div class=\"col-6\">\n              <button type=\"submit\" class=\"btn-save\">Save</button>\n            </div>\n            <div class=\"col-6\">\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </form>\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"edit-philosophy col-md-8 col-sm-10 mx-auto\">\r\n      <form (submit)=\"savePhilisophy()\" [formGroup]=\"form\">\r\n        <div class=\"header\">\r\n          <h3>philosophy</h3>\r\n        </div>\r\n        <hr>\r\n        <div class=\"body\">\r\n          <textarea class=\"philosophy\" name=\"philosophy\" id=\"philosophy\" rows=\"6\" formControlName=\"philosophy\" placeholder=\"Enter philosophy\"></textarea>\r\n          <span *ngIf=\"!form.get('philosophy').valid && form.get('philosophy').touched\">*Please Enter Philosophy</span>\r\n        </div>\r\n        <hr>\r\n        <div class=\"footer\">\r\n          <div class=\"row\">\r\n            <div class=\"col-6\">\r\n              <button type=\"submit\" class=\"btn-save\">Save</button>\r\n            </div>\r\n            <div class=\"col-6\">\r\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -338,14 +350,14 @@ var AdminEditPhilosophyComponent = /** @class */ (function () {
     AdminEditPhilosophyComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            philosophy: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](this.philosophy, {
+            philosophy: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
             })
         });
         var data = { api: "getAbout", data: {} };
         this.httpPostService.httpPost(data).subscribe(function (val) {
-            _this.philosophy = val[0].philosophy;
-            _this.form.patchValue({ philosophy: _this.philosophy });
+            _this.about = val[0];
+            _this.form.patchValue({ philosophy: _this.about.philosophy });
             _this.loading = false;
         }, function (error) {
         });
@@ -354,7 +366,13 @@ var AdminEditPhilosophyComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             this.loading = true;
-            var data = { api: "savePhillosophy", data: { philosophy: this.form.value.philosophy } };
+            var about = {
+                _id: this.about._id,
+                aim: this.about.aim,
+                history: this.about.history,
+                philosophy: this.form.value.philosophy
+            };
+            var data = { api: "editAbout", data: about };
             this.httpPostService.httpPost(data).subscribe(function (val) {
                 _this.form.reset();
                 _this.cancel();
@@ -402,7 +420,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n\n  <div class=\"col-10 mx-auto\">\n    <div class=\"about\">\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <button type=\"button\" routerLink=\"edit\" class=\"btn-edit float-right\" skipLocationChange>Edit</button>\n          <h3>History</h3>\n        </div>\n      </div>\n    </div>\n    <hr>\n    <div class=\"about-body\">\n      <p>{{ about.history }}</p>\n    </div>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n\r\n  <div class=\"col-10 mx-auto\">\r\n    <div class=\"about\">\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" routerLink=\"edit\" class=\"btn-edit float-right\" skipLocationChange>Edit</button>\r\n          <h3>History</h3>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"about-body\">\r\n      <p>{{ about.history }}</p>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -469,7 +487,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n\n  <div class=\"col-10 mx-auto\">\n    <div class=\"about\">\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <button type=\"button\" routerLink=\"edit\" class=\"btn-edit float-right\" skipLocationChange>Edit</button>\n          <h3>Philosophy</h3>\n        </div>\n      </div>\n    </div>\n    <hr>\n    <div class=\"about-body\">\n      <p>{{ about.philosophy }}</p>\n    </div>\n  </div>\n\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n\r\n  <div class=\"col-10 mx-auto\">\r\n    <div class=\"about\">\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" routerLink=\"edit\" class=\"btn-edit float-right\" skipLocationChange>Edit</button>\r\n          <h3>Philosophy</h3>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"about-body\">\r\n      <p>{{ about.philosophy }}</p>\r\n    </div>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -536,7 +554,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\nhr {\r\n    border: 1px solid #e
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Add New Article</h4>\r\n      <form class=\"add_title\" (submit)=\"addArticle()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n          <label for=\"title\">Title : </label>\r\n          <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Article Description</span>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"image\">Select Article Image : </label>\r\n          <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n          <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Image File</span>\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Article Fields</span>\r\n        </div>\r\n        \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-add\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Add New Article</h4>\r\n      <form class=\"add_title\" (submit)=\"addArticle()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n          <label for=\"title\">Title : </label>\r\n          <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Article Description</span>\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Article Fields</span>\r\n        </div>\r\n        \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-add\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -579,27 +597,9 @@ var AdminAddArticleComponent = /** @class */ (function () {
             }),
             body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
-            }),
-            image: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
-                validators: [this.formValidator.imageValidate.bind(this)]
             })
         });
         this.loading = false;
-    };
-    AdminAddArticleComponent.prototype.onImagePicked = function (event) {
-        var _this = this;
-        var file = event.target.files[0];
-        if (file) {
-            var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
-            if (!(this.imgExt.indexOf(ext) != -1)) {
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                _this.image = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
     };
     AdminAddArticleComponent.prototype.addArticle = function () {
         var _this = this;
@@ -609,7 +609,7 @@ var AdminAddArticleComponent = /** @class */ (function () {
         if (this.form.valid) {
             this.formError = false;
             this.loading = true;
-            var article = { title: this.form.value.title, body: this.form.value.body, image: "image" };
+            var article = { title: this.form.value.title, body: this.form.value.body };
             var data = { api: "addArticle", data: article };
             this.httpPostService.httpPost(data).subscribe(function (val) {
                 _this.form.reset();
@@ -750,7 +750,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit Article</h4>\r\n      <form class=\"add_title\" (submit)=\"editArticle()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n           <label for=\"title\">Title : </label>\r\n            <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n            \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Article Description</span>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n          <label for=\"phone\">Select Article Image : </label>\r\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n          <span *ngIf=\"!form.get('image').valid\">*Please Select Image File</span>\r\n\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Article Fields</span>\r\n        </div>\r\n          \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-edit\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit Article</h4>\r\n      <form class=\"add_title\" (submit)=\"editArticle()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n           <label for=\"title\">Title : </label>\r\n            <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n            \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Article Description</span>\r\n        </div>\r\n        \r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Article Fields</span>\r\n        </div>\r\n          \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-edit\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -794,9 +794,6 @@ var AdminEditArticleComponent = /** @class */ (function () {
             }),
             body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
-            }),
-            image: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
-                validators: [this.formValidator.imageValidate.bind(this)]
             })
         });
         this.route.params
@@ -804,32 +801,15 @@ var AdminEditArticleComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getArticle", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.article = val[0];
-                _this.image = _this.article.image;
+                _this.article = val;
                 _this.form.setValue({
                     title: _this.article.title,
-                    body: _this.article.body,
-                    image: null
+                    body: _this.article.body
                 });
                 _this.loading = false;
             }, function (error) {
             });
         });
-    };
-    AdminEditArticleComponent.prototype.onImagePicked = function (event) {
-        var _this = this;
-        var file = event.target.files[0];
-        if (file) {
-            var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
-            if (!(this.imgExt.indexOf(ext) != -1)) {
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                _this.image = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
     };
     AdminEditArticleComponent.prototype.editArticle = function () {
         var _this = this;
@@ -842,8 +822,7 @@ var AdminEditArticleComponent = /** @class */ (function () {
             var editedArticle = {
                 _id: this.article._id,
                 title: this.form.value.title,
-                body: this.form.value.body,
-                image: this.image
+                body: this.form.value.body
             };
             var data = { api: "editArticle", data: editedArticle };
             this.httpPostService.httpPost(data).subscribe(function (val) {
@@ -893,7 +872,7 @@ module.exports = ".article {\r\n    background-color: #f4f4f4;\r\n    padding: 5
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-10 mx-auto\">\r\n\r\n    <div class=\"article p-3\">\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\r\n          <h3>{{article.title}}</h3>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <div class=\"image\">\r\n            <img [src]=\"article.image\" [alt]=\"article.title\" width=\"100%\">\r\n          </div>\r\n        </div>\r\n        <div class=\"col-md-8 col-sm-12\">\r\n          <p>{{article.body}}</p>    \r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n      <div class=\"row\">\r\n        <div class=\"col-11 mx-auto\">\r\n          <button type=\"button\" class=\"btn-edit ml-3\" (click)= \"edit()\">Edit</button>\r\n          <button type=\"button\" class=\"btn-delete mr-3 float-right\" (click)=\"delete()\">Delete</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-10 mx-auto\">\r\n\r\n    <div class=\"article p-3\">\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\r\n          <h3>{{article.title}}</h3>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <p>{{article.body}}</p>    \r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n      <div class=\"row\">\r\n        <div class=\"col-11 mx-auto\">\r\n          <button type=\"button\" class=\"btn-edit ml-3\" (click)= \"edit()\">Edit</button>\r\n          <button type=\"button\" class=\"btn-delete mr-3 float-right\" (click)=\"delete()\">Delete</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -929,7 +908,7 @@ var AdminShowArticleComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getArticle", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.article = val[0];
+                _this.article = val;
                 _this.loading = false;
             }, function (error) {
             });
@@ -991,7 +970,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12 mx-auto\">\n    <div class=\"row\">\n      <div class=\"col-md-6 col-sm-12\">\n        <h3>Attendance</h3>\n      </div>\n    </div>\n    <hr>\n    <form (submit)=\"addAttendance()\" [formGroup]=\"form\">\n      <div class=\"row\">\n        <div class=\"col-md-4 col-sm-12\">\n          <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" (change)=\"onSelectBranch()\">\n            <option value=\"\">Select Branch</option>\n            <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\n          </select>\n        </div>\n        <div class=\"col-md-4 col-sm-12\">\n          <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batch\" (change)=\"onSelectBatchName()\">\n            <option value=\"\">Select Batch Name</option>\n            <ng-container *ngFor=\"let batch of batches\">\n              <option [value]=\"batch.batchName\" *ngIf=\"batch.batchType === weekType\">{{batch.batchName}}</option>\n            </ng-container>\n          </select>\n        </div>\n        <div class=\"col-md-4 col-sm-12\">\n          <select class=\"batchType\" type=\"text\" name=\"batchType\" id=\"batchType\" formControlName=\"weekType\" (change)=\"onSelectBatchType()\">\n            <option value=\"weekDays\">Week Day</option>\n            <option value=\"weekEnds\">Week End</option>\n        </select>\n        </div>\n      </div>\n      <br>\n      <div class=\"row\">\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group m-1\">\n            <label for=\"date\">Select Date : </label>\n            <input class=\"date\" type=\"date\" name=\"date\" id=\"date\" formControlName=\"date\">\n          </div>\n        </div>\n        <div class=\"col-md-6 col-sm-12\">\n          <br>\n          <button type=\"submit\" class=\"btn-submit\">Submit</button>\n        </div>\n      </div>\n    </form>\n    <br>\n    <div class=\"row\" *ngIf=\"students.length > 0; else empty_students\">\n      <div class=\"table-responsive\">\n        <table class=\"table table-sm table-hover\">\n          <thead>\n            <tr>\n              <th>ID</th>\n              <th>Student</th>\n              <th>Present</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr class=\"student-tr\" *ngFor=\"let student of students, let i = index\">\n              <td>{{ i+1 }}</td>\n              <td>\n                  {{ student.name }}\n              </td>\n              <td>\n                <div class=\"attendance-selector\">\n                    <input type=\"checkbox\" [id]=\"student._id\" class=\"attendance\" (change)=\"markAttendance($event, student._id, i)\">\n                    <label [for]=\"student._id\">{{attendance[i]}}</label>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <ng-template #empty_students>\n      <h5 class=\"pl-3\">{{noStudent}}</h5>\n    </ng-template>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12 mx-auto\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <h3>Attendance</h3>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form (submit)=\"addAttendance()\" [formGroup]=\"form\">\r\n      <div class=\"row\">\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" (change)=\"onSelectBranch()\">\r\n            <option value=\"\">Select Branch</option>\r\n            <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\r\n          </select>\r\n        </div>\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batch\" (change)=\"onSelectBatchName()\">\r\n            <option value=\"\">Select Batch Name</option>\r\n            <ng-container *ngFor=\"let batch of batches\">\r\n              <option [value]=\"batch.batchName\" *ngIf=\"batch.batchType === weekType\">{{batch.batchName}}</option>\r\n            </ng-container>\r\n          </select>\r\n        </div>\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"batchType\" type=\"text\" name=\"batchType\" id=\"batchType\" formControlName=\"weekType\" (change)=\"onSelectBatchType()\">\r\n            <option value=\"weekDays\">Week Day</option>\r\n            <option value=\"weekEnds\">Week End</option>\r\n        </select>\r\n        </div>\r\n      </div>\r\n      <br>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group m-1\">\r\n            <label for=\"date\">Select Date : </label>\r\n            <input class=\"date\" type=\"date\" name=\"date\" id=\"date\" formControlName=\"date\">\r\n          </div>\r\n        </div>\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <br>\r\n          <button type=\"submit\" class=\"btn-submit\">Submit</button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <br>\r\n    <div class=\"row\" *ngIf=\"students.length > 0; else empty_students\">\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <thead>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Student</th>\r\n              <th>Present</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr class=\"student-tr\" *ngFor=\"let student of students, let i = index\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                  {{ student.name }}\r\n              </td>\r\n              <td>\r\n                <div class=\"attendance-selector\">\r\n                    <input type=\"checkbox\" [id]=\"student._id\" class=\"attendance\" (change)=\"markAttendance($event, student._id, i)\">\r\n                    <label [for]=\"student._id\">{{attendance[i]}}</label>\r\n                </div>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <ng-template #empty_students>\r\n      <h5 class=\"pl-3\">{{noStudent}}</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1060,6 +1039,7 @@ var AdminAttendanceComponent = /** @class */ (function () {
                     _this.allStudents = val;
                     _this.loading = false;
                 }, function (error) {
+                    _this.loading = false;
                 });
             }
         }, function (error) {
@@ -1119,10 +1099,27 @@ var AdminAttendanceComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.valid) {
             this.loading = true;
-            console.log(this.form.value, this.present, this.absent);
-            var data = { api: "saveAttendance", data: {} };
+            var attendance = {
+                date: this.form.value.date,
+                branch: this.form.value.branch,
+                batch: this.form.value.batch,
+                batchType: this.form.value.weekType,
+                present: this.present,
+                absent: this.absent
+            };
+            console.log(attendance);
+            var data = { api: "saveAttendance", data: attendance };
             this.httpPostService.httpPost(data).subscribe(function (val) {
                 _this.loading = false;
+                _this.form.reset({
+                    branch: "",
+                    batch: "",
+                    weekType: _this.weekType,
+                    date: _this.date
+                });
+                _this.students = [];
+                _this.absent = [];
+                _this.present = [];
             }, function (error) {
                 _this.loading = false;
             });
@@ -1181,7 +1178,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\n    <h4 class=\"text-center mb-3\">Add New Branch</h4>\n    <form class=\"\" (submit)=\"addAddress()\" [formGroup]=\"form\">\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12 \">\n          <div class=\"form-group\">\n            <label for=\"city\">City : </label>\n            <input class=\"city\" type=\"text\" name=\"city\" id=\"city\" formControlName=\"city\" placeholder=\"City\">\n            <span *ngIf=\"!form.get('city').valid && form.get('city').touched\">*Please enter City</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12 \">\n          <div class=\"form-group\">\n            <label for=\"branch\">Branch Name : </label>\n            <input class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\">\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please enter Branch</span>\n          </div>\n        </div>\n\n      </div>\n      \n      <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group \">\n              <label for=\"address\">Address : </label>\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Address\"></textarea>\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\n            </div>\n          </div>\n        </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12 \">\n          <div class=\"form-group\">\n            <label for=\"email\">Email : </label>\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12 \">\n          <div class=\"form-group\">\n            <label for=\"phone\">Phone : </label>\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"9876543210\">\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group \">\n              <label for=\"descripton\">Descripton : </label>\n              <textarea class=\"descripton\" name=\"descripton\" id=\"descripton\" rows=\"5\" formControlName=\"descripton\" placeholder=\"Descripton\"></textarea>\n              <span *ngIf=\"!form.get('descripton').valid && form.get('descripton').touched\">*Please enter Descripton</span>\n            </div>\n          </div>\n        \n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div class=\"form-group \">\n            <label for=\"image\">Select Branch Images : </label>\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\" multiple>\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image Files</span>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div class=\"form-group\">\n            <label for=\"batch\">Add Batches : </label>\n            <div class=\"batches-border\" id=\"batch\">\n              <form (submit)=\"addBatch()\" [formGroup]=\"batchForm\">\n                <div class=\"row\">\n                  <div class=\"col-md-4 col-sm-12 p-0\">\n                    <div class=\"form-group m-1\">\n                      <label for=\"week\">Week Type : </label>\n                      <select class=\"week\" name=\"week\" id=\"week\" formControlName=\"week\" (change)=\"scheduleChange()\">\n                        <option value=\"weekDays\" selected>Week Day</option>\n                        <option value=\"weekEnds\">Week End</option>\n                      </select>\n                      <span *ngIf=\"!batchForm.get('week').valid && batchForm.get('week').touched\">*Please Select Valid Week Type</span>\n                    </div>\n                  </div>\n                  <div class=\"col-md-8 col-sm-12 p-0\">\n                    <div class=\"form-group m-1\">\n                      <label>Select Days : </label>\n                      <div class=\"weekDays-selector batches-border\">\n                        <div formArrayName=\"weekDays\">\n                          <label *ngFor=\"let day of batchForm.get('weekDays').controls; let i = index\">\n                            <input type=\"checkbox\" [id]=\"week[i]\" class=\"weekday\" [formControlName]=\"i\" (change)=\"weekDay($event, i)\">\n                            <label [for]=\"week[i]\">{{week[i]}}</label>\n                          </label>\n                        </div>\n                      </div>\n                      <span *ngIf=\"!batchForm.get('weekDays').valid && weekdaysTouched\">*Please Select Week Days</span>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 col-sm-12 p-0\">\n                    <div class=\"form-group m-1\">\n                      <label for=\"batchName\">Batch Name : </label>\n                      <input class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\" placeholder=\"Batch Name\">\n                      <span *ngIf=\"!batchForm.get('batchName').valid && batchForm.get('batchName').touched\">*Please Enter Batch Name</span>\n                    </div>  \n                  </div>\n                  <div class=\"col-md-6 col-sm-12 p-0\">\n                    <div class=\"form-group m-1\">\n                      <label for=\"fees\">Fees : </label>\n                      <input class=\"fees\" type=\"fees\" name=\"fees\" id=\"fees\" formControlName=\"fees\" placeholder=\"Fees\">\n                      <span *ngIf=\"!batchForm.get('fees').valid && batchForm.get('fees').touched\">*Please Enter Fees</span>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 col-sm-12 p-0\">\n                    <div class=\"form-group m-1\">\n                      <label for=\"start_timming\">Time : </label>\n                      <div class=\"row\">\n                          <div class=\"col-5 p-0\">\n                            <input type=\"text\" name=\"start_timming\" id=\"start_timming\" formControlName=\"start_timming\" placeholder=\"From\">\n                          </div>\n                          <div class=\"col-2 text-center\">\n                            <p>-</p>\n                          </div>\n                          <div class=\"col-5 p-0\">\t\t\t\t\t\n                            <input type=\"text\" name=\"end_timming\" id=\"end_timming\" formControlName=\"end_timming\" placeholder=\"To\">\n                          </div>\n                        </div> \n                      <span *ngIf=\"(!batchForm.get('start_timming').valid && batchForm.get('start_timming').touched) || (!batchForm.get('end_timming').valid && batchForm.get('end_timming').touched)\">*Please Enter Timming</span>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 col-sm-12\">\n                    <br>\n                    <button type=\"submit\" class=\"btn-add\">Add</button>            \n                  </div>\n                </div>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\" *ngIf=\"isWeekType(weekType)\">\n        <div class=\"col-12\">\n          <label for=\"batches\">Batches : </label>\n          <div class=\"table-responsive batches-border\" id=\"batches\">\n            <table class=\"table table-sm\">\n              <thead class=\"text-center\">\n                <th>Batch</th>\n                <th>Timming</th>\n                <th>Fees</th>\n                <th>Days</th>\n                <th>Delete</th>\n              </thead>\n              <tbody>\n                <ng-container *ngFor=\"let batch of batches; let i = index\">\n                  <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === weekType\">\n                    <td class=\"text-left\">{{batch.batchName}}</td>\n                    <td>{{batch.time}}</td>\n                    <td>{{batch.fees}}</td>\n                    <td>{{batch.days}}</td>\n                    <td>\n                      <button type=\"button\" class=\"btn-delete\" (click)=\"deleteBatch(i)\">Delete</button>\n                    </td>\n                  </tr>\n                </ng-container>\n              </tbody>\n            </table>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\" *ngIf=\"formError\">\n        <div class=\"col-12\">\n          <span>{{formError}}</span>\n        </div>\n      </div>\n\n      <hr>\n      <div class=\"row\">\n          <div class=\"col-12\">\n            <button type=\"submit\" class=\"btn-add\">Save</button>\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n          </div>\n        </div>\n    </form>\n  </div>\n\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\r\n    <h4 class=\"text-center mb-3\">Add New Branch</h4>\r\n    <form class=\"\" (submit)=\"addAddress()\" [formGroup]=\"form\">\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12 \">\r\n          <div class=\"form-group\">\r\n            <label for=\"city\">City : </label>\r\n            <input class=\"city\" type=\"text\" name=\"city\" id=\"city\" formControlName=\"city\" placeholder=\"City\">\r\n            <span *ngIf=\"!form.get('city').valid && form.get('city').touched\">*Please enter City</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12 \">\r\n          <div class=\"form-group\">\r\n            <label for=\"branch\">Branch Name : </label>\r\n            <input class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\">\r\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please enter Branch</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      \r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group \">\r\n              <label for=\"address\">Address : </label>\r\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Address\"></textarea>\r\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12 \">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email : </label>\r\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12 \">\r\n          <div class=\"form-group\">\r\n            <label for=\"phone\">Phone : </label>\r\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"9876543210\">\r\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group \">\r\n              <label for=\"descripton\">Descripton : </label>\r\n              <textarea class=\"descripton\" name=\"descripton\" id=\"descripton\" rows=\"5\" formControlName=\"descripton\" placeholder=\"Descripton\"></textarea>\r\n              <span *ngIf=\"!form.get('descripton').valid && form.get('descripton').touched\">*Please enter Descripton</span>\r\n            </div>\r\n          </div>\r\n        \r\n      </div>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div class=\"form-group \">\r\n            <label for=\"image\">Select Branch Images : </label>\r\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\" multiple>\r\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image Files</span>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"batch\">Add Batches : </label>\r\n            <div class=\"batches-border\" id=\"batch\">\r\n              <form (submit)=\"addBatch()\" [formGroup]=\"batchForm\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-4 col-sm-12 p-0\">\r\n                    <div class=\"form-group m-1\">\r\n                      <label for=\"week\">Week Type : </label>\r\n                      <select class=\"week\" name=\"week\" id=\"week\" formControlName=\"week\" (change)=\"scheduleChange()\">\r\n                        <option value=\"weekDays\" selected>Week Day</option>\r\n                        <option value=\"weekEnds\">Week End</option>\r\n                      </select>\r\n                      <span *ngIf=\"!batchForm.get('week').valid && batchForm.get('week').touched\">*Please Select Valid Week Type</span>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-8 col-sm-12 p-0\">\r\n                    <div class=\"form-group m-1\">\r\n                      <label>Select Days : </label>\r\n                      <div class=\"weekDays-selector batches-border\">\r\n                        <div formArrayName=\"weekDays\">\r\n                          <label *ngFor=\"let day of batchForm.get('weekDays').controls; let i = index\">\r\n                            <input type=\"checkbox\" [id]=\"week[i]\" class=\"weekday\" [formControlName]=\"i\" (change)=\"weekDay($event, i)\">\r\n                            <label [for]=\"week[i]\">{{week[i]}}</label>\r\n                          </label>\r\n                        </div>\r\n                      </div>\r\n                      <span *ngIf=\"!batchForm.get('weekDays').valid && weekdaysTouched\">*Please Select Week Days</span>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 col-sm-12 p-0\">\r\n                    <div class=\"form-group m-1\">\r\n                      <label for=\"batchName\">Batch Name : </label>\r\n                      <input class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\" placeholder=\"Batch Name\">\r\n                      <span *ngIf=\"!batchForm.get('batchName').valid && batchForm.get('batchName').touched\">*Please Enter Batch Name</span>\r\n                    </div>  \r\n                  </div>\r\n                  <div class=\"col-md-6 col-sm-12 p-0\">\r\n                    <div class=\"form-group m-1\">\r\n                      <label for=\"fees\">Fees : </label>\r\n                      <input class=\"fees\" type=\"fees\" name=\"fees\" id=\"fees\" formControlName=\"fees\" placeholder=\"Fees\">\r\n                      <span *ngIf=\"!batchForm.get('fees').valid && batchForm.get('fees').touched\">*Please Enter Fees</span>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 col-sm-12 p-0\">\r\n                    <div class=\"form-group m-1\">\r\n                      <label for=\"start_timming\">Time : </label>\r\n                      <div class=\"row\">\r\n                          <div class=\"col-5 p-0\">\r\n                            <input type=\"text\" name=\"start_timming\" id=\"start_timming\" formControlName=\"start_timming\" placeholder=\"From\">\r\n                          </div>\r\n                          <div class=\"col-2 text-center\">\r\n                            <p>-</p>\r\n                          </div>\r\n                          <div class=\"col-5 p-0\">\t\t\t\t\t\r\n                            <input type=\"text\" name=\"end_timming\" id=\"end_timming\" formControlName=\"end_timming\" placeholder=\"To\">\r\n                          </div>\r\n                        </div> \r\n                      <span *ngIf=\"(!batchForm.get('start_timming').valid && batchForm.get('start_timming').touched) || (!batchForm.get('end_timming').valid && batchForm.get('end_timming').touched)\">*Please Enter Timming</span>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 col-sm-12\">\r\n                    <br>\r\n                    <button type=\"submit\" class=\"btn-add\">Add</button>            \r\n                  </div>\r\n                </div>\r\n              </form>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\" *ngIf=\"isWeekType(weekType)\">\r\n        <div class=\"col-12\">\r\n          <label for=\"batches\">Batches : </label>\r\n          <div class=\"table-responsive batches-border\" id=\"batches\">\r\n            <table class=\"table table-sm\">\r\n              <thead class=\"text-center\">\r\n                <th>Batch</th>\r\n                <th>Timming</th>\r\n                <th>Fees</th>\r\n                <th>Days</th>\r\n                <th>Delete</th>\r\n              </thead>\r\n              <tbody>\r\n                <ng-container *ngFor=\"let batch of batches; let i = index\">\r\n                  <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === weekType\">\r\n                    <td class=\"text-left\">{{batch.batchName}}</td>\r\n                    <td>{{batch.time}}</td>\r\n                    <td>{{batch.fees}}</td>\r\n                    <td>{{batch.days}}</td>\r\n                    <td>\r\n                      <button type=\"button\" class=\"btn-delete\" (click)=\"deleteBatch(i)\">Delete</button>\r\n                    </td>\r\n                  </tr>\r\n                </ng-container>\r\n              </tbody>\r\n            </table>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\" *ngIf=\"formError\">\r\n        <div class=\"col-12\">\r\n          <span>{{formError}}</span>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <button type=\"submit\" class=\"btn-add\">Save</button>\r\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n          </div>\r\n        </div>\r\n    </form>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -1220,10 +1217,10 @@ var AdminAddBranchComponent = /** @class */ (function () {
         this.weekdaysTouched = false;
         this.formError = null;
         this.weekType = "weekDays";
-        this.images = [];
         this.imgExt = ['jpg', 'png'];
     }
     AdminAddBranchComponent.prototype.ngOnInit = function () {
+        this.images = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             city: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
@@ -1290,7 +1287,7 @@ var AdminAddBranchComponent = /** @class */ (function () {
             for (var i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                    _this.images.push(event.target.result);
+                    _this.images = event.target.result;
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -1402,7 +1399,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12 mx-auto\">\n    <div class=\"row\">\n      <div class=\"col-md-6 col-sm-12\">\n        <h3>Branches</h3>\n      </div>\n      <div class=\"col-md-6 col-sm-12\">\n        <button class=\"new-btn float-right\" (click)=\"onNewBranch()\">Create New Branch</button>\n      </div>\n    </div>\n    <hr>\n    <div class=\"table-responsive\" *ngIf=\"branches.length > 0; else empty_branches\">\n      <table class=\"table table-sm\">\n        <thead>\n          <tr>\n            <th>ID</th>\n            <th>Branch</th>\n            <th>Contact</th>\n            <th>Status</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class=\"branch\" *ngFor=\"let branch of branches, let i = index\" routerLinkActive=\"active\">\n            <td>{{ i+1 }}</td>\n            <td>\n              <a [routerLink]=\"branch._id\" class=\"branch-name\" skipLocationChange>\n                {{ branch.branch }}\n              </a>\n            </td>\n            <td>\n              +91 {{ branch.phone }}\n            </td>\n            <td>\n              {{ branch.status | uppercase }}\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n    \n    <ng-template #empty_branches>\n      <h5 class=\"pl-3\">No Branches Available..</h5>\n    </ng-template>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12 mx-auto\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <h3>Branches</h3>\r\n      </div>\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <button class=\"new-btn float-right\" (click)=\"onNewBranch()\">Create New Branch</button>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"table-responsive\" *ngIf=\"branches.length > 0; else empty_branches\">\r\n      <table class=\"table table-sm\">\r\n        <thead>\r\n          <tr>\r\n            <th>ID</th>\r\n            <th>Branch</th>\r\n            <th>Contact</th>\r\n            <th>Status</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr class=\"branch\" *ngFor=\"let branch of branches, let i = index\" routerLinkActive=\"active\">\r\n            <td>{{ i+1 }}</td>\r\n            <td>\r\n              <a [routerLink]=\"branch._id\" class=\"branch-name\" skipLocationChange>\r\n                {{ branch.branch }}\r\n              </a>\r\n            </td>\r\n            <td>\r\n              +91 {{ branch.phone }}\r\n            </td>\r\n            <td>\r\n              {{ branch.status | uppercase }}\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n    \r\n    <ng-template #empty_branches>\r\n      <h5 class=\"pl-3\">No Branches Available..</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1440,7 +1437,6 @@ var AdminBranchComponent = /** @class */ (function () {
             _this.loading = false;
         }, function (error) {
         });
-        ;
     };
     AdminBranchComponent.prototype.onNewBranch = function () {
         this.loading = true;
@@ -1481,7 +1477,7 @@ module.exports = "  * {\r\n      margin: 0;\r\n  }\r\n\r\n  hr {\r\n      border
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\n      <h4 class=\"text-center mb-3\">Edit Branch - {{branchData.branch}}</h4>\n      <form class=\"\" (submit)=\"editAddress()\" [formGroup]=\"form\">\n  \n        <div class=\"row\">\n  \n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"city\">City : </label>\n              <input class=\"city\" type=\"text\" name=\"city\" id=\"city\" formControlName=\"city\" placeholder=\"City\">\n              <span *ngIf=\"!form.get('city').valid && form.get('city').touched\">*Please enter City</span>\n            </div>\n          </div>\n  \n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"branch\">Branch Name : </label>\n              <input class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\">\n              <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please enter Branch</span>\n            </div>\n          </div>\n  \n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12\"> \n            <div class=\"form-group\">\n              <label for=\"address\">Address : </label>\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Address\"></textarea>\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\n            </div>\n          </div>\n        </div>\n        \n  \n        <div class=\"row\">\n  \n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"email\">Email : </label>\n              <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n              <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n            </div>\n          </div>\n  \n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"phone\">Phone : </label>\n              <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"9876543210\">\n              <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\n            </div>\n          </div>\n  \n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12\">  \n            <div class=\"form-group\">\n              <label for=\"description\">Description : </label>\n              <textarea class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\n              <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Description</span>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12\"> \n            <div class=\"form-group\">\n              <label for=\"image\">Select Branch Images : </label>\n              <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\" multiple>\n              <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\n            </div>\n          </div>\n        </div>\n  \n        <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group\">\n              <label for=\"batch\">Add Batches : </label>\n              <div class=\"batches-border\" id=\"batch\">\n                <form (submit)=\"addBatch()\" [formGroup]=\"batchForm\">\n                  <div class=\"row\">\n                    <div class=\"col-md-4 col-sm-12 p-0\">\n                      <div class=\"form-group m-1\">\n                        <label for=\"week\">Week Type : </label>\n                        <select class=\"week\" name=\"week\" id=\"week\" formControlName=\"week\" (change)=\"scheduleChange()\">\n                          <option value=\"weekDays\" selected>Week Day</option>\n                          <option value=\"weekEnds\">Week End</option>\n                        </select>\n                        <span *ngIf=\"!batchForm.get('week').valid && batchForm.get('week').touched\">*Please Select Valid Week Type</span>\n                      </div>\n                    </div>\n                    <div class=\"col-md-8 col-sm-12 p-0\">\n                      <div class=\"form-group m-1\">\n                        <label>Select Days : </label>\n                        <div class=\"weekDays-selector batches-border\">\n                          <div formArrayName=\"weekDays\">\n                            <label *ngFor=\"let day of batchForm.get('weekDays').controls; let i = index\">\n                              <input type=\"checkbox\" [id]=\"week[i]\" class=\"weekday\" [formControlName]=\"i\" (change)=\"weekDay($event, i)\">\n                              <label [for]=\"week[i]\">{{week[i]}}</label>\n                            </label>\n                          </div>\n                        </div>\n                        <span *ngIf=\"!batchForm.get('weekDays').valid && weekdaysTouched\">*Please Select Week Days</span>\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"col-md-6 col-sm-12 p-0\">\n                      <div class=\"form-group m-1\">\n                        <label for=\"batchName\">Batch Name : </label>\n                        <input class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\" placeholder=\"Batch Name\">\n                        <span *ngIf=\"!batchForm.get('batchName').valid && batchForm.get('batchName').touched\">*Please Enter Batch Name</span>\n                      </div>  \n                    </div>\n                    <div class=\"col-md-6 col-sm-12 p-0\">\n                      <div class=\"form-group m-1\">\n                        <label for=\"fees\">Fees : </label>\n                        <input class=\"fees\" type=\"fees\" name=\"fees\" id=\"fees\" formControlName=\"fees\" placeholder=\"Fees\">\n                        <span *ngIf=\"!batchForm.get('fees').valid && batchForm.get('fees').touched\">*Please Enter Fees</span>\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"col-md-6 col-sm-12 p-0\">\n                      <div class=\"form-group m-1\">\n                        <label for=\"start_timming\">Time : </label>\n                        <div class=\"row\">\n                            <div class=\"col-5 p-0\">\n                              <input type=\"text\" name=\"start_timming\" id=\"start_timming\" formControlName=\"start_timming\" placeholder=\"From\">\n                            </div>\n                            <div class=\"col-2 text-center\">\n                              <p>-</p>\n                            </div>\n                            <div class=\"col-5 p-0\">\t\t\t\t\t\n                              <input type=\"text\" name=\"end_timming\" id=\"end_timming\" formControlName=\"end_timming\" placeholder=\"To\">\n                            </div>\n                          </div> \n                        <span *ngIf=\"(!batchForm.get('start_timming').valid && batchForm.get('start_timming').touched) || (!batchForm.get('end_timming').valid && batchForm.get('end_timming').touched)\">*Please Enter Timming</span>\n                      </div>\n                    </div>\n                    <div class=\"col-md-6 col-sm-12\">\n                      <br>\n                      <button type=\"submit\" class=\"btn-add\">Add</button>            \n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n  \n        <div class=\"row\" *ngIf=\"isWeekType(weekType)\">\n          <div class=\"col-12\">\n            <label for=\"batches\">Batches : </label>\n            <div class=\"table-responsive batches-border\" id=\"batches\">\n              <table class=\"table table-sm\">\n                <thead class=\"text-center\">\n                  <th>Batch</th>\n                  <th>Timming</th>\n                  <th>Fees</th>\n                  <th>Days</th>\n                  <th>Delete</th>\n                </thead>\n                <tbody>\n                  <ng-container *ngFor=\"let batch of batches; let i = index\">\n                    <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === weekType\">\n                      <td class=\"text-left\">{{batch.batchName}}</td>\n                      <td>{{batch.time}}</td>\n                      <td>{{batch.fees}}</td>\n                      <td>{{batch.days}}</td>\n                      <td>\n                        <button type=\"button\" class=\"btn-delete\" (click)=\"deleteBatch(i)\">Delete</button>\n                      </td>\n                    </tr>\n                  </ng-container>\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n          \n        <hr>\n        \n        <div class=\"row\">\n          <div class=\"col-12\">\n            <button type=\"submit\" class=\"btn-save\">Save</button>\n      \n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n          </div>\n        </div>\n  \n      </form>\n    </div>\n</div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit Branch - {{branchData.branch}}</h4>\r\n      <form class=\"\" (submit)=\"editAddress()\" [formGroup]=\"form\">\r\n  \r\n        <div class=\"row\">\r\n  \r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"city\">City : </label>\r\n              <input class=\"city\" type=\"text\" name=\"city\" id=\"city\" formControlName=\"city\" placeholder=\"City\">\r\n              <span *ngIf=\"!form.get('city').valid && form.get('city').touched\">*Please enter City</span>\r\n            </div>\r\n          </div>\r\n  \r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"branch\">Branch Name : </label>\r\n              <input class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\">\r\n              <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please enter Branch</span>\r\n            </div>\r\n          </div>\r\n  \r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-12\"> \r\n            <div class=\"form-group\">\r\n              <label for=\"address\">Address : </label>\r\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Address\"></textarea>\r\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        \r\n  \r\n        <div class=\"row\">\r\n  \r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"email\">Email : </label>\r\n              <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n              <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n            </div>\r\n          </div>\r\n  \r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"phone\">Phone : </label>\r\n              <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"9876543210\">\r\n              <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\r\n            </div>\r\n          </div>\r\n  \r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">  \r\n            <div class=\"form-group\">\r\n              <label for=\"description\">Description : </label>\r\n              <textarea class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\r\n              <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Description</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-12\"> \r\n            <div class=\"form-group\">\r\n              <label for=\"image\">Select Branch Images : </label>\r\n              <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\" multiple>\r\n              <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n  \r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"batch\">Add Batches : </label>\r\n              <div class=\"batches-border\" id=\"batch\">\r\n                <form (submit)=\"addBatch()\" [formGroup]=\"batchForm\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-4 col-sm-12 p-0\">\r\n                      <div class=\"form-group m-1\">\r\n                        <label for=\"week\">Week Type : </label>\r\n                        <select class=\"week\" name=\"week\" id=\"week\" formControlName=\"week\" (change)=\"scheduleChange()\">\r\n                          <option value=\"weekDays\" selected>Week Day</option>\r\n                          <option value=\"weekEnds\">Week End</option>\r\n                        </select>\r\n                        <span *ngIf=\"!batchForm.get('week').valid && batchForm.get('week').touched\">*Please Select Valid Week Type</span>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-8 col-sm-12 p-0\">\r\n                      <div class=\"form-group m-1\">\r\n                        <label>Select Days : </label>\r\n                        <div class=\"weekDays-selector batches-border\">\r\n                          <div formArrayName=\"weekDays\">\r\n                            <label *ngFor=\"let day of batchForm.get('weekDays').controls; let i = index\">\r\n                              <input type=\"checkbox\" [id]=\"week[i]\" class=\"weekday\" [formControlName]=\"i\" (change)=\"weekDay($event, i)\">\r\n                              <label [for]=\"week[i]\">{{week[i]}}</label>\r\n                            </label>\r\n                          </div>\r\n                        </div>\r\n                        <span *ngIf=\"!batchForm.get('weekDays').valid && weekdaysTouched\">*Please Select Week Days</span>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6 col-sm-12 p-0\">\r\n                      <div class=\"form-group m-1\">\r\n                        <label for=\"batchName\">Batch Name : </label>\r\n                        <input class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\" placeholder=\"Batch Name\">\r\n                        <span *ngIf=\"!batchForm.get('batchName').valid && batchForm.get('batchName').touched\">*Please Enter Batch Name</span>\r\n                      </div>  \r\n                    </div>\r\n                    <div class=\"col-md-6 col-sm-12 p-0\">\r\n                      <div class=\"form-group m-1\">\r\n                        <label for=\"fees\">Fees : </label>\r\n                        <input class=\"fees\" type=\"fees\" name=\"fees\" id=\"fees\" formControlName=\"fees\" placeholder=\"Fees\">\r\n                        <span *ngIf=\"!batchForm.get('fees').valid && batchForm.get('fees').touched\">*Please Enter Fees</span>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6 col-sm-12 p-0\">\r\n                      <div class=\"form-group m-1\">\r\n                        <label for=\"start_timming\">Time : </label>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-5 p-0\">\r\n                              <input type=\"text\" name=\"start_timming\" id=\"start_timming\" formControlName=\"start_timming\" placeholder=\"From\">\r\n                            </div>\r\n                            <div class=\"col-2 text-center\">\r\n                              <p>-</p>\r\n                            </div>\r\n                            <div class=\"col-5 p-0\">\t\t\t\t\t\r\n                              <input type=\"text\" name=\"end_timming\" id=\"end_timming\" formControlName=\"end_timming\" placeholder=\"To\">\r\n                            </div>\r\n                          </div> \r\n                        <span *ngIf=\"(!batchForm.get('start_timming').valid && batchForm.get('start_timming').touched) || (!batchForm.get('end_timming').valid && batchForm.get('end_timming').touched)\">*Please Enter Timming</span>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-6 col-sm-12\">\r\n                      <br>\r\n                      <button type=\"submit\" class=\"btn-add\">Add</button>            \r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n  \r\n        <div class=\"row\" *ngIf=\"isWeekType(weekType)\">\r\n          <div class=\"col-12\">\r\n            <label for=\"batches\">Batches : </label>\r\n            <div class=\"table-responsive batches-border\" id=\"batches\">\r\n              <table class=\"table table-sm\">\r\n                <thead class=\"text-center\">\r\n                  <th>Batch</th>\r\n                  <th>Timming</th>\r\n                  <th>Fees</th>\r\n                  <th>Days</th>\r\n                  <th>Delete</th>\r\n                </thead>\r\n                <tbody>\r\n                  <ng-container *ngFor=\"let batch of batches; let i = index\">\r\n                    <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === weekType\">\r\n                      <td class=\"text-left\">{{batch.batchName}}</td>\r\n                      <td>{{batch.time}}</td>\r\n                      <td>{{batch.fees}}</td>\r\n                      <td>{{batch.days}}</td>\r\n                      <td>\r\n                        <button type=\"button\" class=\"btn-delete\" (click)=\"deleteBatch(i)\">Delete</button>\r\n                      </td>\r\n                    </tr>\r\n                  </ng-container>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n          \r\n        <hr>\r\n        \r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <button type=\"submit\" class=\"btn-save\">Save</button>\r\n      \r\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n          </div>\r\n        </div>\r\n  \r\n      </form>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1520,7 +1516,6 @@ var AdminEditBranchComponent = /** @class */ (function () {
         this.weekdaysTouched = false;
         this.formError = null;
         this.weekType = "weekDays";
-        this.images = [];
         this.imgExt = ['jpg', 'png'];
     }
     AdminEditBranchComponent.prototype.ngOnInit = function () {
@@ -1602,7 +1597,7 @@ var AdminEditBranchComponent = /** @class */ (function () {
             for (var i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                    _this.images.push(event.target.result);
+                    _this.images = event.target.result;
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -1724,7 +1719,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-10 mx-auto\">\n      <div class=\"branch\">\n        <div class=\"row\">\n          <div class=\"col-12\">\n            <button class=\"btn-close float-right\" (click)=\"cancel()\">&#215;</button>\n            <h3 class=\"text-center\"><strong>{{branch.branch}}</strong> - {{branch.city}}</h3>\n          </div>\n        </div>\n\n        <hr>\n\n        <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"table-responsive\">\n              <table class=\"table table-sm\">\n                <tbody>\n                  <tr>\n                    <td>\n                      <strong>Description : </strong>\n                    </td>\n                    <td>\n                      <p>{{branch.description}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Address : </strong>\n                    </td>\n                    <td>\n                      <p>{{branch.address}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong><em>e</em>-mail : </strong>\n                    </td>\n                    <td>\n                      <p><a href=\"mailto:{{branch.email}}\">{{branch.email}}</a></p>   \n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Phone : </strong>\n                    </td>\n                    <td>\n                      <p>+91 {{branch.phone}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td colspan=\"2\">\n                      <strong>Schedule : </strong>\n                    </td>\n                  </tr>\n                  <tr *ngIf=\"isWeekDays()\">\n                    <td>\n                    </td>\n                    <td>\n                      <div class=\"row\">\n                        <strong>Week Day : </strong>\n                      </div>\n                      <div class=\"row table-responsive p-1\">\n                        <table class=\"table table-sm\">\n                          <thead class=\"text-center\">\n                            <th>Batch</th>\n                            <th>Timming</th>\n                            <th>Fees</th>\n                            <th>Days</th>\n                          </thead>\n                          <tbody>\n                            <ng-container *ngFor=\"let batch of batches\">\n                              <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === 'weekDays'\">\n                                <td class=\"text-left\">{{batch.batchName}}</td>\n                                <td>{{batch.time}}</td>\n                                <td>{{batch.fees}}</td>\n                                <td>{{batch.days}}</td>\n                              </tr>\n                            </ng-container>\n                          </tbody>\n                        </table>\n                      </div>\n                    </td>\n                  </tr>\n                  <tr *ngIf=\"isWeekEnds()\">\n                    <td>\n                    </td>\n                    <td>\n                      <div class=\"row\">\n                        <strong>Week End : </strong>\n                      </div>\n                      <div class=\"row table-responsive p-1\">\n                        <table class=\"table table-sm\">\n                          <thead class=\"text-center\">\n                            <th>Batch</th>\n                            <th>Timming</th>\n                            <th>Fees</th>\n                            <th>Days</th>\n                          </thead>\n                          <tbody>\n                            <ng-container *ngFor=\"let batch of batches\">\n                              <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === 'weekEnds'\">\n                                <td class=\"text-left\">{{batch.batchName}}</td>\n                                <td>{{batch.time}}</td>\n                                <td>{{batch.fees}}</td>\n                                <td>{{batch.days}}</td>\n                              </tr>\n                            </ng-container>\n                          </tbody>\n                        </table>\n                      </div>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Status : </strong>\n                    </td>\n                    <td>\n                      <p>{{branch.status | uppercase}}</p>              \n                    </td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n        \n        <hr>\n        \n        <div class=\".row\">\n          <div class=\"col-12\">\n            <button class=\"btn-edit\" (click)=\"editAddress()\">Edit</button>\n            <button class=\"btn-deactivate float-right\" (click)=\"changeStatus(branch._id, 'deactivated')\" *ngIf=\"branch.status === 'activated'\">Deactivate</button>\n            <button class=\"btn-activate float-right\" (click)=\"changeStatus(branch._id, 'activated')\" *ngIf=\"branch.status === 'deactivated'\">Activate</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <div class=\"branch\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <button class=\"btn-close float-right\" (click)=\"cancel()\">&#215;</button>\r\n            <h3 class=\"text-center\"><strong>{{branch.branch}}</strong> - {{branch.city}}</h3>\r\n          </div>\r\n        </div>\r\n\r\n        <hr>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"table-responsive\">\r\n              <table class=\"table table-sm\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Description : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{branch.description}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Address : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{branch.address}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong><em>e</em>-mail : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p><a href=\"mailto:{{branch.email}}\">{{branch.email}}</a></p>   \r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Phone : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>+91 {{branch.phone}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td colspan=\"2\">\r\n                      <strong>Schedule : </strong>\r\n                    </td>\r\n                  </tr>\r\n                  <tr *ngIf=\"isWeekDays()\">\r\n                    <td>\r\n                    </td>\r\n                    <td>\r\n                      <div class=\"row\">\r\n                        <strong>Week Day : </strong>\r\n                      </div>\r\n                      <div class=\"row table-responsive p-1\">\r\n                        <table class=\"table table-sm\">\r\n                          <thead class=\"text-center\">\r\n                            <th>Batch</th>\r\n                            <th>Timming</th>\r\n                            <th>Fees</th>\r\n                            <th>Days</th>\r\n                          </thead>\r\n                          <tbody>\r\n                            <ng-container *ngFor=\"let batch of batches\">\r\n                              <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === 'weekDays'\">\r\n                                <td class=\"text-left\">{{batch.batchName}}</td>\r\n                                <td>{{batch.time}}</td>\r\n                                <td>{{batch.fees}}</td>\r\n                                <td>{{batch.days}}</td>\r\n                              </tr>\r\n                            </ng-container>\r\n                          </tbody>\r\n                        </table>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr *ngIf=\"isWeekEnds()\">\r\n                    <td>\r\n                    </td>\r\n                    <td>\r\n                      <div class=\"row\">\r\n                        <strong>Week End : </strong>\r\n                      </div>\r\n                      <div class=\"row table-responsive p-1\">\r\n                        <table class=\"table table-sm\">\r\n                          <thead class=\"text-center\">\r\n                            <th>Batch</th>\r\n                            <th>Timming</th>\r\n                            <th>Fees</th>\r\n                            <th>Days</th>\r\n                          </thead>\r\n                          <tbody>\r\n                            <ng-container *ngFor=\"let batch of batches\">\r\n                              <tr class=\"p-1 text-center\" *ngIf=\"batch.batchType === 'weekEnds'\">\r\n                                <td class=\"text-left\">{{batch.batchName}}</td>\r\n                                <td>{{batch.time}}</td>\r\n                                <td>{{batch.fees}}</td>\r\n                                <td>{{batch.days}}</td>\r\n                              </tr>\r\n                            </ng-container>\r\n                          </tbody>\r\n                        </table>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Status : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{branch.status | uppercase}}</p>              \r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        \r\n        <hr>\r\n        \r\n        <div class=\".row\">\r\n          <div class=\"col-12\">\r\n            <button class=\"btn-edit\" (click)=\"editAddress()\">Edit</button>\r\n            <button class=\"btn-deactivate float-right\" (click)=\"changeStatus(branch._id, 'deactivated')\" *ngIf=\"branch.status === 'activated'\">Deactivate</button>\r\n            <button class=\"btn-activate float-right\" (click)=\"changeStatus(branch._id, 'activated')\" *ngIf=\"branch.status === 'deactivated'\">Activate</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -1763,7 +1758,7 @@ var AdminShowBranchComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getBranch", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.branch = val[0];
+                _this.branch = val;
                 _this.batches = _this.branch.batch;
                 _this.loading = false;
             }, function (error) {
@@ -1847,7 +1842,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-12\">\n    <div class=\"row\">\n      <h3>ADMIN DASHBOARD</h3>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\n        <div class=\"card m-3 shadow\">\n          <div class=\"card-header\">Branches</div>\n          <div class=\"card-body\">Basic card</div>            \n        </div>\n      </div>\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\n        <div class=\"card m-3 shadow\">\n          <div class=\"card-header\">Faculties</div>\n          <div class=\"card-body\">Basic card</div>\n        </div>\n      </div>\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\n        <div class=\"card m-3 shadow\">\n          <div class=\"card-header\">Students</div>\n          <div class=\"card-body\">Basic card</div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-12\">\r\n    <div class=\"row\">\r\n      <h3>ADMIN DASHBOARD</h3>\r\n    </div>\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\r\n        <div class=\"card m-3 shadow\">\r\n          <div class=\"card-header\">Branches</div>\r\n          <div class=\"card-body\">Basic card</div>            \r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\r\n        <div class=\"card m-3 shadow\">\r\n          <div class=\"card-header\">Faculties</div>\r\n          <div class=\"card-body\">Basic card</div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-4 col-sm-10 mx-auto\">\r\n        <div class=\"card m-3 shadow\">\r\n          <div class=\"card-header\">Students</div>\r\n          <div class=\"card-body\">Basic card</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2035,7 +2030,7 @@ var AdminReplyEnquiryComponent = /** @class */ (function () {
             .subscribe(function (params) {
             _this.id = params['id'];
             _this.httpPostService.httpPost(_this.id).subscribe(function (val) {
-                _this.enquiry = val[0];
+                _this.enquiry = val;
                 _this.loading = false;
             }, function (error) {
             });
@@ -2130,7 +2125,7 @@ var AdminShowEnquiryComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getEnquiry", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.enquiry = val[0];
+                _this.enquiry = val;
                 _this.loading = false;
             }, function (error) {
             });
@@ -2157,6 +2152,232 @@ var AdminShowEnquiryComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "* {\r\n    margin: 0;\r\n}\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tZXhhbS9hZG1pbi1hZGQtZXhhbS9hZG1pbi1hZGQtZXhhbS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksU0FBUztBQUNiO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLWV4YW0vYWRtaW4tYWRkLWV4YW0vYWRtaW4tYWRkLWV4YW0uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIioge1xyXG4gICAgbWFyZ2luOiAwO1xyXG59XHJcbmhyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBtYXJnaW46IDVweCAwO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Add New Exam</h4>\r\n      <form class=\"add_title\" (submit)=\"addExam()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n          <label for=\"title\">Title : </label>\r\n          <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Exam Description</span>\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Exam Fields</span>\r\n        </div>\r\n        \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-add\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: AdminAddExamComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminAddExamComponent", function() { return AdminAddExamComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../validators/form.validator */ "./src/app/validators/form.validator.ts");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+
+
+var AdminAddExamComponent = /** @class */ (function () {
+    function AdminAddExamComponent(httpPostService, formValidator, router, route) {
+        this.httpPostService = httpPostService;
+        this.formValidator = formValidator;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+        this.formError = false;
+    }
+    AdminAddExamComponent.prototype.ngOnInit = function () {
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            title: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            }),
+            body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            })
+        });
+        this.loading = false;
+    };
+    AdminAddExamComponent.prototype.addExam = function () {
+        var _this = this;
+        if (this.form.invalid) {
+            this.formError = true;
+        }
+        if (this.form.valid) {
+            this.formError = false;
+            this.loading = true;
+            var exam = { title: this.form.value.title, body: this.form.value.body };
+            var data = { api: "addExam", data: exam };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.form.reset();
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminAddExamComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(["/admin", "exam"], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminAddExamComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-add-exam',
+            template: __webpack_require__(/*! ./admin-add-exam.component.html */ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.html"),
+            styles: [__webpack_require__(/*! ./admin-add-exam.component.css */ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__["HttpPostService"],
+            _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__["FormValidator"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminAddExamComponent);
+    return AdminAddExamComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 8px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tZXhhbS9hZG1pbi1lZGl0LWV4YW0vYWRtaW4tZWRpdC1leGFtLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTO0FBQ2I7O0FBRUE7SUFDSSx5QkFBeUI7SUFDekIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLWV4YW0vYWRtaW4tZWRpdC1leGFtL2FkbWluLWVkaXQtZXhhbS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbmhyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBtYXJnaW46IDhweCAwO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit Exam</h4>\r\n      <form class=\"add_title\" (submit)=\"editExam()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n           <label for=\"title\">Title : </label>\r\n            <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n            \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter Exam Description</span>\r\n        </div>\r\n        \r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Exam Fields</span>\r\n        </div>\r\n          \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-edit\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: AdminEditExamComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminEditExamComponent", function() { return AdminEditExamComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../validators/form.validator */ "./src/app/validators/form.validator.ts");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+
+
+var AdminEditExamComponent = /** @class */ (function () {
+    function AdminEditExamComponent(httpPostService, formValidator, router, route) {
+        this.httpPostService = httpPostService;
+        this.formValidator = formValidator;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+        this.imgExt = ['jpg', 'png'];
+        this.formError = false;
+    }
+    AdminEditExamComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            title: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            }),
+            body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            })
+        });
+        this.route.params
+            .subscribe(function (params) {
+            var _id = params['id'];
+            var data = { api: "getExam", data: { _id: _id } };
+            _this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.exam = val;
+                _this.form.setValue({
+                    title: _this.exam.title,
+                    body: _this.exam.body
+                });
+                _this.loading = false;
+            }, function (error) {
+            });
+        });
+    };
+    AdminEditExamComponent.prototype.editExam = function () {
+        var _this = this;
+        if (this.form.invalid) {
+            this.formError = true;
+        }
+        if (this.form.valid) {
+            this.loading = true;
+            this.formError = false;
+            var editedexam = {
+                _id: this.exam._id,
+                title: this.form.value.title,
+                body: this.form.value.body
+            };
+            var data = { api: "editExam", data: editedexam };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminEditExamComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(['/admin', 'exam', this.exam._id], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminEditExamComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-edit-exam',
+            template: __webpack_require__(/*! ./admin-edit-exam.component.html */ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.html"),
+            styles: [__webpack_require__(/*! ./admin-edit-exam.component.css */ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__["HttpPostService"],
+            _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__["FormValidator"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminEditExamComponent);
+    return AdminEditExamComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/admin/admin-exam/admin-exam.component.css":
 /*!***********************************************************!*\
   !*** ./src/app/admin/admin-exam/admin-exam.component.css ***!
@@ -2164,7 +2385,7 @@ var AdminShowEnquiryComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLWV4YW0vYWRtaW4tZXhhbS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px auto;\r\n}\r\n\r\n.title {\r\n    text-decoration: none;\r\n    color: #000;\r\n    -webkit-text-decoration-color: transparent;\r\n            text-decoration-color: transparent;\r\n    transition: -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s, -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n}\r\n\r\n.title:hover{\r\n    color: #000;\r\n    text-decoration: underline;\r\n    -webkit-text-decoration-color: #e67e22;\r\n            text-decoration-color: #e67e22;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tZXhhbS9hZG1pbi1leGFtLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTO0FBQ2I7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0kseUJBQXlCO0lBQ3pCLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLHFCQUFxQjtJQUNyQixXQUFXO0lBQ1gsMENBQWtDO1lBQWxDLGtDQUFrQztJQUNsQyw0RUFBNEQ7SUFBNUQsNERBQTREO0lBQTVELDhIQUE0RDtBQUNoRTs7QUFFQTtJQUNJLFdBQVc7SUFDWCwwQkFBMEI7SUFDMUIsc0NBQThCO1lBQTlCLDhCQUE4QjtBQUNsQyIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLWV4YW0vYWRtaW4tZXhhbS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbmgzIHtcclxuICAgIGZvbnQtc2l6ZTogMTUwJTtcclxufVxyXG5cclxuaHIge1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U2N2UyMjtcclxuICAgIG1hcmdpbjogNXB4IGF1dG87XHJcbn1cclxuXHJcbi50aXRsZSB7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgICBjb2xvcjogIzAwMDtcclxuICAgIHRleHQtZGVjb3JhdGlvbi1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgICB0cmFuc2l0aW9uOiB0ZXh0LWRlY29yYXRpb24gMC4ycywgdGV4dC1kZWNvcmF0aW9uLWNvbG9yIDAuMnM7XHJcbn1cclxuXHJcbi50aXRsZTpob3ZlcntcclxuICAgIGNvbG9yOiAjMDAwO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7XHJcbiAgICB0ZXh0LWRlY29yYXRpb24tY29sb3I6ICNlNjdlMjI7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -2175,7 +2396,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  exams works!\r\n</p>\r\n"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-12 mx-auto\">\r\n      <div class=\"row\">\r\n        <div class=\"col-6\">\r\n          <h3>Exams</h3>\r\n        </div>\r\n        <div class=\"col-6\">\r\n          <button class=\"new-btn float-right\" (click)=\"onNewExam()\">Create New exam</button>\r\n        </div>\r\n      </div>\r\n      <hr>\r\n      <div class=\"table-responsive\" *ngIf=\"exams.length > 0; else empty_exams\">\r\n        <table class=\"table table-sm\">\r\n        <thead>\r\n          <tr>\r\n            <th>ID</th>\r\n            <th>Title</th>\r\n            <th>Edit</th>\r\n            <th>Delete</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr class=\"exam\" *ngFor=\"let exam of exams, let i = index\">\r\n            <td>{{ i+1 }}</td>\r\n            <td>\r\n              <a class=\"title\" [routerLink]=\"exam._id\" skipLocationChange>{{exam.title}} </a>\r\n            </td>\r\n            <td>\r\n              <button type=\"button\" [routerLink]=\"[exam._id, 'edit']\" class=\"btn-edit float-left\" skipLocationChange>Edit</button>\r\n            </td>\r\n            <td>\r\n              <button type=\"button\" class=\"btn-delete\" (click)=\"deleteExam(exam._id)\">Delete</button>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      </div>\r\n    <ng-template #empty_exams>\r\n      <h5 class=\"pl-3\">No Exams Available..</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2191,12 +2412,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminExamComponent", function() { return AdminExamComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
 
 
 var AdminExamComponent = /** @class */ (function () {
-    function AdminExamComponent() {
+    function AdminExamComponent(httpPostService, router, route) {
+        this.httpPostService = httpPostService;
+        this.router = router;
+        this.route = route;
+        this.exams = [];
+        this.loading = true;
     }
     AdminExamComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = { api: "getExams", data: {} };
+        this.httpPostService.httpPost(data).subscribe(function (val) {
+            _this.exams = val;
+            _this.loading = false;
+        }, function (error) {
+        });
+    };
+    AdminExamComponent.prototype.deleteExam = function (_id) {
+        var _this = this;
+        var deleteConfirm = confirm("do you really want to Delete this Exam??");
+        if (deleteConfirm) {
+            this.loading = true;
+            var data = { api: "deleteExam", data: { _id: _id } };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.loading = false;
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminExamComponent.prototype.onNewExam = function () {
+        this.loading = true;
+        this.router.navigate(['new'], { relativeTo: this.route, skipLocationChange: true });
     };
     AdminExamComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2204,9 +2458,109 @@ var AdminExamComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./admin-exam.component.html */ "./src/app/admin/admin-exam/admin-exam.component.html"),
             styles: [__webpack_require__(/*! ./admin-exam.component.css */ "./src/app/admin/admin-exam/admin-exam.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], AdminExamComponent);
     return AdminExamComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".article {\r\n    background-color: #f4f4f4;\r\n    padding: 5px;\r\n}\r\n\r\nh3{\r\n    font-size: 150%;\r\n    text-decoration: underline;\r\n    -webkit-text-decoration-color: #ffd000;\r\n            text-decoration-color: #ffd000;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tZXhhbS9hZG1pbi1zaG93LWV4YW0vYWRtaW4tc2hvdy1leGFtLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx5QkFBeUI7SUFDekIsWUFBWTtBQUNoQjs7QUFFQTtJQUNJLGVBQWU7SUFDZiwwQkFBMEI7SUFDMUIsc0NBQThCO1lBQTlCLDhCQUE4QjtBQUNsQzs7QUFFQTtJQUNJLHlCQUF5QjtJQUN6QixhQUFhO0FBQ2pCIiwiZmlsZSI6InNyYy9hcHAvYWRtaW4vYWRtaW4tZXhhbS9hZG1pbi1zaG93LWV4YW0vYWRtaW4tc2hvdy1leGFtLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXJ0aWNsZSB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjRmNGY0O1xyXG4gICAgcGFkZGluZzogNXB4O1xyXG59XHJcblxyXG5oM3tcclxuICAgIGZvbnQtc2l6ZTogMTUwJTtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiAjZmZkMDAwO1xyXG59XHJcblxyXG5ociB7XHJcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjZTY3ZTIyO1xyXG4gICAgbWFyZ2luOiA1cHggMDtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-10 mx-auto\">\r\n\r\n    <div class=\"exam p-3\">\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\r\n          <h3>{{exam.title}}</h3>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <p>{{exam.body}}</p>    \r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n      <div class=\"row\">\r\n        <div class=\"col-11 mx-auto\">\r\n          <button type=\"button\" class=\"btn-edit ml-3\" (click)= \"edit()\">Edit</button>\r\n          <button type=\"button\" class=\"btn-delete mr-3 float-right\" (click)=\"delete()\">Delete</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: AdminShowExamComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminShowExamComponent", function() { return AdminShowExamComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+var AdminShowExamComponent = /** @class */ (function () {
+    function AdminShowExamComponent(httpPostService, router, route) {
+        this.httpPostService = httpPostService;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+    }
+    AdminShowExamComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params
+            .subscribe(function (params) {
+            var _id = params['id'];
+            var data = { api: "getExam", data: { _id: _id } };
+            _this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.exam = val;
+                _this.loading = false;
+            }, function (error) {
+            });
+        });
+    };
+    AdminShowExamComponent.prototype.edit = function () {
+        this.loading = true;
+        this.router.navigate(['edit'], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminShowExamComponent.prototype.delete = function () {
+        var _this = this;
+        var dltConfirm = confirm("do you really want to delete??");
+        if (dltConfirm) {
+            this.loading = true;
+            var data = { api: "deleteExam", data: { _id: this.exam._id } };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminShowExamComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(['/admin', 'exam'], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminShowExamComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-show-exam',
+            template: __webpack_require__(/*! ./admin-show-exam.component.html */ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.html"),
+            styles: [__webpack_require__(/*! ./admin-show-exam.component.css */ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminShowExamComponent);
+    return AdminShowExamComponent;
 }());
 
 
@@ -2231,7 +2585,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-md-8 col-sm-10 mx-auto\">\n\n      <h4 class=\"text-center mb-3\">Add New Faculty</h4>\n\n      <form class=\"add_new-faulty\" (submit)=\"addFaculty()\" [formGroup]=\"form\">\n        \n        <div class=\"row\">\n\n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"name\">Name : </label>\n              <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\n              <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Faculty Name</span>\n            </div>\n          </div>\n\n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"birthDate\">Birth Date : </label>\n              <input class=\"birth-date\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\n              <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"row\">\n\n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"email\">Email : </label>\n              <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n              <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n            </div>\n          </div>\n          \n          <div class=\"col-md-6 col-sm-12\">\n            <div class=\"form-group\">\n              <label for=\"phone\">Phone : </label>\n              <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" formControlName=\"phone\" placeholder=\"9876543210\">\n              <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid Phone Number</span>\n            </div>\n          </div>\n\n        </div>\n        \n        <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group\">\n              <label for=\"description\">Description : </label>\n              <textarea type=\"text\" class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\n              <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Faculty Description</span>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group\">\n              <label for=\"image\">Select Profile Image : </label>\n              <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\n              <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Image File</span>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"row mt-1\" *ngIf=\"formError\">\n          <div class=\"col-12\">\n            <span>*Please Fill All Faculty Fields</span>\n          </div>\n        </div>\n\n        <hr>\n  \n        <div class=\"row\">\n          <div class=\"col-6\">\n            <button type=\"submit\" class=\"btn-add\">Save</button>\n          </div>\n          <div class=\"col-6\">\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n          </div>\n        </div>\n      </form>\n    </div>\n  </div>\n"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-md-8 col-sm-10 mx-auto\">\r\n\r\n      <h4 class=\"text-center mb-3\">Add New Faculty</h4>\r\n\r\n      <form class=\"add_new-faulty\" (submit)=\"addFaculty()\" [formGroup]=\"form\">\r\n        \r\n        <div class=\"row\">\r\n\r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"name\">Name : </label>\r\n              <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\r\n              <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Faculty Name</span>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"birthDate\">Birth Date : </label>\r\n              <input class=\"birth-date\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\r\n              <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n\r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"email\">Email : </label>\r\n              <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n              <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n            </div>\r\n          </div>\r\n          \r\n          <div class=\"col-md-6 col-sm-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"phone\">Phone : </label>\r\n              <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" formControlName=\"phone\" placeholder=\"9876543210\">\r\n              <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid Phone Number</span>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n        \r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"description\">Description : </label>\r\n              <textarea type=\"text\" class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\r\n              <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Faculty Description</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"image\">Select Profile Image : </label>\r\n              <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n              <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Image File</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <div class=\"col-12\">\r\n            <span>*Please Fill All Faculty Fields</span>\r\n          </div>\r\n        </div>\r\n\r\n        <hr>\r\n  \r\n        <div class=\"row\">\r\n          <div class=\"col-6\">\r\n            <button type=\"submit\" class=\"btn-add\">Save</button>\r\n          </div>\r\n          <div class=\"col-6\">\r\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -2268,7 +2622,7 @@ var AdminAddFacultyComponent = /** @class */ (function () {
         this.imgExt = ['jpg', 'png'];
     }
     AdminAddFacultyComponent.prototype.ngOnInit = function () {
-        this.image = "Image";
+        this.image = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
@@ -2313,7 +2667,6 @@ var AdminAddFacultyComponent = /** @class */ (function () {
                 _this.form.reset();
                 _this.cancel();
             }, function (error) {
-                console.log(error);
                 _this.loading = false;
             });
         }
@@ -2373,7 +2726,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-md-8 col-sm-10 mx-auto\">\n\n      <div *ngIf=\"faculty !== null\">\n        <h4 class=\"text-center mb-3\">Edit Faculty <strong>{{faculty.facultyName}}</strong></h4>    \n        <form class=\"add_new-faulty\" (submit)=\"editFaculty()\" [formGroup]=\"form\">\n          \n          <div class=\"row\">\n    \n            <div class=\"col-md-6 col-sm-12\">\n              <div class=\"form-group\">\n                <label for=\"name\">Name : </label>\n                <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\n                <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Faculty Name</span>\n              </div>\n            </div>\n    \n            <div class=\"col-md-6 col-sm-12\">\n              <div class=\"form-group\">\n                <label for=\"birthDate\">Birth Date : </label>\n                <input class=\"birth-date\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\n                <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\n              </div>\n            </div>\n    \n          </div>\n    \n          <div class=\"row\">\n    \n            <div class=\"col-md-6 col-sm-12\">\n              <div class=\"form-group\">\n                <label for=\"email\">Email : </label>\n                <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n                <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n              </div>\n            </div>\n            \n            <div class=\"col-md-6 col-sm-12\">\n              <div class=\"form-group\">\n                <label for=\"phone\">Phone : </label>\n                <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" formControlName=\"phone\" placeholder=\"9876543210\">\n                <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid Phone Number</span>\n              </div>\n            </div>\n    \n          </div>\n          \n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"form-group\">\n                <label for=\"description\">Description : </label>\n                <textarea type=\"text\" class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\n                <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Faculty Description</span>\n              </div>\n            </div>\n          </div>\n    \n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"form-group\">\n                <label for=\"image\">Select Profile Image : </label>\n                <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\n                <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Image File</span>\n              </div>\n            </div>\n          </div>\n    \n          <div class=\"row mt-1\" *ngIf=\"formError\">\n            <div class=\"col-12\">\n              <span>*Please Fill All Article Fields</span>\n            </div>\n          </div>\n            \n          <hr>\n    \n          <div class=\"row\">\n            <div class=\"col-6\">\n              <button type=\"submit\" class=\"btn-edit\">Save</button>\n            </div>\n            <div class=\"col-6\">\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n            </div>\n          </div>\n        </form>\n      </div>\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-md-8 col-sm-10 mx-auto\">\r\n\r\n      <div *ngIf=\"faculty !== null\">\r\n        <h4 class=\"text-center mb-3\">Edit Faculty <strong>{{faculty.facultyName}}</strong></h4>    \r\n        <form class=\"add_new-faulty\" (submit)=\"editFaculty()\" [formGroup]=\"form\">\r\n          \r\n          <div class=\"row\">\r\n    \r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"name\">Name : </label>\r\n                <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\r\n                <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Faculty Name</span>\r\n              </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"birthDate\">Birth Date : </label>\r\n                <input class=\"birth-date\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\r\n                <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\r\n              </div>\r\n            </div>\r\n    \r\n          </div>\r\n    \r\n          <div class=\"row\">\r\n    \r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"email\">Email : </label>\r\n                <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n                <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n              </div>\r\n            </div>\r\n            \r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"phone\">Phone : </label>\r\n                <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" formControlName=\"phone\" placeholder=\"9876543210\">\r\n                <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid Phone Number</span>\r\n              </div>\r\n            </div>\r\n    \r\n          </div>\r\n          \r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"description\">Description : </label>\r\n                <textarea type=\"text\" class=\"description\" name=\"description\" id=\"description\" rows=\"5\" formControlName=\"description\" placeholder=\"Description\"></textarea>\r\n                <span *ngIf=\"!form.get('description').valid && form.get('description').touched\">*Please enter Faculty Description</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n    \r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"image\">Select Profile Image : </label>\r\n                <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n                <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Image File</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n    \r\n          <div class=\"row mt-1\" *ngIf=\"formError\">\r\n            <div class=\"col-12\">\r\n              <span>*Please Fill All Article Fields</span>\r\n            </div>\r\n          </div>\r\n            \r\n          <hr>\r\n    \r\n          <div class=\"row\">\r\n            <div class=\"col-6\">\r\n              <button type=\"submit\" class=\"btn-edit\">Save</button>\r\n            </div>\r\n            <div class=\"col-6\">\r\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -2437,7 +2790,7 @@ var AdminEditFacultyComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getFaculty", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.faculty = val[0];
+                _this.faculty = val;
                 _this.image = _this.faculty.facultyImage;
                 _this.form.setValue({
                     name: _this.faculty.facultyName,
@@ -2535,7 +2888,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-12 mx-auto\">\n      <div class=\"row\">\n        <div class=\"col-6\">\n          <h3>Faculty</h3>\n        </div>\n        <div class=\"col-6\">\n          <button class=\"new-btn float-right\" (click)=\"onNewFaculty()\">Add New Faculty</button>\n        </div>\n      </div>\n      <hr>\n\n      <div class=\"table-responsive\" *ngIf=\"faculties.length > 0; else empty_faculties\">\n        <table class=\"table table-sm table-hover\">\n          <thead>\n            <tr>\n              <th>ID</th>\n              <th>Faculty Name</th>\n              <th>Status</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr class=\"faculty\" *ngFor=\"let faculty of faculties, let i = index\" routerLinkActive=\"active\">\n              <td>{{ i+1 }}</td>\n              <td>\n                <img class=\"faculty-image\" [src]=\"faculty.image\" [alt]=\"faculty.name\" width=\"40px\">              \n                &nbsp;\n                <a [routerLink]=\"faculty._id\" class=\"faculty-name\" skipLocationChange>\n                  {{ faculty.name }}\n                </a>\n              </td>\n              <td>\n                {{ faculty.status | uppercase }}\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n      <ng-template #empty_faculties>\n        <h5 class=\"pl-3\">No Faculties Available..</h5>\n      </ng-template>\n\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-12 mx-auto\">\r\n      <div class=\"row\">\r\n        <div class=\"col-6\">\r\n          <h3>Faculty</h3>\r\n        </div>\r\n        <div class=\"col-6\">\r\n          <button class=\"new-btn float-right\" (click)=\"onNewFaculty()\">Add New Faculty</button>\r\n        </div>\r\n      </div>\r\n      <hr>\r\n\r\n      <div class=\"table-responsive\" *ngIf=\"faculties.length > 0; else empty_faculties\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <thead>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Faculty Name</th>\r\n              <th>Status</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr class=\"faculty\" *ngFor=\"let faculty of faculties, let i = index\" routerLinkActive=\"active\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                <img class=\"faculty-image\" [src]=\"faculty.image\" [alt]=\"faculty.name\" width=\"40px\">              \r\n                &nbsp;\r\n                <a [routerLink]=\"faculty._id\" class=\"faculty-name\" skipLocationChange>\r\n                  {{ faculty.facultyName }}\r\n                </a>\r\n              </td>\r\n              <td>\r\n                {{ faculty.facultyStatus | uppercase }}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n      <ng-template #empty_faculties>\r\n        <h5 class=\"pl-3\">No Faculties Available..</h5>\r\n      </ng-template>\r\n\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -2570,6 +2923,7 @@ var AdminFacultyComponent = /** @class */ (function () {
         var data = { api: "getFaculties", data: {} };
         this.httpPostService.httpPost(data).subscribe(function (val) {
             _this.faculties = val;
+            console.log(_this.faculties);
             _this.loading = false;
         }, function (error) {
             // this.router.navigate(["/server-not-found"], {relativeTo:this.route});
@@ -2614,7 +2968,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    margin-left: 10p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\n    <div class=\"col-10 mx-auto\">\n      <div class=\"faculty\" *ngIf=\"faculty !== null\">\n        <div class=\"row\">\n          <div class=\"col-12\">\n            <button class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\n          </div>\n        </div>\n        <hr>\n        <div class=\"row\">\n          <div class=\"col-md-4 col-sm-10 mx-auto\">\n            <div class=\"faculty-name\">\n              <h4>{{faculty.facultyName}}</h4>\n            </div>\n            <div class=\"faculty-image\">\n              <img [src]=\"faculty.image\" [alt]=\"faculty.name\" width=\"100%\">\n            </div>\n          </div>\n          <div class=\"col-md-8 col-sm-10 mx-auto\">\n            <div class=\"table-responsive\">\n              <table class=\"table table-sm\">\n                <tbody>\n                  <tr>\n                    <td>\n                      <strong>Birth Date : </strong>\n                    </td>\n                    <td>\n                      <p>{{faculty.facultyBirthDate}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Description : </strong>\n                    </td>\n                    <td>\n                      <p>{{faculty.facultyDescription}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong><em>E</em>-mail : </strong>\n                    </td>\n                    <td>\n                      <p><a href=\"mailto:{{faculty.email}}\">{{faculty.email}}</a></p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Phone : </strong>\n                    </td>\n                    <td>\n                      <p>+91 {{faculty.facultyPhone}}</p>\n                    </td>\n                  </tr>\n                  <tr>\n                    <td>\n                      <strong>Status : </strong>\n                    </td>\n                    <td>\n                      <p>{{faculty.facultyStatus | uppercase}}</p>\n                    </td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n          </div>\n        </div>\n        <hr>\n        <div class=\"row\">\n          <div class=\"col-6\">\n            <button routerLink=\"edit\" class=\"btn-edit\" skipLocationChange>Edit</button>\n          </div>\n          <div class=\"col-6\">\n            <button class=\" btn-deactivate float-right pointer\" (click)=\"changeStatus(faculty._id, 'deactivated')\" *ngIf=\"faculty.status === 'activated'\">Deactivate</button>\n            <button class=\"btn-activate float-right pointer\" (click)=\"changeStatus(faculty._id, 'activated')\" *ngIf=\"faculty.status === 'deactivated'\">Activate</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <div class=\"faculty\" *ngIf=\"faculty !== null\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <button class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\r\n          </div>\r\n        </div>\r\n        <hr>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-4 col-sm-10 mx-auto\">\r\n            <div class=\"faculty-name\">\r\n              <h4>{{faculty.facultyName}}</h4>\r\n            </div>\r\n            <div class=\"faculty-image\">\r\n              <img [src]=\"faculty.image\" [alt]=\"faculty.name\" width=\"100%\">\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-8 col-sm-10 mx-auto\">\r\n            <div class=\"table-responsive\">\r\n              <table class=\"table table-sm\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Birth Date : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{faculty.facultyBirthDate}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Description : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{faculty.facultyDescription}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong><em>E</em>-mail : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p><a href=\"mailto:{{faculty.email}}\">{{faculty.email}}</a></p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Phone : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>+91 {{faculty.facultyPhone}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Status : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{faculty.facultyStatus | uppercase}}</p>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <hr>\r\n        <div class=\"row\">\r\n          <div class=\"col-6\">\r\n            <button routerLink=\"edit\" class=\"btn-edit\" skipLocationChange>Edit</button>\r\n          </div>\r\n          <div class=\"col-6\">\r\n            <button class=\" btn-deactivate float-right pointer\" (click)=\"changeStatus(faculty._id, 'deactivated')\" *ngIf=\"faculty.status === 'activated'\">Deactivate</button>\r\n            <button class=\"btn-activate float-right pointer\" (click)=\"changeStatus(faculty._id, 'activated')\" *ngIf=\"faculty.status === 'deactivated'\">Activate</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -2651,7 +3005,7 @@ var AdminShowFacultyComponent = /** @class */ (function () {
             var _id = params['id'];
             var data = { api: "getFaculty", data: { _id: _id } };
             _this.httpPostService.httpPost(data).subscribe(function (val) {
-                _this.faculty = val[0];
+                _this.faculty = val;
                 _this.loading = false;
             }, function (error) {
             });
@@ -2712,7 +3066,7 @@ module.exports = "  * {\r\n    margin: 0;\r\n  }\r\n\r\n  h3 {\r\n    font-size:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12\">\n    <div class=\"row\">\n      <div class=\"col-6\">\n        <h3>Add Images</h3>\n      </div>\n      <div class=\"col-6\">\n        <button class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n      </div>\n    </div>\n    <hr>\n    <div class=\"row\">\n      <div class=\"col-12\">\n        <form [formGroup]=\"form\" (submit)=\"onSavePost()\">\n          <div class=\"row\">\n            <div class=\"col-md-6 cpl-sm-12\">\n              <div class=\"form-group\">\n                  <label for=\"title\">Enter Title for an Images : </label>\n                  <input type=\"text\" formControlName=\"title\" id=\"title\" placeholder=\"Title\">\n              </div>\n              <span *ngIf=\"form.get('title').invalid && form.get('title').touched\">*Please enter a Title for an Image</span>\n            </div>\n          </div>\n          <div class=\"row\">\n\n            <div class=\"col-md-6 col-sm-12\">\n              <div class=\"form-group\">\n                <label for=\"images\">Pick Images to Upload : </label><br>\n                <input type=\"file\" #filePicker (change)=\"onImagePicked($event)\" multiple>\n                <button class=\"btn-add\" type=\"button\" id=\"images\" (click)=\"filePicker.click()\">Click Here to Pick Image</button>\n              </div>\n              <span *ngIf=\"invalidImage\">*Please Select a Valid Image File</span>\n            </div>\n            \n            <div class=\"col-md-6 col-sm-12\">\n              <button class=\"btn-save float-right\" type=\"submit\">Upload Images</button>\n            </div>\n\n          </div>\n        </form>       \n      </div>\n\n      <hr>\n      \n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div *ngIf=\"imagePreview.length > 0; else noImagePicked\">\n              <h4>Image To Upload : </h4>\n\n              <div class=\"row\">\n                  <span class=\"m-2\" *ngFor=\"let image of imagePreview; let i = index;\">\n                      <div class=\"preview-image\">\n                          <img [src]=\"image\" alt=\"Preview\">\n                          <a class=\"remove-image\"(click)=\"cancelImage(i)\"><i class=\"fa fa-remove remove\"></i></a>\n                      </div>\n                  </span>\n              </div>\n          \n          </div>\n          <ng-template #noImagePicked><p>No Image Picked yet</p></ng-template>\n        </div>\n      </div> \n    </div>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12\">\r\n    <div class=\"row\">\r\n      <div class=\"col-6\">\r\n        <h3>Add Images</h3>\r\n      </div>\r\n      <div class=\"col-6\">\r\n        <button class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <form [formGroup]=\"form\" (submit)=\"onSavePost()\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 cpl-sm-12\">\r\n              <div class=\"form-group\">\r\n                  <label for=\"title\">Enter Title for an Images : </label>\r\n                  <input type=\"text\" formControlName=\"title\" id=\"title\" placeholder=\"Title\">\r\n              </div>\r\n              <span *ngIf=\"form.get('title').invalid && form.get('title').touched\">*Please enter a Title for an Image</span>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n\r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"images\">Pick Images to Upload : </label><br>\r\n                <input type=\"file\" #filePicker (change)=\"onImagePicked($event)\" multiple>\r\n                <button class=\"btn-add\" type=\"button\" id=\"images\" (click)=\"filePicker.click()\">Click Here to Pick Image</button>\r\n              </div>\r\n              <span *ngIf=\"invalidImage\">*Please Select a Valid Image File</span>\r\n            </div>\r\n            \r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <button class=\"btn-save float-right\" type=\"submit\">Upload Images</button>\r\n            </div>\r\n\r\n          </div>\r\n        </form>       \r\n      </div>\r\n\r\n      <hr>\r\n      \r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div *ngIf=\"imagePreview.length > 0; else noImagePicked\">\r\n              <h4>Image To Upload : </h4>\r\n\r\n              <div class=\"row\">\r\n                  <span class=\"m-2\" *ngFor=\"let image of imagePreview; let i = index;\">\r\n                      <div class=\"preview-image\">\r\n                          <img [src]=\"image\" alt=\"Preview\">\r\n                          <a class=\"remove-image\"(click)=\"cancelImage(i)\"><i class=\"fa fa-remove remove\"></i></a>\r\n                      </div>\r\n                  </span>\r\n              </div>\r\n          \r\n          </div>\r\n          <ng-template #noImagePicked><p>No Image Picked yet</p></ng-template>\r\n        </div>\r\n      </div> \r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2848,7 +3202,7 @@ module.exports = "  * {\r\n    margin: 0;\r\n  }\r\n\r\n  h3 {\r\n    font-size:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12\">\n    <div class=\"row\">\n      <div class=\"col-6\">\n        <h3>Gallery</h3>\n      </div>\n      <div class=\"col-6\">\n        <button class=\"new-btn float-right\" routerLink=\"new\" skipLocationChange>Add New Images</button>\n      </div>\n    </div>\n  \n    <hr>\n    \n    <div class=\"row\">\n        <div class=\"col-12\">\n          <div *ngIf=\"images.length > 0; else noImages\">\n              <h3>Images : </h3>\n              <div class=\"row\">\n                  <span class=\"m-2\" *ngFor=\"let image of images; let i = index;\">\n                      <div class=\"image-container\" >\n                          <img [src]=\"image\" class=\"image\" [alt]=\"i\">\n                          <div class=\"middle\">\n                              <a class=\"delete\" (click)=\"deleteImage(i)\"><i class=\"fa fa-trash-o trash\"></i></a>\n                          </div>\n                      </div>\n                  </span>\n              </div>\n          </div>\n          <ng-template #noImages><h4>No Images Available</h4></ng-template>   \n        </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- <h3>COMMING SOON...</h3> -->\r\n\r\n<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12\">\r\n    <div class=\"row\">\r\n      <div class=\"col-6\">\r\n        <h3>Gallery</h3>\r\n      </div>\r\n      <div class=\"col-6\">\r\n        <button class=\"new-btn float-right\" routerLink=\"new\" skipLocationChange>Add New Images</button>\r\n      </div>\r\n    </div>\r\n  \r\n    <hr>\r\n    \r\n    <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div *ngIf=\"images.length > 0; else noImages\">\r\n              <h3>Images : </h3>\r\n              <div class=\"row\">\r\n                  <span class=\"m-2\" *ngFor=\"let image of images; let i = index;\">\r\n                      <div class=\"image-container\" >\r\n                          <img [src]=\"image\" class=\"image\" [alt]=\"i\">\r\n                          <div class=\"middle\">\r\n                              <a class=\"delete\" (click)=\"deleteImage(i)\"><i class=\"fa fa-trash-o trash\"></i></a>\r\n                          </div>\r\n                      </div>\r\n                  </span>\r\n              </div>\r\n          </div>\r\n          <ng-template #noImages><h4>No Images Available</h4></ng-template>   \r\n        </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2875,16 +3229,16 @@ var AdminGallaryComponent = /** @class */ (function () {
         this.loading = true;
     }
     AdminGallaryComponent.prototype.ngOnInit = function () {
-        // const data = { api : "getImages", data : {}}    
-        // this.httpPostService.httpImagePost(data.api, data.data)
-        // .subscribe(responseData => {
-        //   this.images = responseData[0].imagePath;
-        //   this.loading = false;
-        // },
-        // (error) => {
-        //   this.loading = false;
-        //   console.log(error);
-        // });
+        var _this = this;
+        var data = { api: "getImages", data: {} };
+        this.httpPostService.httpImagePost(data.api, data.data)
+            .subscribe(function (responseData) {
+            _this.images = responseData.imagePath;
+            _this.loading = false;
+        }, function (error) {
+            _this.loading = false;
+            console.log(error);
+        });
         this.loading = false;
     };
     AdminGallaryComponent.prototype.deleteImage = function (index) {
@@ -2923,6 +3277,422 @@ var AdminGallaryComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-add-news/admin-add-news.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "* {\r\n    margin: 0;\r\n}\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tbmV3cy9hZG1pbi1hZGQtbmV3cy9hZG1pbi1hZGQtbmV3cy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksU0FBUztBQUNiO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLW5ld3MvYWRtaW4tYWRkLW5ld3MvYWRtaW4tYWRkLW5ld3MuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIioge1xyXG4gICAgbWFyZ2luOiAwO1xyXG59XHJcbmhyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBtYXJnaW46IDVweCAwO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-add-news/admin-add-news.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Add News</h4>\r\n      <form class=\"add_title\" (submit)=\"addNews()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n          <label for=\"title\">Title : </label>\r\n          <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter News Description</span>\r\n        </div>\r\n\r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All Fields</span>\r\n        </div>\r\n        \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-add\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-add-news/admin-add-news.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: AdminAddNewsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminAddNewsComponent", function() { return AdminAddNewsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../validators/form.validator */ "./src/app/validators/form.validator.ts");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+
+
+var AdminAddNewsComponent = /** @class */ (function () {
+    function AdminAddNewsComponent(httpPostService, formValidator, router, route) {
+        this.httpPostService = httpPostService;
+        this.formValidator = formValidator;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+        this.formError = false;
+        this.imgExt = ['jpg', 'png'];
+    }
+    AdminAddNewsComponent.prototype.ngOnInit = function () {
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            title: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            }),
+            body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            })
+        });
+        this.loading = false;
+    };
+    AdminAddNewsComponent.prototype.addNews = function () {
+        var _this = this;
+        if (this.form.invalid) {
+            this.formError = true;
+        }
+        if (this.form.valid) {
+            this.formError = false;
+            this.loading = true;
+            var news = { title: this.form.value.title, body: this.form.value.body };
+            var data = { api: "addNews", data: news };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.form.reset();
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminAddNewsComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(["/admin", "news"], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminAddNewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-add-news',
+            template: __webpack_require__(/*! ./admin-add-news.component.html */ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.html"),
+            styles: [__webpack_require__(/*! ./admin-add-news.component.css */ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__["HttpPostService"],
+            _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__["FormValidator"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminAddNewsComponent);
+    return AdminAddNewsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 8px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tbmV3cy9hZG1pbi1lZGl0LW5ld3MvYWRtaW4tZWRpdC1uZXdzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTO0FBQ2I7O0FBRUE7SUFDSSx5QkFBeUI7SUFDekIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLW5ld3MvYWRtaW4tZWRpdC1uZXdzL2FkbWluLWVkaXQtbmV3cy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbmhyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBtYXJnaW46IDhweCAwO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-10 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit News</h4>\r\n      <form class=\"add_title\" (submit)=\"editNews()\" [formGroup]=\"form\">\r\n        <div class=\"form-group\">\r\n           <label for=\"title\">Title : </label>\r\n            <input class=\"title\" type=\"text\" name=\"title\" id=\"title\" formControlName=\"title\" placeholder=\"Title\">\r\n          <span *ngIf=\"!form.get('title').valid && form.get('title').touched\">*Please enter Title</span>\r\n        </div>\r\n            \r\n        <div class=\"form-group\">\r\n          <label for=\"body\">Description : </label>\r\n          <textarea class=\"body\" name=\"body\" id=\"body\" rows=\"8\" formControlName=\"body\" placeholder=\"Description\"></textarea>\r\n          <span *ngIf=\"!form.get('body').valid && form.get('body').touched\">*Please enter News Description</span>\r\n        </div>\r\n        \r\n        <div class=\"row mt-1\" *ngIf=\"formError\">\r\n          <span>*Please Fill All News Fields</span>\r\n        </div>\r\n          \r\n        <hr>\r\n        <button type=\"submit\" class=\"btn-edit\">Save</button>\r\n        <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n      </form>\r\n    </div>\r\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: AdminEditNewsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminEditNewsComponent", function() { return AdminEditNewsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../validators/form.validator */ "./src/app/validators/form.validator.ts");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+
+
+var AdminEditNewsComponent = /** @class */ (function () {
+    function AdminEditNewsComponent(httpPostService, formValidator, router, route) {
+        this.httpPostService = httpPostService;
+        this.formValidator = formValidator;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+        this.imgExt = ['jpg', 'png'];
+        this.formError = false;
+    }
+    AdminEditNewsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            title: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            }),
+            body: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            })
+        });
+        this.route.params
+            .subscribe(function (params) {
+            var _id = params['id'];
+            var data = { api: "getNews", data: { _id: _id } };
+            _this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.news = val;
+                _this.form.setValue({
+                    title: _this.news.title,
+                    body: _this.news.body
+                });
+                _this.loading = false;
+            }, function (error) {
+            });
+        });
+    };
+    AdminEditNewsComponent.prototype.editNews = function () {
+        var _this = this;
+        if (this.form.invalid) {
+            this.formError = true;
+        }
+        if (this.form.valid) {
+            this.loading = true;
+            this.formError = false;
+            var editednews = {
+                _id: this.news._id,
+                title: this.form.value.title,
+                body: this.form.value.body
+            };
+            var data = { api: "editNews", data: editednews };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminEditNewsComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(['/admin', 'news', this.news._id], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminEditNewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-edit-news',
+            template: __webpack_require__(/*! ./admin-edit-news.component.html */ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.html"),
+            styles: [__webpack_require__(/*! ./admin-edit-news.component.css */ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_5__["HttpPostService"],
+            _validators_form_validator__WEBPACK_IMPORTED_MODULE_4__["FormValidator"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminEditNewsComponent);
+    return AdminEditNewsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-news.component.css":
+/*!***********************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-news.component.css ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px auto;\r\n}\r\n\r\n.title {\r\n    text-decoration: none;\r\n    color: #000;\r\n    -webkit-text-decoration-color: transparent;\r\n            text-decoration-color: transparent;\r\n    transition: -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s, -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n}\r\n\r\n.title:hover{\r\n    color: #000;\r\n    text-decoration: underline;\r\n    -webkit-text-decoration-color: #e67e22;\r\n            text-decoration-color: #e67e22;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tbmV3cy9hZG1pbi1uZXdzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTO0FBQ2I7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0kseUJBQXlCO0lBQ3pCLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLHFCQUFxQjtJQUNyQixXQUFXO0lBQ1gsMENBQWtDO1lBQWxDLGtDQUFrQztJQUNsQyw0RUFBNEQ7SUFBNUQsNERBQTREO0lBQTVELDhIQUE0RDtBQUNoRTs7QUFFQTtJQUNJLFdBQVc7SUFDWCwwQkFBMEI7SUFDMUIsc0NBQThCO1lBQTlCLDhCQUE4QjtBQUNsQyIsImZpbGUiOiJzcmMvYXBwL2FkbWluL2FkbWluLW5ld3MvYWRtaW4tbmV3cy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbmgzIHtcclxuICAgIGZvbnQtc2l6ZTogMTUwJTtcclxufVxyXG5cclxuaHIge1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U2N2UyMjtcclxuICAgIG1hcmdpbjogNXB4IGF1dG87XHJcbn1cclxuXHJcbi50aXRsZSB7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgICBjb2xvcjogIzAwMDtcclxuICAgIHRleHQtZGVjb3JhdGlvbi1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgICB0cmFuc2l0aW9uOiB0ZXh0LWRlY29yYXRpb24gMC4ycywgdGV4dC1kZWNvcmF0aW9uLWNvbG9yIDAuMnM7XHJcbn1cclxuXHJcbi50aXRsZTpob3ZlcntcclxuICAgIGNvbG9yOiAjMDAwO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7XHJcbiAgICB0ZXh0LWRlY29yYXRpb24tY29sb3I6ICNlNjdlMjI7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-news.component.html":
+/*!************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-news.component.html ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\">\r\n    <div class=\"col-12 mx-auto\">\r\n      <div class=\"row\">\r\n        <div class=\"col-6\">\r\n          <h3>News</h3>\r\n        </div>\r\n        <div class=\"col-6\">\r\n          <button class=\"new-btn float-right\" (click)=\"onNewNews()\">Add News</button>\r\n        </div>\r\n      </div>\r\n      <hr>\r\n      <div class=\"table-responsive\" *ngIf=\"news.length > 0; else empty_news\">\r\n        <table class=\"table table-sm\">\r\n        <thead>\r\n          <tr>\r\n            <th>ID</th>\r\n            <th>Title</th>\r\n            <th>Edit</th>\r\n            <th>Delete</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr class=\"curNews\" *ngFor=\"let curNews of news, let i = index\">\r\n            <td>{{ i+1 }}</td>\r\n            <td>\r\n              <a class=\"title\" [routerLink]=\"curNews._id\" skipLocationChange>{{curNews.title}} </a>\r\n            </td>\r\n            <td>\r\n              <button type=\"button\" [routerLink]=\"[curNews._id, 'edit']\" class=\"btn-edit float-left\" skipLocationChange>Edit</button>\r\n            </td>\r\n            <td>\r\n              <button type=\"button\" class=\"btn-delete\" (click)=\"deleteNews(curNews._id)\">Delete</button>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      </div>\r\n    <ng-template #empty_news>\r\n      <h5 class=\"pl-3\">No News Available..</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-news.component.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-news.component.ts ***!
+  \**********************************************************/
+/*! exports provided: AdminNewsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminNewsComponent", function() { return AdminNewsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+var AdminNewsComponent = /** @class */ (function () {
+    function AdminNewsComponent(httpPostService, router, route) {
+        this.httpPostService = httpPostService;
+        this.router = router;
+        this.route = route;
+        this.news = [];
+        this.loading = true;
+    }
+    AdminNewsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = { api: "getAllNews", data: {} };
+        this.httpPostService.httpPost(data).subscribe(function (val) {
+            _this.news = val;
+            _this.loading = false;
+        }, function (error) {
+        });
+    };
+    AdminNewsComponent.prototype.deleteNews = function (_id) {
+        var _this = this;
+        var deleteConfirm = confirm("do you really want to Delete News??");
+        if (deleteConfirm) {
+            this.loading = true;
+            var data = { api: "deleteNews", data: { _id: _id } };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.loading = false;
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminNewsComponent.prototype.onNewNews = function () {
+        this.loading = true;
+        this.router.navigate(['new'], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminNewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-news',
+            template: __webpack_require__(/*! ./admin-news.component.html */ "./src/app/admin/admin-news/admin-news.component.html"),
+            styles: [__webpack_require__(/*! ./admin-news.component.css */ "./src/app/admin/admin-news/admin-news.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminNewsComponent);
+    return AdminNewsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-show-news/admin-show-news.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".news {\r\n    background-color: #f4f4f4;\r\n    padding: 5px;\r\n}\r\n\r\n.image {\r\n    width: 75%;\r\n    margin: auto;\r\n}\r\n\r\nh3{\r\n    font-size: 150%;\r\n    text-decoration: underline;\r\n    -webkit-text-decoration-color: #ffd000;\r\n            text-decoration-color: #ffd000;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tbmV3cy9hZG1pbi1zaG93LW5ld3MvYWRtaW4tc2hvdy1uZXdzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx5QkFBeUI7SUFDekIsWUFBWTtBQUNoQjs7QUFFQTtJQUNJLFVBQVU7SUFDVixZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksZUFBZTtJQUNmLDBCQUEwQjtJQUMxQixzQ0FBOEI7WUFBOUIsOEJBQThCO0FBQ2xDOztBQUVBO0lBQ0kseUJBQXlCO0lBQ3pCLGFBQWE7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9hZG1pbi9hZG1pbi1uZXdzL2FkbWluLXNob3ctbmV3cy9hZG1pbi1zaG93LW5ld3MuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uZXdzIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNmNGY0ZjQ7XHJcbiAgICBwYWRkaW5nOiA1cHg7XHJcbn1cclxuXHJcbi5pbWFnZSB7XHJcbiAgICB3aWR0aDogNzUlO1xyXG4gICAgbWFyZ2luOiBhdXRvO1xyXG59XHJcblxyXG5oM3tcclxuICAgIGZvbnQtc2l6ZTogMTUwJTtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiAjZmZkMDAwO1xyXG59XHJcblxyXG5ociB7XHJcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjZTY3ZTIyO1xyXG4gICAgbWFyZ2luOiA1cHggMDtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-show-news/admin-show-news.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-10 mx-auto\">\r\n\r\n    <div class=\"news p-3\">\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"button\" class=\"btn-close float-right\" (click)=\"cancel()\">X</button>\r\n          <h3>{{news.title}}</h3>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <p>{{news.body}}</p>    \r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n      <div class=\"row\">\r\n        <div class=\"col-11 mx-auto\">\r\n          <button type=\"button\" class=\"btn-edit ml-3\" (click)= \"edit()\">Edit</button>\r\n          <button type=\"button\" class=\"btn-delete mr-3 float-right\" (click)=\"delete()\">Delete</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-news/admin-show-news/admin-show-news.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: AdminShowNewsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminShowNewsComponent", function() { return AdminShowNewsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
+
+
+
+var AdminShowNewsComponent = /** @class */ (function () {
+    function AdminShowNewsComponent(httpPostService, router, route) {
+        this.httpPostService = httpPostService;
+        this.router = router;
+        this.route = route;
+        this.loading = true;
+    }
+    AdminShowNewsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params
+            .subscribe(function (params) {
+            var _id = params['id'];
+            var data = { api: "getNews", data: { _id: _id } };
+            _this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.news = val;
+                _this.loading = false;
+            }, function (error) {
+            });
+        });
+    };
+    AdminShowNewsComponent.prototype.edit = function () {
+        this.loading = true;
+        this.router.navigate(['edit'], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminShowNewsComponent.prototype.delete = function () {
+        var _this = this;
+        var dltConfirm = confirm("do you really want to delete??");
+        if (dltConfirm) {
+            this.loading = true;
+            var data = { api: "deleteNews", data: { _id: this.news._id } };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.cancel();
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    AdminShowNewsComponent.prototype.cancel = function () {
+        this.loading = true;
+        this.router.navigate(['/admin', 'news'], { relativeTo: this.route, skipLocationChange: true });
+    };
+    AdminShowNewsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-admin-show-news',
+            template: __webpack_require__(/*! ./admin-show-news.component.html */ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.html"),
+            styles: [__webpack_require__(/*! ./admin-show-news.component.css */ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], AdminShowNewsComponent);
+    return AdminShowNewsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/admin/admin-student/admin-add-student/admin-add-student.component.css":
 /*!***************************************************************************************!*\
   !*** ./src/app/admin/admin-student/admin-add-student/admin-add-student.component.css ***!
@@ -2941,7 +3711,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\n    <h4 class=\"text-center mb-3\">Add New Student</h4>\n    <form class=\"\" (submit)=\"addStudent()\" [formGroup]=\"form\">\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"name\">Name : </label>\n            <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\n            <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Name</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"birthDate\">Birth Date : </label>\n            <input class=\"birthDate\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\n            <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\n          </div>\n        </div>\n\n      </div>\n\n      \n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"firstGuardianName\">First Guardian Name : </label>\n            <input class=\"firstGuardianName\" type=\"text\" name=\"firstGuardianName\" id=\"firstGuardianName\" formControlName=\"firstGuardianName\" placeholder=\"First Guardian Name\">\n            <span *ngIf=\"!form.get('firstGuardianName').valid && form.get('firstGuardianName').touched\">*Please enter first Guardian Name</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"firstGuardianRelation\">First Guardian Relation : </label>\n            <input class=\"firstGuardianRelation\" type=\"text\" name=\"firstGuardianRelation\" id=\"firstGuardianRelation\" formControlName=\"firstGuardianRelation\" placeholder=\"First Guardian Relation\">\n            <span *ngIf=\"!form.get('firstGuardianRelation').valid && form.get('firstGuardianRelation').touched\">*Please enter first Guardian Relation</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"secondGuardianName\">Second Guardian Name : </label>\n            <input class=\"secondGuardianName\" type=\"text\" name=\"secondGuardianName\" id=\"secondGuardianName\" formControlName=\"secondGuardianName\" placeholder=\"Second Guardian Name\">\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"secondGuardianRelation\">Second Guardian Relation : </label>\n            <input class=\"secondGuardianRelation\" type=\"text\" name=\"secondGuardianRelation\" id=\"secondGuardianRelation\" formControlName=\"secondGuardianRelation\" placeholder=\"Second Guardian Relation\">\n          </div>\n        </div>\n\n      </div>\n      \n      <div class=\"row\">\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"workPlace\">School /College /Office (Optional) : </label>\n            <input class=\"workPlace\" type=\"text\" name=\"workPlace\" id=\"workPlace\" formControlName=\"workPlace\" placeholder=\"Work Place\">\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"bloodGroup\">Blood Group (Optional) : </label>\n            <input class=\"bloodGroup\" type=\"text\" name=\"bloodGroup\" id=\"bloodGroup\" formControlName=\"bloodGroup\" placeholder=\"Blood Group\">\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div class=\"form-group\">\n            <label for=\"medicalHistory\">Medical History : </label>\n            <textarea class=\"medicalHistory\" name=\"medicalHistory\" id=\"medicalHistory\" rows=\"3\" formControlName=\"medicalHistory\" placeholder=\"Medicle History\"></textarea>\n            <span *ngIf=\"!form.get('medicalHistory').valid && form.get('medicalHistory').touched\">*Please enter Medical History</span>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"email\">Email : </label>\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"phone\">Phone : </label>\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"Phone\">\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group\">\n              <label for=\"address\">Address : </label>\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Name\"></textarea>\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\n            </div>\n          </div>\n        </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"branch\">Select Branch : </label>\n            <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\" (change)=\"branchChanged()\">\n              <option value=\"\">Select Branch</option>\n              <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\n            </select>\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please Select Branch</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"batch\">Select Batch : </label>\n            <select class=\"batch\" type=\"text\" name=\"batch\" id=\"batch\" formControlName=\"batch\" (change)=\"changeWeekType()\">\n              <option value=\"weekDays\">Week Day</option>\n              <option value=\"weekEnds\">Week End</option>\n            </select>\n            <span *ngIf=\"!form.get('batch').valid && form.get('batch').touched\">*Please Select Batch</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"Class\">Select Batch Name : </label>\n            <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\">\n              <option value=\"\">Select Batch</option>\n              <option *ngFor=\"let batch of batches\" [value]=\"batch.batchName\">{{batch.batchName}}</option>\n            </select>\n            <span *ngIf=\"!form.get('batchName').valid && form.get('batchName').touched\">*Please Select Batch Name</span>\n          </div>\n        </div>\n  \n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"image\">Select Profile Image : </label>\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\n          </div>\n        </div>\n  \n      </div>\n\n      <div class=\"row mt-1\" *ngIf=\"formError\">\n        <div class=\"col-12\">\n          <span>*Please Fill All Student Fields</span>\n        </div>\n      </div>\n        \n      <hr>\n\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <button type=\"submit\" class=\"btn-add\">ADD</button>\n    \n          <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n        </div>\n      </div>\n\n\n    </form>\n  </div>\n\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\r\n    <h4 class=\"text-center mb-3\">Add New Student</h4>\r\n    <form class=\"\" (submit)=\"addStudent()\" [formGroup]=\"form\">\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"name\">Name : </label>\r\n            <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\r\n            <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Name</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"birthDate\">Birth Date : </label>\r\n            <input class=\"birthDate\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\r\n            <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      \r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"firstGuardianName\">First Guardian Name : </label>\r\n            <input class=\"firstGuardianName\" type=\"text\" name=\"firstGuardianName\" id=\"firstGuardianName\" formControlName=\"firstGuardianName\" placeholder=\"First Guardian Name\">\r\n            <span *ngIf=\"!form.get('firstGuardianName').valid && form.get('firstGuardianName').touched\">*Please enter first Guardian Name</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"firstGuardianRelation\">First Guardian Relation : </label>\r\n            <input class=\"firstGuardianRelation\" type=\"text\" name=\"firstGuardianRelation\" id=\"firstGuardianRelation\" formControlName=\"firstGuardianRelation\" placeholder=\"First Guardian Relation\">\r\n            <span *ngIf=\"!form.get('firstGuardianRelation').valid && form.get('firstGuardianRelation').touched\">*Please enter first Guardian Relation</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"secondGuardianName\">Second Guardian Name : </label>\r\n            <input class=\"secondGuardianName\" type=\"text\" name=\"secondGuardianName\" id=\"secondGuardianName\" formControlName=\"secondGuardianName\" placeholder=\"Second Guardian Name\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"secondGuardianRelation\">Second Guardian Relation : </label>\r\n            <input class=\"secondGuardianRelation\" type=\"text\" name=\"secondGuardianRelation\" id=\"secondGuardianRelation\" formControlName=\"secondGuardianRelation\" placeholder=\"Second Guardian Relation\">\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      \r\n      <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"workPlace\">School /College /Office (Optional) : </label>\r\n            <input class=\"workPlace\" type=\"text\" name=\"workPlace\" id=\"workPlace\" formControlName=\"workPlace\" placeholder=\"Work Place\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"bloodGroup\">Blood Group (Optional) : </label>\r\n            <input class=\"bloodGroup\" type=\"text\" name=\"bloodGroup\" id=\"bloodGroup\" formControlName=\"bloodGroup\" placeholder=\"Blood Group\">\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"medicalHistory\">Medical History : </label>\r\n            <textarea class=\"medicalHistory\" name=\"medicalHistory\" id=\"medicalHistory\" rows=\"3\" formControlName=\"medicalHistory\" placeholder=\"Medicle History\"></textarea>\r\n            <span *ngIf=\"!form.get('medicalHistory').valid && form.get('medicalHistory').touched\">*Please enter Medical History</span>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email : </label>\r\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"phone\">Phone : </label>\r\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"Phone\">\r\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"address\">Address : </label>\r\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Name\"></textarea>\r\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"branch\">Select Branch : </label>\r\n            <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\" (change)=\"branchChanged()\">\r\n              <option value=\"\">Select Branch</option>\r\n              <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\r\n            </select>\r\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please Select Branch</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"batch\">Select Batch : </label>\r\n            <select class=\"batch\" type=\"text\" name=\"batch\" id=\"batch\" formControlName=\"batch\" (change)=\"changeWeekType()\">\r\n              <option value=\"weekDays\">Week Day</option>\r\n              <option value=\"weekEnds\">Week End</option>\r\n            </select>\r\n            <span *ngIf=\"!form.get('batch').valid && form.get('batch').touched\">*Please Select Batch</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"Class\">Select Batch Name : </label>\r\n            <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\">\r\n              <option value=\"\">Select Batch</option>\r\n              <option *ngFor=\"let batch of batches\" [value]=\"batch.batchName\">{{batch.batchName}}</option>\r\n            </select>\r\n            <span *ngIf=\"!form.get('batchName').valid && form.get('batchName').touched\">*Please Select Batch Name</span>\r\n          </div>\r\n        </div>\r\n  \r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"image\">Select Profile Image : </label>\r\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\r\n          </div>\r\n        </div>\r\n  \r\n      </div>\r\n\r\n      <div class=\"row mt-1\" *ngIf=\"formError\">\r\n        <div class=\"col-12\">\r\n          <span>*Please Fill All Student Fields</span>\r\n        </div>\r\n      </div>\r\n        \r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <button type=\"submit\" class=\"btn-add\">ADD</button>\r\n    \r\n          <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </form>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -2982,6 +3752,7 @@ var AdminAddStudentComponent = /** @class */ (function () {
     }
     AdminAddStudentComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.image = "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
@@ -3030,8 +3801,6 @@ var AdminAddStudentComponent = /** @class */ (function () {
             _this.loading = false;
         }, function (error) {
         });
-        this.image = "Image";
-        this.loading = false;
     };
     AdminAddStudentComponent.prototype.branchChanged = function () {
         var _this = this;
@@ -3140,7 +3909,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nhr {\r\n    border: 1px soli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\n      <h4 class=\"text-center mb-3\">Edit Student - {{student.name}}</h4>    \n    <form class=\"\" (submit)=\"editStudent()\" [formGroup]=\"form\">\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"name\">Name : </label>\n            <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\n            <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Name</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"birthDate\">Birth Date : </label>\n            <input class=\"birthDate\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\n            <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\n          </div>\n        </div>\n\n      </div>\n\n      \n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"firstGuardianName\">First Guardian Name : </label>\n            <input class=\"firstGuardianName\" type=\"text\" name=\"firstGuardianName\" id=\"firstGuardianName\" formControlName=\"firstGuardianName\" placeholder=\"First Guardian Name\">\n            <span *ngIf=\"!form.get('firstGuardianName').valid && form.get('firstGuardianName').touched\">*Please enter first Guardian Name</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"firstGuardianRelation\">First Guardian Relation : </label>\n            <input class=\"firstGuardianRelation\" type=\"text\" name=\"firstGuardianRelation\" id=\"firstGuardianRelation\" formControlName=\"firstGuardianRelation\" placeholder=\"First Guardian Relation\">\n            <span *ngIf=\"!form.get('firstGuardianRelation').valid && form.get('firstGuardianRelation').touched\">*Please enter first Guardian Relation</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"secondGuardianName\">Second Guardian Name : </label>\n            <input class=\"secondGuardianName\" type=\"text\" name=\"secondGuardianName\" id=\"secondGuardianName\" formControlName=\"secondGuardianName\" placeholder=\"Second Guardian Name\">\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"secondGuardianRelation\">Second Guardian Relation : </label>\n            <input class=\"secondGuardianRelation\" type=\"text\" name=\"secondGuardianRelation\" id=\"secondGuardianRelation\" formControlName=\"secondGuardianRelation\" placeholder=\"Second Guardian Relation\">\n          </div>\n        </div>\n\n      </div>\n      \n      <div class=\"row\">\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"workPlace\">School /College /Office (Optional) : </label>\n            <input class=\"workPlace\" type=\"text\" name=\"workPlace\" id=\"workPlace\" formControlName=\"workPlace\" placeholder=\"Work Place\">\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"bloodGroup\">Blood Group (Optional) : </label>\n            <input class=\"bloodGroup\" type=\"text\" name=\"bloodGroup\" id=\"bloodGroup\" formControlName=\"bloodGroup\" placeholder=\"Blood Group\">\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div class=\"form-group\">\n            <label for=\"medicalHistory\">Medical History : </label>\n            <textarea class=\"medicalHistory\" name=\"medicalHistory\" id=\"medicalHistory\" rows=\"3\" formControlName=\"medicalHistory\" placeholder=\"Medicle History\"></textarea>\n            <span *ngIf=\"!form.get('medicalHistory').valid && form.get('medicalHistory').touched\">*Please enter Medical History</span>\n          </div>\n        </div>\n      </div>\n\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"email\">Email : </label>\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"phone\">Phone : </label>\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"Phone\">\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n          <div class=\"col-12\">\n            <div class=\"form-group\">\n              <label for=\"address\">Address : </label>\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Name\"></textarea>\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\n            </div>\n          </div>\n      </div>\n\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"branch\">Select Branch : </label>\n            <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\" (change)=\"branchChanged()\">\n              <option value=\"\">Select Branch</option>\n              <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\n            </select>\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please Select Branch</span>\n          </div>\n        </div>\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"batch\">Select Batch : </label>\n            <select class=\"batch\" type=\"date\" name=\"batch\" id=\"batch\" formControlName=\"batch\" (change)=\"changeWeekType()\">\n              <option value=\"weekDays\">Week Day</option>\n              <option value=\"weekEnds\">Week End</option>\n              </select>\n            <span *ngIf=\"!form.get('batch').valid && form.get('batch').touched\">*Please Select Batch</span>\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"row\">\n\n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"batchName\">Select Batch Name : </label>\n            <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\">\n              <option value=\"\">Select Batch</option>\n              <option *ngFor=\"let batch of batches\" [value]=\"batch.batchName\">{{batch.batchName}}</option>\n            </select>\n            <span *ngIf=\"!form.get('batchName').valid && form.get('batchName').touched\">*Please Select Batch Name</span>\n          </div>\n        </div>\n  \n        <div class=\"col-md-6 col-sm-12\">\n          <div class=\"form-group\">\n            <label for=\"image\">Select Article Image : </label>\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\n          </div>\n        </div>\n  \n      </div>\n\n      <div class=\"row mt-1\" *ngIf=\"formError\">\n        <div class=\"col-12\">\n          <span>*Please Fill All Student Fields</span>\n        </div>\n      </div>\n      \n      <hr>\n\n      <div class=\"row\">\n          <div class=\"col-12\">\n            <button type=\"submit\" class=\"btn-save\">Save</button>\n        \n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n          </div>\n        </div>\n\n\n    </form>\n  </div>\n\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\r\n      <h4 class=\"text-center mb-3\">Edit Student - {{student.name}}</h4>    \r\n    <form class=\"\" (submit)=\"editStudent()\" [formGroup]=\"form\">\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"name\">Name : </label>\r\n            <input class=\"name\" type=\"text\" name=\"name\" id=\"name\" formControlName=\"name\" placeholder=\"Name\">\r\n            <span *ngIf=\"!form.get('name').valid && form.get('name').touched\">*Please enter Name</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"birthDate\">Birth Date : </label>\r\n            <input class=\"birthDate\" type=\"date\" name=\"birthDate\" id=\"birthDate\" formControlName=\"birthDate\">\r\n            <span *ngIf=\"!form.get('birthDate').valid && form.get('birthDate').touched\">*Please enter Birth Date</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      \r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"firstGuardianName\">First Guardian Name : </label>\r\n            <input class=\"firstGuardianName\" type=\"text\" name=\"firstGuardianName\" id=\"firstGuardianName\" formControlName=\"firstGuardianName\" placeholder=\"First Guardian Name\">\r\n            <span *ngIf=\"!form.get('firstGuardianName').valid && form.get('firstGuardianName').touched\">*Please enter first Guardian Name</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"firstGuardianRelation\">First Guardian Relation : </label>\r\n            <input class=\"firstGuardianRelation\" type=\"text\" name=\"firstGuardianRelation\" id=\"firstGuardianRelation\" formControlName=\"firstGuardianRelation\" placeholder=\"First Guardian Relation\">\r\n            <span *ngIf=\"!form.get('firstGuardianRelation').valid && form.get('firstGuardianRelation').touched\">*Please enter first Guardian Relation</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"secondGuardianName\">Second Guardian Name : </label>\r\n            <input class=\"secondGuardianName\" type=\"text\" name=\"secondGuardianName\" id=\"secondGuardianName\" formControlName=\"secondGuardianName\" placeholder=\"Second Guardian Name\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"secondGuardianRelation\">Second Guardian Relation : </label>\r\n            <input class=\"secondGuardianRelation\" type=\"text\" name=\"secondGuardianRelation\" id=\"secondGuardianRelation\" formControlName=\"secondGuardianRelation\" placeholder=\"Second Guardian Relation\">\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      \r\n      <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"workPlace\">School /College /Office (Optional) : </label>\r\n            <input class=\"workPlace\" type=\"text\" name=\"workPlace\" id=\"workPlace\" formControlName=\"workPlace\" placeholder=\"Work Place\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"bloodGroup\">Blood Group (Optional) : </label>\r\n            <input class=\"bloodGroup\" type=\"text\" name=\"bloodGroup\" id=\"bloodGroup\" formControlName=\"bloodGroup\" placeholder=\"Blood Group\">\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"medicalHistory\">Medical History : </label>\r\n            <textarea class=\"medicalHistory\" name=\"medicalHistory\" id=\"medicalHistory\" rows=\"3\" formControlName=\"medicalHistory\" placeholder=\"Medicle History\"></textarea>\r\n            <span *ngIf=\"!form.get('medicalHistory').valid && form.get('medicalHistory').touched\">*Please enter Medical History</span>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email : </label>\r\n            <input class=\"email\" type=\"email\" name=\"email\" id=\"email\" formControlName=\"email\" placeholder=\"example@email.com\">\r\n            <span *ngIf=\"!form.get('email').valid && form.get('email').touched\">*Please enter valid Email</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"phone\">Phone : </label>\r\n            <input class=\"phone\" type=\"text\" pattern=\"\\d*\" name=\"phone\" id=\"phone\" maxlength=\"10\" minlength=\"10\" formControlName=\"phone\" placeholder=\"Phone\">\r\n            <span *ngIf=\"!form.get('phone').valid && form.get('phone').touched\">*Please enter valid phone number</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"form-group\">\r\n              <label for=\"address\">Address : </label>\r\n              <textarea class=\"address\" name=\"address\" id=\"address\" rows=\"3\" formControlName=\"address\" placeholder=\"Name\"></textarea>\r\n              <span *ngIf=\"!form.get('address').valid && form.get('address').touched\">*Please enter Address</span>\r\n            </div>\r\n          </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"branch\">Select Branch : </label>\r\n            <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" placeholder=\"Branch\" (change)=\"branchChanged()\">\r\n              <option value=\"\">Select Branch</option>\r\n              <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\r\n            </select>\r\n            <span *ngIf=\"!form.get('branch').valid && form.get('branch').touched\">*Please Select Branch</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"batch\">Select Batch : </label>\r\n            <select class=\"batch\" type=\"date\" name=\"batch\" id=\"batch\" formControlName=\"batch\" (change)=\"changeWeekType()\">\r\n              <option value=\"weekDays\">Week Day</option>\r\n              <option value=\"weekEnds\">Week End</option>\r\n              </select>\r\n            <span *ngIf=\"!form.get('batch').valid && form.get('batch').touched\">*Please Select Batch</span>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"batchName\">Select Batch Name : </label>\r\n            <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batchName\">\r\n              <option value=\"\">Select Batch</option>\r\n              <option *ngFor=\"let batch of batches\" [value]=\"batch.batchName\">{{batch.batchName}}</option>\r\n            </select>\r\n            <span *ngIf=\"!form.get('batchName').valid && form.get('batchName').touched\">*Please Select Batch Name</span>\r\n          </div>\r\n        </div>\r\n  \r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group\">\r\n            <label for=\"image\">Select Article Image : </label>\r\n            <input type=\"file\" id=\"image\" name=\"image\" formControlName=\"image\" (change)=\"onImagePicked($event)\">\r\n            <span *ngIf=\"!form.get('image').valid && form.get('image').touched\">*Please Select Valid Image File</span>\r\n          </div>\r\n        </div>\r\n  \r\n      </div>\r\n\r\n      <div class=\"row mt-1\" *ngIf=\"formError\">\r\n        <div class=\"col-12\">\r\n          <span>*Please Fill All Student Fields</span>\r\n        </div>\r\n      </div>\r\n      \r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <button type=\"submit\" class=\"btn-save\">Save</button>\r\n        \r\n            <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n\r\n    </form>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -3231,7 +4000,7 @@ var AdminEditStudentComponent = /** @class */ (function () {
                 _this.branches = val;
                 var data = { api: "getStudent", data: { _id: _id } };
                 _this.httpPostService.httpPost(data).subscribe(function (val) {
-                    _this.student = val[0];
+                    _this.student = val;
                     _this.branch = _this.branches.find(function (branch) { return branch._id === _this.student.branch; });
                     _this.image = _this.student.image;
                     _this.form.patchValue({
@@ -3404,10 +4173,11 @@ var AdminShowStudentComponent = /** @class */ (function () {
             var _id = params['id'];
             var studentData = { api: "getStudent", data: { _id: _id } };
             _this.httpPostService.httpPost(studentData).subscribe(function (val) {
-                _this.student = val[0];
+                _this.student = val;
+                0;
                 var branchData = { api: "getBranch", data: { _id: _this.student.branch } };
                 _this.httpPostService.httpPost(branchData).subscribe(function (val) {
-                    _this.branch = val[0];
+                    _this.branch = val;
                     _this.batch = _this.branch.batch.find(function (batch) { return (batch.batchName === _this.student.batchName && batch.batchType === _this.student.batch); });
                     _this.loading = false;
                 }, function (error) {
@@ -3471,7 +4241,7 @@ module.exports = "  * {\r\n    margin: 0;\r\n  }\r\n\r\n  .receipt {\r\n    back
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\n    <h4 class=\"text-center mb-3\">Pay Fees</h4>\n    <div class=\"row\">\n      <div class=\"col-12\">\n        <form class=\"\" (submit)=\"payFees()\" [formGroup]=\"form\">\n          \n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"table-responsive\">\n                <table class=\"table table-sm table-borderless\">\n                  <tbody>\n                    <tr>\n                      <td>\n                        <strong>Student Name : </strong>\n                      </td>\n                      <td>\n                        <p>{{student.name}}</p>\n                      </td>\n                    </tr>\n                    <tr>\n                      <td>\n                        <strong>Branch : </strong>\n                      </td>\n                      <td>\n                        <p>{{branch.branch}}</p>\n                      </td>\n                    </tr>\n                    <tr>\n                      <td>\n                        <strong>Batch : </strong>\n                      </td>\n                      <td>\n                        <p>{{student.batch}}</p>\n                      </td>\n                    </tr>\n                    <tr>\n                      <td>\n                        <strong>Batch Name : </strong>\n                      </td>\n                      <td>\n                        <p>{{batch.batchName}}</p>\n                      </td>\n                    </tr>\n                    <tr>\n                      <td>\n                        <strong>Fees : </strong>\n                      </td>\n                      <td>\n                        <p>Rs. {{batch.fees}}.00/-</p>      \n                      </td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </div>\n          </div>\n\n          <hr>\n\n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"form-group\">\n                <label>Select Months : </label>\n                <div class=\"months-selector\">\n                  <div formArrayName=\"months\">\n                    <label *ngFor=\"let m of form.get('months').controls; let i = index\">\n                      <input type=\"checkbox\" [id]=\"month[i]\" class=\"month\" [formControlName]=\"i\" (change)=\"addMonth($event, i)\">\n                      <label [for]=\"month[i]\">{{month[i]}}</label>\n                    </label>\n                  </div>\n                </div>  \n                <span *ngIf=\"!form.get('months').valid && monthsTouched\">*Please Select Months</span>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"pt-2\">\n            <div class=\"row\">\n              <div class=\"col-md-6 col-sm-12\">\n                <label for=\"paymentMode\">Payment Mode : </label>\n              </div>\n              <div class=\"col-md-6 col-sm-12\">\n                <select class=\"paymentMode\" type=\"text\" name=\"paymentMode\" id=\"paymentMode\" formControlName=\"payment_mode\">\n                  <option value=\"\">Select Payment Mode</option>\n                  <option value=\"cash\">Cash</option>\n                  <option value=\"cheque\">Cheque</option>\n                  <option value=\"card\">Card</option>\n                  <option value=\"ewallet\">E-Wallet</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-12\">\n                <span *ngIf=\"!form.get('payment_mode').valid && form.get('payment_mode').touched\">*Please Select Payment Mode</span>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"row pt-2\">\n            <div class=\"col-12\">\n              <label>Amount : Rs. {{amount}}.00/-</label>\n            </div>\n          </div>\n\n          <div class=\"row mt-1\" *ngIf=\"formError\">\n            <div class=\"col-12\">\n              <span>*Please Fill All Receipt Fields</span>\n            </div>\n          </div>\n            \n          <hr>\n    \n          <div class=\"row\">\n            <div class=\"col-6\">\n              <button type=\"submit\" class=\"btn-pay\">Pay</button>\n            </div>\n            <div class=\"col-6\">\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\n            </div>\n          </div>\n\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 col-12 mx-auto\">\r\n    <h4 class=\"text-center mb-3\">Pay Fees</h4>\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <form class=\"\" (submit)=\"payFees()\" [formGroup]=\"form\">\r\n          \r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"table-responsive\">\r\n                <table class=\"table table-sm table-borderless\">\r\n                  <tbody>\r\n                    <tr>\r\n                      <td>\r\n                        <strong>Student Name : </strong>\r\n                      </td>\r\n                      <td>\r\n                        <p>{{student.name}}</p>\r\n                      </td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>\r\n                        <strong>Branch : </strong>\r\n                      </td>\r\n                      <td>\r\n                        <p>{{branch.branch}}</p>\r\n                      </td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>\r\n                        <strong>Batch : </strong>\r\n                      </td>\r\n                      <td>\r\n                        <p>{{student.batch}}</p>\r\n                      </td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>\r\n                        <strong>Batch Name : </strong>\r\n                      </td>\r\n                      <td>\r\n                        <p>{{batch.batchName}}</p>\r\n                      </td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>\r\n                        <strong>Fees : </strong>\r\n                      </td>\r\n                      <td>\r\n                        <p>Rs. {{batch.fees}}.00/-</p>      \r\n                      </td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <hr>\r\n\r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"form-group\">\r\n                <label>Select Months : </label>\r\n                <div class=\"months-selector\">\r\n                  <div formArrayName=\"months\">\r\n                    <label *ngFor=\"let m of form.get('months').controls; let i = index\">\r\n                      <input type=\"checkbox\" [id]=\"month[i]\" class=\"month\" [formControlName]=\"i\" (change)=\"addMonth($event, i)\">\r\n                      <label [for]=\"month[i]\">{{month[i]}}</label>\r\n                    </label>\r\n                  </div>\r\n                </div>  \r\n                <span *ngIf=\"!form.get('months').valid && monthsTouched\">*Please Select Months</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"pt-2\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 col-sm-12\">\r\n                <label for=\"paymentMode\">Payment Mode : </label>\r\n              </div>\r\n              <div class=\"col-md-6 col-sm-12\">\r\n                <select class=\"paymentMode\" type=\"text\" name=\"paymentMode\" id=\"paymentMode\" formControlName=\"payment_mode\">\r\n                  <option value=\"\">Select Payment Mode</option>\r\n                  <option value=\"cash\">Cash</option>\r\n                  <option value=\"cheque\">Cheque</option>\r\n                  <option value=\"card\">Card</option>\r\n                  <option value=\"ewallet\">E-Wallet</option>\r\n                </select>\r\n              </div>\r\n            </div>\r\n            <div class=\"row\">\r\n              <div class=\"col-12\">\r\n                <span *ngIf=\"!form.get('payment_mode').valid && form.get('payment_mode').touched\">*Please Select Payment Mode</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"row pt-2\">\r\n            <div class=\"col-12\">\r\n              <label>Amount : Rs. {{amount}}.00/-</label>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"row mt-1\" *ngIf=\"formError\">\r\n            <div class=\"col-12\">\r\n              <span>*Please Fill All Receipt Fields</span>\r\n            </div>\r\n          </div>\r\n            \r\n          <hr>\r\n    \r\n          <div class=\"row\">\r\n            <div class=\"col-6\">\r\n              <button type=\"submit\" class=\"btn-pay\">Pay</button>\r\n            </div>\r\n            <div class=\"col-6\">\r\n              <button type=\"button\" class=\"btn-cancel float-right\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n          </div>\r\n\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -3628,7 +4398,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n  <div class=\"row mt-2\" *ngIf=\"!loading\"> \n    <div class=\"col-md-10 col-sm-12 mx-auto\">\n      <h3>Receipts</h3>\n      <hr>\n      <div class=\"row\" *ngIf=\"receipts.length > 0; else empty_receipts\">\n        <div class=\"table-responsive\">\n          <table class=\"table table-sm table-hover\">\n            <tbody>\n              <tr>\n                <th>ID</th>\n                <th>Amount</th>\n                <th>Month</th>\n                <th>Payment Mode</th>\n                <th>Delete</th>\n              </tr>\n              <tr class=\"receipt\" *ngFor=\"let receipt of receipts; let i = index\" routerLinkActive=\"active\">\n                <td>{{ i+1 }}</td>\n                <td>\n                  Rs. {{ receipt.amount }}.00/-\n                </td>\n                <td>\n                  {{ receipt.months }}\n                </td>\n                <td>\n                  {{ receipt.paymentMode | uppercase }}\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn-delete\" (click)=\"delete(receipt.id)\">Delete</button>                \n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n      <ng-template #empty_receipts>\n        <h5 class=\"pl-3\">No Receipts Available</h5>\n      </ng-template>\n    </div>\n  </div>\n"
+module.exports = "  <img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n  <div class=\"row mt-2\" *ngIf=\"!loading\"> \r\n    <div class=\"col-md-10 col-sm-12 mx-auto\">\r\n      <h3>Receipts</h3>\r\n      <hr>\r\n      <div class=\"row\" *ngIf=\"receipts.length > 0; else empty_receipts\">\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table table-sm table-hover\">\r\n            <tbody>\r\n              <tr>\r\n                <th>ID</th>\r\n                <th>Amount</th>\r\n                <th>Month</th>\r\n                <th>Payment Mode</th>\r\n                <th>Delete</th>\r\n              </tr>\r\n              <tr class=\"receipt\" *ngFor=\"let receipt of receipts; let i = index\" routerLinkActive=\"active\">\r\n                <td>{{ i+1 }}</td>\r\n                <td>\r\n                  Rs. {{ receipt.amount }}.00/-\r\n                </td>\r\n                <td>\r\n                  {{ receipt.months }}\r\n                </td>\r\n                <td>\r\n                  {{ receipt.paymentMode | uppercase }}\r\n                </td>\r\n                <td>\r\n                  <button type=\"button\" class=\"btn-delete\" (click)=\"delete(receipt.id)\">Delete</button>                \r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n      </div>\r\n      <ng-template #empty_receipts>\r\n        <h5 class=\"pl-3\">No Receipts Available</h5>\r\n      </ng-template>\r\n    </div>\r\n  </div>\r\n"
 
 /***/ }),
 
@@ -3728,7 +4498,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12 mx-auto\">\n    <div class=\"row\">\n      <div class=\"col-md-6 col-sm-12\">\n        <h3>Students</h3>\n      </div>\n      <div class=\"col-md-6 col-sm-12\">\n        <button class=\"new-btn float-right\" (click)=\"onNewStudent()\">Add New student</button>\n      </div>\n    </div>\n    <hr>\n    <div class=\"row\">\n      <div class=\"col-md-4 col-sm-12\">\n        <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" ngModel #branch=\"ngModel\" required (change)=\"onSelectBranch(branch.value)\">\n          <option value=\"\">Select Branch</option>\n          <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\n      </select>\n      </div>\n      <div class=\"col-md-4 col-sm-12\">\n        <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" ngModel #batchName=\"ngModel\" required (change)=\"onSelectBatchName(batchName.value)\">\n          <option value=\"\">Select Batch Name</option>\n          <ng-container *ngFor=\"let batch of batches\">\n            <option [value]=\"batch.batchName\" *ngIf=\"batch.batchType === weekType\">{{batch.batchName}}</option>\n          </ng-container>\n      </select>\n      </div>\n      <div class=\"col-md-4 col-sm-12\">\n        <select class=\"batchType\" type=\"text\" name=\"batchType\" id=\"batchType\" [(ngModel)]=\"weekType\" #batchType=\"ngModel\" (change)=\"onSelectBatchType(batchType.value)\">\n          <option value=\"weekDays\">Week Day</option>\n          <option value=\"weekEnds\">Week End</option>\n      </select>\n      </div>\n      <!-- <div class=\"col-md-3 col-sm-12\">\n        <div class=\"input-group mb-3\">\n          <input type=\"text\" placeholder=\"Search\" id=\"search\" name=\"search\" ngModel #search=\"ngModel\" (input)=\"onSearch(search.value)\">\n          <div class=\"input-group-append\">\n            <button class=\"btn-search\" type=\"submit\" [disabled]=\"search == ''\" (click)=\"onSearch(search.value)\">Go</button> \n          </div>\n        </div>\n      </div> -->\n    </div>\n    <br>\n    <div class=\"row\" *ngIf=\"students.length > 0; else empty_students\">\n      <div class=\"table-responsive\">\n        <table class=\"table table-sm table-hover\">\n          <thead>\n            <tr>\n              <th>ID</th>\n              <th>Student</th>\n              <th>Contact</th>\n              <th>Status</th>\n              <th>Pay Fees</th>\n              <th>Receipts</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr class=\"student-tr\" *ngFor=\"let student of students, let i = index\" routerLinkActive=\"active\">\n              <td>{{ i+1 }}</td>\n              <td>\n                <a [routerLink]=\"student._id\" class=\"student\" skipLocationChange>\n                  {{ student.name }}\n                </a>\n              </td>\n              <td>\n                +91 {{ student.phone }}\n              </td>\n              <td>\n                {{ student.status | uppercase }}\n              </td>\n              <td>\n                <button type=\"button\" [routerLink]=\"[student._id, 'generate']\" class=\"btn-edit\" skipLocationChange>Pay Fees</button>                \n              </td>\n              <td>\n                <button type=\"button\" [routerLink]=\"[student._id, 'receipts']\" class=\"btn-edit\" skipLocationChange>Receipts</button>                \n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <ng-template #empty_students>\n      <h5 class=\"pl-3\">{{noStudent}}</h5>\n    </ng-template>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12 mx-auto\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <h3>Students</h3>\r\n      </div>\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <button class=\"new-btn float-right\" (click)=\"onNewStudent()\">Add New student</button>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 col-sm-12\">\r\n        <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" ngModel #branch=\"ngModel\" required (change)=\"onSelectBranch(branch.value)\">\r\n          <option value=\"\">Select Branch</option>\r\n          <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\r\n      </select>\r\n      </div>\r\n      <div class=\"col-md-4 col-sm-12\">\r\n        <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" ngModel #batchName=\"ngModel\" required (change)=\"onSelectBatchName(batchName.value)\">\r\n          <option value=\"\">Select Batch Name</option>\r\n          <ng-container *ngFor=\"let batch of batches\">\r\n            <option [value]=\"batch.batchName\" *ngIf=\"batch.batchType === weekType\">{{batch.batchName}}</option>\r\n          </ng-container>\r\n      </select>\r\n      </div>\r\n      <div class=\"col-md-4 col-sm-12\">\r\n        <select class=\"batchType\" type=\"text\" name=\"batchType\" id=\"batchType\" [(ngModel)]=\"weekType\" #batchType=\"ngModel\" (change)=\"onSelectBatchType(batchType.value)\">\r\n          <option value=\"weekDays\">Week Day</option>\r\n          <option value=\"weekEnds\">Week End</option>\r\n      </select>\r\n      </div>\r\n      <!-- <div class=\"col-md-3 col-sm-12\">\r\n        <div class=\"input-group mb-3\">\r\n          <input type=\"text\" placeholder=\"Search\" id=\"search\" name=\"search\" ngModel #search=\"ngModel\" (input)=\"onSearch(search.value)\">\r\n          <div class=\"input-group-append\">\r\n            <button class=\"btn-search\" type=\"submit\" [disabled]=\"search == ''\" (click)=\"onSearch(search.value)\">Go</button> \r\n          </div>\r\n        </div>\r\n      </div> -->\r\n    </div>\r\n    <br>\r\n    <div class=\"row\" *ngIf=\"students.length > 0; else empty_students\">\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <thead>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Student</th>\r\n              <th>Contact</th>\r\n              <th>Status</th>\r\n              <th>Pay Fees</th>\r\n              <th>Receipts</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr class=\"student-tr\" *ngFor=\"let student of students, let i = index\" routerLinkActive=\"active\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                <a [routerLink]=\"student._id\" class=\"student\" skipLocationChange>\r\n                  {{ student.name }}\r\n                </a>\r\n              </td>\r\n              <td>\r\n                +91 {{ student.phone }}\r\n              </td>\r\n              <td>\r\n                {{ student.status | uppercase }}\r\n              </td>\r\n              <td>\r\n                <button type=\"button\" [routerLink]=\"[student._id, 'generate']\" class=\"btn-edit\" skipLocationChange>Pay Fees</button>                \r\n              </td>\r\n              <td>\r\n                <button type=\"button\" [routerLink]=\"[student._id, 'receipts']\" class=\"btn-edit\" skipLocationChange>Receipts</button>                \r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <ng-template #empty_students>\r\n      <h5 class=\"pl-3\">{{noStudent}}</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -3777,6 +4547,9 @@ var AdminStudentComponent = /** @class */ (function () {
                     _this.loading = false;
                 }, function (error) {
                 });
+            }
+            else {
+                _this.loading = false;
             }
         }, function (error) {
         });
@@ -3857,7 +4630,7 @@ module.exports = "h3 {\r\n    font-size: 150%;\r\n}\r\n\r\nhr {\r\n    border: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <!-- Sidebar  -->\n  <nav class=\"sidebar\" [ngClass]=\"{'hide' : sidenav}\">\n    \n    <ul class=\"list-unstyled components\">\n\n      <li>\n        <a routerLink=\"/admin/dashboard\" routerLinkActive=\"active\" skipLocationChange>Dashboard</a>\n      </li>\n      \n      <li>\n        <a href=\"#aboutSubmenu\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\"dropdown-toggle\">About</a>\n        <ul class=\"collapse list-unstyled\" id=\"aboutSubmenu\">\n          <li>\n            <a routerLink=\"/admin/about/aim\" routerLinkActive=\"active\" skipLocationChange>Aim</a>\n          </li>\n           <li>\n            <a routerLink=\"/admin/about/history\" routerLinkActive=\"active\" skipLocationChange>History</a>\n          </li>\n          <li>\n            <a routerLink=\"/admin/about/philosophy\" routerLinkActive=\"active\" skipLocationChange>Philosophy</a>\n          </li>\n        </ul>\n      </li>\n\n      <li>\n        <a routerLink=\"/admin/faculty\" routerLinkActive=\"active\" skipLocationChange>Faculty</a>\n      </li>\n      \n      <li>\n        <a routerLink=\"/admin/branch\" routerLinkActive=\"active\" skipLocationChange>Branch</a>\n      </li>\n      \n      <li>\n        <a routerLink=\"/admin/student\" routerLinkActive=\"active\" skipLocationChange>Student</a>\n      </li>\n      <li>\n\n        <a routerLink=\"/admin/attendance\" routerLinkActive=\"active\" skipLocationChange>Attendance</a>\n      </li>\n\n      <li>\n        <a routerLink=\"/admin/gallery\" routerLinkActive=\"active\" skipLocationChange>Gallery</a>\n      </li>\n\n      <li>\n        <a routerLink=\"/admin/exams\" routerLinkActive=\"active\" skipLocationChange>Exams</a>\n      </li>\n\n      <li>\n        <a routerLink=\"/admin/article\" routerLinkActive=\"active\" skipLocationChange>Article</a>\n      </li>\n\n      <li>\n        <a routerLink=\"/admin/enquiry\" routerLinkActive=\"active\" skipLocationChange>Enquiries</a>\n      </li>\n    </ul>\n\n  </nav>\n  \n  <!-- Page Content  -->\n  <button type=\"button\" class=\"toggle-btn m-1\" (click)=\"toggle()\">\n    <i class=\"fa fa-align-justify\"></i>\n  </button>\n  <div class=\"container\">\n    <div class=\"row m-2\">\n      <div class=\"col-12\">\n        <router-outlet></router-outlet>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"wrapper\">\r\n  <!-- Sidebar  -->\r\n  <nav class=\"sidebar\" [ngClass]=\"{'hide' : sidenav}\">\r\n    \r\n    <ul class=\"list-unstyled components\">\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/dashboard\" routerLinkActive=\"active\" skipLocationChange>Dashboard</a>\r\n      </li>\r\n      \r\n      <li>\r\n        <a href=\"#aboutSubmenu\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\"dropdown-toggle\">About</a>\r\n        <ul class=\"collapse list-unstyled\" id=\"aboutSubmenu\">\r\n          <li>\r\n            <a routerLink=\"/admin/about/aim\" routerLinkActive=\"active\" skipLocationChange>Aim</a>\r\n          </li>\r\n           <li>\r\n            <a routerLink=\"/admin/about/history\" routerLinkActive=\"active\" skipLocationChange>History</a>\r\n          </li>\r\n          <li>\r\n            <a routerLink=\"/admin/about/philosophy\" routerLinkActive=\"active\" skipLocationChange>Philosophy</a>\r\n          </li>\r\n        </ul>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/faculty\" routerLinkActive=\"active\" skipLocationChange>Faculty</a>\r\n      </li>\r\n      \r\n      <li>\r\n        <a routerLink=\"/admin/branch\" routerLinkActive=\"active\" skipLocationChange>Branch</a>\r\n      </li>\r\n      \r\n      <li>\r\n        <a routerLink=\"/admin/student\" routerLinkActive=\"active\" skipLocationChange>Student</a>\r\n      </li>\r\n      <li>\r\n\r\n        <a routerLink=\"/admin/attendance\" routerLinkActive=\"active\" skipLocationChange>Attendance</a>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/gallery\" routerLinkActive=\"active\" skipLocationChange>Gallery</a>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/exams\" routerLinkActive=\"active\" skipLocationChange>Exams</a>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/news\" routerLinkActive=\"active\" skipLocationChange>News</a>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/article\" routerLinkActive=\"active\" skipLocationChange>Article</a>\r\n      </li>\r\n\r\n      <li>\r\n        <a routerLink=\"/admin/enquiry\" routerLinkActive=\"active\" skipLocationChange>Enquiries</a>\r\n      </li>\r\n    </ul>\r\n\r\n  </nav>\r\n  \r\n  <!-- Page Content  -->\r\n  <button type=\"button\" class=\"toggle-btn m-1\" (click)=\"toggle()\">\r\n    <i class=\"fa fa-align-justify\"></i>\r\n  </button>\r\n  <div class=\"container\">\r\n    <div class=\"row m-2\">\r\n      <div class=\"col-12\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4018,25 +4791,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./admin/admin-faculty/admin-show-faculty/admin-show-faculty.component */ "./src/app/admin/admin-faculty/admin-show-faculty/admin-show-faculty.component.ts");
 /* harmony import */ var _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component */ "./src/app/admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component.ts");
 /* harmony import */ var _admin_admin_exam_admin_exam_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./admin/admin-exam/admin-exam.component */ "./src/app/admin/admin-exam/admin-exam.component.ts");
-/* harmony import */ var _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./admin/admin-gallary/admin-gallary.component */ "./src/app/admin/admin-gallary/admin-gallary.component.ts");
-/* harmony import */ var _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./admin/admin-gallary/admin-add-photos/admin-add-photos.component */ "./src/app/admin/admin-gallary/admin-add-photos/admin-add-photos.component.ts");
-/* harmony import */ var _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./admin/admin-attendance/admin-attendance.component */ "./src/app/admin/admin-attendance/admin-attendance.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./admin/admin-student/admin-student.component */ "./src/app/admin/admin-student/admin-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./admin/admin-student/admin-add-student/admin-add-student.component */ "./src/app/admin/admin-student/admin-add-student/admin-add-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./admin/admin-student/admin-show-student/admin-show-student.component */ "./src/app/admin/admin-student/admin-show-student/admin-show-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./admin/admin-student/admin-edit-student/admin-edit-student.component */ "./src/app/admin/admin-student/admin-edit-student/admin-edit-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./admin/admin-student/admin-student-receipts/admin-student-receipts.component */ "./src/app/admin/admin-student/admin-student-receipts/admin-student-receipts.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component */ "./src/app/admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component.ts");
-/* harmony import */ var _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./errors/page-not-found/page-not-found.component */ "./src/app/errors/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./errors/server-error/server-error.component */ "./src/app/errors/server-error/server-error.component.ts");
-/* harmony import */ var _student_student_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./student/student.component */ "./src/app/student/student.component.ts");
-/* harmony import */ var _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./student/student-dashboard/student-dashboard.component */ "./src/app/student/student-dashboard/student-dashboard.component.ts");
-/* harmony import */ var _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./student/student-attendance/student-attendance.component */ "./src/app/student/student-attendance/student-attendance.component.ts");
-/* harmony import */ var _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./student/student-receipts/student-receipts.component */ "./src/app/student/student-receipts/student-receipts.component.ts");
-/* harmony import */ var _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./faculty/faculty.component */ "./src/app/faculty/faculty.component.ts");
-/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./validators/form.validator */ "./src/app/validators/form.validator.ts");
-/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./services/httpPost.service */ "./src/app/services/httpPost.service.ts");
-/* harmony import */ var _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./student/student-receipts/student-show-receipt/student-show-receipt.component */ "./src/app/student/student-receipts/student-show-receipt/student-show-receipt.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_add_exam_admin_add_exam_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./admin/admin-exam/admin-add-exam/admin-add-exam.component */ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_show_exam_admin_show_exam_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./admin/admin-exam/admin-show-exam/admin-show-exam.component */ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_edit_exam_admin_edit_exam_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./admin/admin-exam/admin-edit-exam/admin-edit-exam.component */ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.ts");
+/* harmony import */ var _admin_admin_news_admin_news_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./admin/admin-news/admin-news.component */ "./src/app/admin/admin-news/admin-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_add_news_admin_add_news_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./admin/admin-news/admin-add-news/admin-add-news.component */ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_show_news_admin_show_news_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./admin/admin-news/admin-show-news/admin-show-news.component */ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_edit_news_admin_edit_news_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./admin/admin-news/admin-edit-news/admin-edit-news.component */ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.ts");
+/* harmony import */ var _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./admin/admin-gallary/admin-gallary.component */ "./src/app/admin/admin-gallary/admin-gallary.component.ts");
+/* harmony import */ var _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./admin/admin-gallary/admin-add-photos/admin-add-photos.component */ "./src/app/admin/admin-gallary/admin-add-photos/admin-add-photos.component.ts");
+/* harmony import */ var _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./admin/admin-attendance/admin-attendance.component */ "./src/app/admin/admin-attendance/admin-attendance.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./admin/admin-student/admin-student.component */ "./src/app/admin/admin-student/admin-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./admin/admin-student/admin-add-student/admin-add-student.component */ "./src/app/admin/admin-student/admin-add-student/admin-add-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./admin/admin-student/admin-show-student/admin-show-student.component */ "./src/app/admin/admin-student/admin-show-student/admin-show-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./admin/admin-student/admin-edit-student/admin-edit-student.component */ "./src/app/admin/admin-student/admin-edit-student/admin-edit-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./admin/admin-student/admin-student-receipts/admin-student-receipts.component */ "./src/app/admin/admin-student/admin-student-receipts/admin-student-receipts.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component */ "./src/app/admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component.ts");
+/* harmony import */ var _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./errors/page-not-found/page-not-found.component */ "./src/app/errors/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./errors/server-error/server-error.component */ "./src/app/errors/server-error/server-error.component.ts");
+/* harmony import */ var _student_student_component__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./student/student.component */ "./src/app/student/student.component.ts");
+/* harmony import */ var _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./student/student-dashboard/student-dashboard.component */ "./src/app/student/student-dashboard/student-dashboard.component.ts");
+/* harmony import */ var _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./student/student-attendance/student-attendance.component */ "./src/app/student/student-attendance/student-attendance.component.ts");
+/* harmony import */ var _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./student/student-receipts/student-receipts.component */ "./src/app/student/student-receipts/student-receipts.component.ts");
+/* harmony import */ var _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./student/student-receipts/student-show-receipt/student-show-receipt.component */ "./src/app/student/student-receipts/student-show-receipt/student-show-receipt.component.ts");
+/* harmony import */ var _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./faculty/faculty.component */ "./src/app/faculty/faculty.component.ts");
+/* harmony import */ var _validators_form_validator__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./validators/form.validator */ "./src/app/validators/form.validator.ts");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./services/httpPost.service */ "./src/app/services/httpPost.service.ts");
 
 
 //MODULES
@@ -4111,6 +4891,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+// import { JwtModule } from '@auth0/angular-jwt'; 
+// export function tokenGetter() {
+//   return localStorage.getItem('access_token');
+// }
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -4153,27 +4944,34 @@ var AppModule = /** @class */ (function () {
                 _admin_admin_enquiry_admin_show_enquiry_admin_show_enquiry_component__WEBPACK_IMPORTED_MODULE_43__["AdminShowEnquiryComponent"],
                 _admin_admin_enquiry_admin_reply_enquiry_admin_reply_enquiry_component__WEBPACK_IMPORTED_MODULE_44__["AdminReplyEnquiryComponent"],
                 _admin_admin_exam_admin_exam_component__WEBPACK_IMPORTED_MODULE_49__["AdminExamComponent"],
-                _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_50__["AdminGallaryComponent"],
-                _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_51__["AdminAddPhotosComponent"],
-                _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_52__["AdminAttendanceComponent"],
+                _admin_admin_exam_admin_add_exam_admin_add_exam_component__WEBPACK_IMPORTED_MODULE_50__["AdminAddExamComponent"],
+                _admin_admin_exam_admin_edit_exam_admin_edit_exam_component__WEBPACK_IMPORTED_MODULE_52__["AdminEditExamComponent"],
+                _admin_admin_exam_admin_show_exam_admin_show_exam_component__WEBPACK_IMPORTED_MODULE_51__["AdminShowExamComponent"],
+                _admin_admin_news_admin_news_component__WEBPACK_IMPORTED_MODULE_53__["AdminNewsComponent"],
+                _admin_admin_news_admin_add_news_admin_add_news_component__WEBPACK_IMPORTED_MODULE_54__["AdminAddNewsComponent"],
+                _admin_admin_news_admin_edit_news_admin_edit_news_component__WEBPACK_IMPORTED_MODULE_56__["AdminEditNewsComponent"],
+                _admin_admin_news_admin_show_news_admin_show_news_component__WEBPACK_IMPORTED_MODULE_55__["AdminShowNewsComponent"],
+                _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_57__["AdminGallaryComponent"],
+                _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_58__["AdminAddPhotosComponent"],
+                _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_59__["AdminAttendanceComponent"],
                 _admin_admin_faculty_admin_faculty_component__WEBPACK_IMPORTED_MODULE_45__["AdminFacultyComponent"],
                 _admin_admin_faculty_admin_add_faculty_admin_add_faculty_component__WEBPACK_IMPORTED_MODULE_46__["AdminAddFacultyComponent"],
                 _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_47__["AdminShowFacultyComponent"],
                 _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_48__["AdminEditFacultyComponent"],
-                _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_53__["AdminStudentComponent"],
-                _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_54__["AdminAddStudentComponent"],
-                _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_55__["AdminShowStudentComponent"],
-                _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_56__["AdminEditStudentComponent"],
-                _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_57__["AdminStudentReceiptsComponent"],
-                _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_58__["AdminStudentGenerateReceiptComponent"],
-                _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_59__["PageNotFoundComponent"],
-                _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_60__["ServerErrorComponent"],
-                _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_65__["FacultyComponent"],
-                _student_student_component__WEBPACK_IMPORTED_MODULE_61__["StudentComponent"],
-                _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_62__["StudentDashboardComponent"],
-                _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_64__["StudentReceiptsComponent"],
-                _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_63__["StudentAttendanceComponent"],
-                _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_68__["StudentShowReceiptComponent"]
+                _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_60__["AdminStudentComponent"],
+                _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_61__["AdminAddStudentComponent"],
+                _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_62__["AdminShowStudentComponent"],
+                _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_63__["AdminEditStudentComponent"],
+                _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_64__["AdminStudentReceiptsComponent"],
+                _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_65__["AdminStudentGenerateReceiptComponent"],
+                _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_66__["PageNotFoundComponent"],
+                _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_67__["ServerErrorComponent"],
+                _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_73__["FacultyComponent"],
+                _student_student_component__WEBPACK_IMPORTED_MODULE_68__["StudentComponent"],
+                _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_69__["StudentDashboardComponent"],
+                _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_71__["StudentReceiptsComponent"],
+                _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_70__["StudentAttendanceComponent"],
+                _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_72__["StudentShowReceiptComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
@@ -4184,16 +4982,16 @@ var AppModule = /** @class */ (function () {
                 angular2_image_gallery__WEBPACK_IMPORTED_MODULE_6__["Angular2ImageGalleryModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_5__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk'
-                })
+                }),
             ],
             providers: [
-                _services_httpPost_service__WEBPACK_IMPORTED_MODULE_67__["HttpPostService"],
+                _services_httpPost_service__WEBPACK_IMPORTED_MODULE_75__["HttpPostService"],
                 _auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__["LoginAuthGuard"],
                 _auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AdminAuthGuard"],
                 _auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__["FacultuAuthGuard"],
                 _auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__["StudentAuthGuard"],
                 _auth_auth_service__WEBPACK_IMPORTED_MODULE_9__["AuthService"],
-                _validators_form_validator__WEBPACK_IMPORTED_MODULE_66__["FormValidator"]
+                _validators_form_validator__WEBPACK_IMPORTED_MODULE_74__["FormValidator"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
         })
@@ -4242,36 +5040,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_admin_enquiry_admin_show_enquiry_admin_show_enquiry_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./admin/admin-enquiry/admin-show-enquiry/admin-show-enquiry.component */ "./src/app/admin/admin-enquiry/admin-show-enquiry/admin-show-enquiry.component.ts");
 /* harmony import */ var _admin_admin_enquiry_admin_reply_enquiry_admin_reply_enquiry_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./admin/admin-enquiry/admin-reply-enquiry/admin-reply-enquiry.component */ "./src/app/admin/admin-enquiry/admin-reply-enquiry/admin-reply-enquiry.component.ts");
 /* harmony import */ var _admin_admin_exam_admin_exam_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./admin/admin-exam/admin-exam.component */ "./src/app/admin/admin-exam/admin-exam.component.ts");
-/* harmony import */ var _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./admin/admin-gallary/admin-gallary.component */ "./src/app/admin/admin-gallary/admin-gallary.component.ts");
-/* harmony import */ var _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./admin/admin-gallary/admin-add-photos/admin-add-photos.component */ "./src/app/admin/admin-gallary/admin-add-photos/admin-add-photos.component.ts");
-/* harmony import */ var _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./admin/admin-attendance/admin-attendance.component */ "./src/app/admin/admin-attendance/admin-attendance.component.ts");
-/* harmony import */ var _admin_admin_faculty_admin_faculty_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./admin/admin-faculty/admin-faculty.component */ "./src/app/admin/admin-faculty/admin-faculty.component.ts");
-/* harmony import */ var _admin_admin_faculty_admin_add_faculty_admin_add_faculty_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./admin/admin-faculty/admin-add-faculty/admin-add-faculty.component */ "./src/app/admin/admin-faculty/admin-add-faculty/admin-add-faculty.component.ts");
-/* harmony import */ var _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./admin/admin-faculty/admin-show-faculty/admin-show-faculty.component */ "./src/app/admin/admin-faculty/admin-show-faculty/admin-show-faculty.component.ts");
-/* harmony import */ var _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component */ "./src/app/admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./admin/admin-student/admin-student.component */ "./src/app/admin/admin-student/admin-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./admin/admin-student/admin-add-student/admin-add-student.component */ "./src/app/admin/admin-student/admin-add-student/admin-add-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./admin/admin-student/admin-show-student/admin-show-student.component */ "./src/app/admin/admin-student/admin-show-student/admin-show-student.component.ts");
-/* harmony import */ var _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./admin/admin-student/admin-edit-student/admin-edit-student.component */ "./src/app/admin/admin-student/admin-edit-student/admin-edit-student.component.ts");
-/* harmony import */ var _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./errors/page-not-found/page-not-found.component */ "./src/app/errors/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./errors/server-error/server-error.component */ "./src/app/errors/server-error/server-error.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./admin/admin-student/admin-student-receipts/admin-student-receipts.component */ "./src/app/admin/admin-student/admin-student-receipts/admin-student-receipts.component.ts");
-/* harmony import */ var _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component */ "./src/app/admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component.ts");
-/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
-/* harmony import */ var _student_student_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./student/student.component */ "./src/app/student/student.component.ts");
-/* harmony import */ var _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./student/student-dashboard/student-dashboard.component */ "./src/app/student/student-dashboard/student-dashboard.component.ts");
-/* harmony import */ var _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./student/student-attendance/student-attendance.component */ "./src/app/student/student-attendance/student-attendance.component.ts");
-/* harmony import */ var _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./student/student-receipts/student-receipts.component */ "./src/app/student/student-receipts/student-receipts.component.ts");
-/* harmony import */ var _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./student/student-receipts/student-show-receipt/student-show-receipt.component */ "./src/app/student/student-receipts/student-show-receipt/student-show-receipt.component.ts");
-/* harmony import */ var _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./faculty/faculty.component */ "./src/app/faculty/faculty.component.ts");
-/* harmony import */ var _content_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./content/home-page/home-page.component */ "./src/app/content/home-page/home-page.component.ts");
-/* harmony import */ var _content_about_page_about_page_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./content/about-page/about-page.component */ "./src/app/content/about-page/about-page.component.ts");
-/* harmony import */ var _content_contact_us_page_contact_us_page_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./content/contact-us-page/contact-us-page.component */ "./src/app/content/contact-us-page/contact-us-page.component.ts");
-/* harmony import */ var _content_branches_page_branches_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./content/branches-page/branches-page.component */ "./src/app/content/branches-page/branches-page.component.ts");
-/* harmony import */ var _content_gallery_page_gallery_page_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./content/gallery-page/gallery-page.component */ "./src/app/content/gallery-page/gallery-page.component.ts");
-/* harmony import */ var _content_news_shelter_page_news_shelter_page_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./content/news-shelter-page/news-shelter-page.component */ "./src/app/content/news-shelter-page/news-shelter-page.component.ts");
-/* harmony import */ var _content_articles_page_articles_page_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./content/articles-page/articles-page.component */ "./src/app/content/articles-page/articles-page.component.ts");
-/* harmony import */ var _content_exams_page_exams_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./content/exams-page/exams-page.component */ "./src/app/content/exams-page/exams-page.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_add_exam_admin_add_exam_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./admin/admin-exam/admin-add-exam/admin-add-exam.component */ "./src/app/admin/admin-exam/admin-add-exam/admin-add-exam.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_show_exam_admin_show_exam_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./admin/admin-exam/admin-show-exam/admin-show-exam.component */ "./src/app/admin/admin-exam/admin-show-exam/admin-show-exam.component.ts");
+/* harmony import */ var _admin_admin_exam_admin_edit_exam_admin_edit_exam_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./admin/admin-exam/admin-edit-exam/admin-edit-exam.component */ "./src/app/admin/admin-exam/admin-edit-exam/admin-edit-exam.component.ts");
+/* harmony import */ var _admin_admin_news_admin_news_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./admin/admin-news/admin-news.component */ "./src/app/admin/admin-news/admin-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_add_news_admin_add_news_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./admin/admin-news/admin-add-news/admin-add-news.component */ "./src/app/admin/admin-news/admin-add-news/admin-add-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_show_news_admin_show_news_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./admin/admin-news/admin-show-news/admin-show-news.component */ "./src/app/admin/admin-news/admin-show-news/admin-show-news.component.ts");
+/* harmony import */ var _admin_admin_news_admin_edit_news_admin_edit_news_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./admin/admin-news/admin-edit-news/admin-edit-news.component */ "./src/app/admin/admin-news/admin-edit-news/admin-edit-news.component.ts");
+/* harmony import */ var _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./admin/admin-gallary/admin-gallary.component */ "./src/app/admin/admin-gallary/admin-gallary.component.ts");
+/* harmony import */ var _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./admin/admin-gallary/admin-add-photos/admin-add-photos.component */ "./src/app/admin/admin-gallary/admin-add-photos/admin-add-photos.component.ts");
+/* harmony import */ var _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./admin/admin-attendance/admin-attendance.component */ "./src/app/admin/admin-attendance/admin-attendance.component.ts");
+/* harmony import */ var _admin_admin_faculty_admin_faculty_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./admin/admin-faculty/admin-faculty.component */ "./src/app/admin/admin-faculty/admin-faculty.component.ts");
+/* harmony import */ var _admin_admin_faculty_admin_add_faculty_admin_add_faculty_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./admin/admin-faculty/admin-add-faculty/admin-add-faculty.component */ "./src/app/admin/admin-faculty/admin-add-faculty/admin-add-faculty.component.ts");
+/* harmony import */ var _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./admin/admin-faculty/admin-show-faculty/admin-show-faculty.component */ "./src/app/admin/admin-faculty/admin-show-faculty/admin-show-faculty.component.ts");
+/* harmony import */ var _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component */ "./src/app/admin/admin-faculty/admin-edit-faculty/admin-edit-faculty.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./admin/admin-student/admin-student.component */ "./src/app/admin/admin-student/admin-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./admin/admin-student/admin-add-student/admin-add-student.component */ "./src/app/admin/admin-student/admin-add-student/admin-add-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./admin/admin-student/admin-show-student/admin-show-student.component */ "./src/app/admin/admin-student/admin-show-student/admin-show-student.component.ts");
+/* harmony import */ var _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./admin/admin-student/admin-edit-student/admin-edit-student.component */ "./src/app/admin/admin-student/admin-edit-student/admin-edit-student.component.ts");
+/* harmony import */ var _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./errors/page-not-found/page-not-found.component */ "./src/app/errors/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./errors/server-error/server-error.component */ "./src/app/errors/server-error/server-error.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./admin/admin-student/admin-student-receipts/admin-student-receipts.component */ "./src/app/admin/admin-student/admin-student-receipts/admin-student-receipts.component.ts");
+/* harmony import */ var _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component */ "./src/app/admin/admin-student/admin-student-generate-receipt/admin-student-generate-receipt.component.ts");
+/* harmony import */ var _auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./auth/auth.guard */ "./src/app/auth/auth.guard.ts");
+/* harmony import */ var _student_student_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./student/student.component */ "./src/app/student/student.component.ts");
+/* harmony import */ var _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./student/student-dashboard/student-dashboard.component */ "./src/app/student/student-dashboard/student-dashboard.component.ts");
+/* harmony import */ var _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./student/student-attendance/student-attendance.component */ "./src/app/student/student-attendance/student-attendance.component.ts");
+/* harmony import */ var _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./student/student-receipts/student-receipts.component */ "./src/app/student/student-receipts/student-receipts.component.ts");
+/* harmony import */ var _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./student/student-receipts/student-show-receipt/student-show-receipt.component */ "./src/app/student/student-receipts/student-show-receipt/student-show-receipt.component.ts");
+/* harmony import */ var _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./faculty/faculty.component */ "./src/app/faculty/faculty.component.ts");
+/* harmony import */ var _content_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./content/home-page/home-page.component */ "./src/app/content/home-page/home-page.component.ts");
+/* harmony import */ var _content_about_page_about_page_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./content/about-page/about-page.component */ "./src/app/content/about-page/about-page.component.ts");
+/* harmony import */ var _content_contact_us_page_contact_us_page_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./content/contact-us-page/contact-us-page.component */ "./src/app/content/contact-us-page/contact-us-page.component.ts");
+/* harmony import */ var _content_branches_page_branches_page_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./content/branches-page/branches-page.component */ "./src/app/content/branches-page/branches-page.component.ts");
+/* harmony import */ var _content_gallery_page_gallery_page_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./content/gallery-page/gallery-page.component */ "./src/app/content/gallery-page/gallery-page.component.ts");
+/* harmony import */ var _content_news_shelter_page_news_shelter_page_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./content/news-shelter-page/news-shelter-page.component */ "./src/app/content/news-shelter-page/news-shelter-page.component.ts");
+/* harmony import */ var _content_articles_page_articles_page_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./content/articles-page/articles-page.component */ "./src/app/content/articles-page/articles-page.component.ts");
+/* harmony import */ var _content_exams_page_exams_page_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./content/exams-page/exams-page.component */ "./src/app/content/exams-page/exams-page.component.ts");
+
+
+
+
+
+
+
 
 
 
@@ -4331,64 +5143,71 @@ __webpack_require__.r(__webpack_exports__);
 
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: _content_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_49__["HomePageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'about', component: _content_about_page_about_page_component__WEBPACK_IMPORTED_MODULE_50__["AboutPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'contactUs', component: _content_contact_us_page_contact_us_page_component__WEBPACK_IMPORTED_MODULE_51__["ContactUsPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'branches', component: _content_branches_page_branches_page_component__WEBPACK_IMPORTED_MODULE_52__["BranchesPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'gallery', component: _content_gallery_page_gallery_page_component__WEBPACK_IMPORTED_MODULE_53__["GalleryPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'articles', component: _content_articles_page_articles_page_component__WEBPACK_IMPORTED_MODULE_55__["ArticlesPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'newsShelter', component: _content_news_shelter_page_news_shelter_page_component__WEBPACK_IMPORTED_MODULE_54__["NewsShelterPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'exams', component: _content_exams_page_exams_page_component__WEBPACK_IMPORTED_MODULE_56__["ExamsPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'forgot_password', component: _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_5__["ForgotPasswordComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
-    { path: 'reset_password', component: _login_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_6__["ResetPasswordComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["LoginAuthGuard"]] },
+    { path: 'home', component: _content_home_page_home_page_component__WEBPACK_IMPORTED_MODULE_56__["HomePageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'about', component: _content_about_page_about_page_component__WEBPACK_IMPORTED_MODULE_57__["AboutPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'contactUs', component: _content_contact_us_page_contact_us_page_component__WEBPACK_IMPORTED_MODULE_58__["ContactUsPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'branches', component: _content_branches_page_branches_page_component__WEBPACK_IMPORTED_MODULE_59__["BranchesPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'gallery', component: _content_gallery_page_gallery_page_component__WEBPACK_IMPORTED_MODULE_60__["GalleryPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'articles', component: _content_articles_page_articles_page_component__WEBPACK_IMPORTED_MODULE_62__["ArticlesPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'newsShelter', component: _content_news_shelter_page_news_shelter_page_component__WEBPACK_IMPORTED_MODULE_61__["NewsShelterPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'exams', component: _content_exams_page_exams_page_component__WEBPACK_IMPORTED_MODULE_63__["ExamsPageComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'forgot_password', component: _login_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_5__["ForgotPasswordComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
+    { path: 'reset_password', component: _login_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_6__["ResetPasswordComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["LoginAuthGuard"]] },
     { path: 'change_password', component: _login_change_password_change_password_component__WEBPACK_IMPORTED_MODULE_7__["ChangePasswordComponent"], canActivate: [] },
-    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_3__["AdminComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]], canActivateChild: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]], children: [
+    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_3__["AdminComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]], canActivateChild: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]], children: [
             { path: '', redirectTo: "dashboard", pathMatch: 'full' },
-            { path: 'dashboard', component: _admin_admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["AdminDashboardComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
+            { path: 'dashboard', component: _admin_admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["AdminDashboardComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
             { path: 'about', redirectTo: "about/aim", pathMatch: 'full' },
-            { path: 'about/aim', component: _admin_admin_about_admin_about_component__WEBPACK_IMPORTED_MODULE_9__["AdminAboutComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'about/aim/edit', component: _admin_admin_about_admin_edit_aim_admin_edit_aim_component__WEBPACK_IMPORTED_MODULE_10__["AdminEditAimComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'about/history', component: _admin_admin_about_admin_history_admin_history_component__WEBPACK_IMPORTED_MODULE_11__["AdminHistoryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'about/history/edit', component: _admin_admin_about_admin_edit_history_admin_edit_history_component__WEBPACK_IMPORTED_MODULE_12__["AdminEditHistoryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'about/philosophy', component: _admin_admin_about_admin_philosophy_admin_philosophy_component__WEBPACK_IMPORTED_MODULE_13__["AdminPhilosophyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'about/philosophy/edit', component: _admin_admin_about_admin_edit_philosophy_admin_edit_philosophy_component__WEBPACK_IMPORTED_MODULE_14__["AdminEditPhilosophyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'faculty', component: _admin_admin_faculty_admin_faculty_component__WEBPACK_IMPORTED_MODULE_30__["AdminFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'faculty/new', component: _admin_admin_faculty_admin_add_faculty_admin_add_faculty_component__WEBPACK_IMPORTED_MODULE_31__["AdminAddFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'faculty/:id', component: _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_32__["AdminShowFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'faculty/:id/edit', component: _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_33__["AdminEditFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'branch', component: _admin_admin_branch_admin_branch_component__WEBPACK_IMPORTED_MODULE_19__["AdminBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'branch/new', component: _admin_admin_branch_admin_add_branch_admin_add_branch_component__WEBPACK_IMPORTED_MODULE_20__["AdminAddBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'branch/:id', component: _admin_admin_branch_admin_show_branch_admin_show_branch_component__WEBPACK_IMPORTED_MODULE_21__["AdminShowBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'branch/:id/edit', component: _admin_admin_branch_admin_edit_branch_admin_edit_branch_component__WEBPACK_IMPORTED_MODULE_22__["AdminEditBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'exams', component: _admin_admin_exam_admin_exam_component__WEBPACK_IMPORTED_MODULE_26__["AdminExamComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'gallery', component: _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_27__["AdminGallaryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'gallery/new', component: _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_28__["AdminAddPhotosComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'article', component: _admin_admin_article_admin_article_component__WEBPACK_IMPORTED_MODULE_15__["AdminArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'article/new', component: _admin_admin_article_admin_add_article_admin_add_article_component__WEBPACK_IMPORTED_MODULE_16__["AdminAddArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'article/:id', component: _admin_admin_article_admin_show_article_admin_show_article_component__WEBPACK_IMPORTED_MODULE_17__["AdminShowArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'article/:id/edit', component: _admin_admin_article_admin_edit_article_admin_edit_article_component__WEBPACK_IMPORTED_MODULE_18__["AdminEditArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student', component: _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_34__["AdminStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student/new', component: _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_35__["AdminAddStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student/:id', component: _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_36__["AdminShowStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student/:id/edit', component: _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_37__["AdminEditStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student/:id/generate', component: _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_41__["AdminStudentGenerateReceiptComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'student/:id/receipts', component: _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_40__["AdminStudentReceiptsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'attendance', component: _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_29__["AdminAttendanceComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'enquiry', component: _admin_admin_enquiry_admin_enquiry_component__WEBPACK_IMPORTED_MODULE_23__["AdminEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'enquiry/:id', component: _admin_admin_enquiry_admin_show_enquiry_admin_show_enquiry_component__WEBPACK_IMPORTED_MODULE_24__["AdminShowEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
-            { path: 'enquiry/:id/reply', component: _admin_admin_enquiry_admin_reply_enquiry_admin_reply_enquiry_component__WEBPACK_IMPORTED_MODULE_25__["AdminReplyEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["AdminAuthGuard"]] },
+            { path: 'about/aim', component: _admin_admin_about_admin_about_component__WEBPACK_IMPORTED_MODULE_9__["AdminAboutComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'about/aim/edit', component: _admin_admin_about_admin_edit_aim_admin_edit_aim_component__WEBPACK_IMPORTED_MODULE_10__["AdminEditAimComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'about/history', component: _admin_admin_about_admin_history_admin_history_component__WEBPACK_IMPORTED_MODULE_11__["AdminHistoryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'about/history/edit', component: _admin_admin_about_admin_edit_history_admin_edit_history_component__WEBPACK_IMPORTED_MODULE_12__["AdminEditHistoryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'about/philosophy', component: _admin_admin_about_admin_philosophy_admin_philosophy_component__WEBPACK_IMPORTED_MODULE_13__["AdminPhilosophyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'about/philosophy/edit', component: _admin_admin_about_admin_edit_philosophy_admin_edit_philosophy_component__WEBPACK_IMPORTED_MODULE_14__["AdminEditPhilosophyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'faculty', component: _admin_admin_faculty_admin_faculty_component__WEBPACK_IMPORTED_MODULE_37__["AdminFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'faculty/new', component: _admin_admin_faculty_admin_add_faculty_admin_add_faculty_component__WEBPACK_IMPORTED_MODULE_38__["AdminAddFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'faculty/:id', component: _admin_admin_faculty_admin_show_faculty_admin_show_faculty_component__WEBPACK_IMPORTED_MODULE_39__["AdminShowFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'faculty/:id/edit', component: _admin_admin_faculty_admin_edit_faculty_admin_edit_faculty_component__WEBPACK_IMPORTED_MODULE_40__["AdminEditFacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'branch', component: _admin_admin_branch_admin_branch_component__WEBPACK_IMPORTED_MODULE_19__["AdminBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'branch/new', component: _admin_admin_branch_admin_add_branch_admin_add_branch_component__WEBPACK_IMPORTED_MODULE_20__["AdminAddBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'branch/:id', component: _admin_admin_branch_admin_show_branch_admin_show_branch_component__WEBPACK_IMPORTED_MODULE_21__["AdminShowBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'branch/:id/edit', component: _admin_admin_branch_admin_edit_branch_admin_edit_branch_component__WEBPACK_IMPORTED_MODULE_22__["AdminEditBranchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'exams', component: _admin_admin_exam_admin_exam_component__WEBPACK_IMPORTED_MODULE_26__["AdminExamComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'exams/new', component: _admin_admin_exam_admin_add_exam_admin_add_exam_component__WEBPACK_IMPORTED_MODULE_27__["AdminAddExamComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'exams/:id', component: _admin_admin_exam_admin_show_exam_admin_show_exam_component__WEBPACK_IMPORTED_MODULE_28__["AdminShowExamComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'exams/:id/edit', component: _admin_admin_exam_admin_edit_exam_admin_edit_exam_component__WEBPACK_IMPORTED_MODULE_29__["AdminEditExamComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'news', component: _admin_admin_news_admin_news_component__WEBPACK_IMPORTED_MODULE_30__["AdminNewsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'news/new', component: _admin_admin_news_admin_add_news_admin_add_news_component__WEBPACK_IMPORTED_MODULE_31__["AdminAddNewsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'news/:id', component: _admin_admin_news_admin_show_news_admin_show_news_component__WEBPACK_IMPORTED_MODULE_32__["AdminShowNewsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'news/:id/edit', component: _admin_admin_news_admin_edit_news_admin_edit_news_component__WEBPACK_IMPORTED_MODULE_33__["AdminEditNewsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'gallery', component: _admin_admin_gallary_admin_gallary_component__WEBPACK_IMPORTED_MODULE_34__["AdminGallaryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'gallery/new', component: _admin_admin_gallary_admin_add_photos_admin_add_photos_component__WEBPACK_IMPORTED_MODULE_35__["AdminAddPhotosComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'article', component: _admin_admin_article_admin_article_component__WEBPACK_IMPORTED_MODULE_15__["AdminArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'article/new', component: _admin_admin_article_admin_add_article_admin_add_article_component__WEBPACK_IMPORTED_MODULE_16__["AdminAddArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'article/:id', component: _admin_admin_article_admin_show_article_admin_show_article_component__WEBPACK_IMPORTED_MODULE_17__["AdminShowArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'article/:id/edit', component: _admin_admin_article_admin_edit_article_admin_edit_article_component__WEBPACK_IMPORTED_MODULE_18__["AdminEditArticleComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student', component: _admin_admin_student_admin_student_component__WEBPACK_IMPORTED_MODULE_41__["AdminStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student/new', component: _admin_admin_student_admin_add_student_admin_add_student_component__WEBPACK_IMPORTED_MODULE_42__["AdminAddStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student/:id', component: _admin_admin_student_admin_show_student_admin_show_student_component__WEBPACK_IMPORTED_MODULE_43__["AdminShowStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student/:id/edit', component: _admin_admin_student_admin_edit_student_admin_edit_student_component__WEBPACK_IMPORTED_MODULE_44__["AdminEditStudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student/:id/generate', component: _admin_admin_student_admin_student_generate_receipt_admin_student_generate_receipt_component__WEBPACK_IMPORTED_MODULE_48__["AdminStudentGenerateReceiptComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'student/:id/receipts', component: _admin_admin_student_admin_student_receipts_admin_student_receipts_component__WEBPACK_IMPORTED_MODULE_47__["AdminStudentReceiptsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'attendance', component: _admin_admin_attendance_admin_attendance_component__WEBPACK_IMPORTED_MODULE_36__["AdminAttendanceComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'enquiry', component: _admin_admin_enquiry_admin_enquiry_component__WEBPACK_IMPORTED_MODULE_23__["AdminEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'enquiry/:id', component: _admin_admin_enquiry_admin_show_enquiry_admin_show_enquiry_component__WEBPACK_IMPORTED_MODULE_24__["AdminShowEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
+            { path: 'enquiry/:id/reply', component: _admin_admin_enquiry_admin_reply_enquiry_admin_reply_enquiry_component__WEBPACK_IMPORTED_MODULE_25__["AdminReplyEnquiryComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["AdminAuthGuard"]] },
         ] },
-    { path: 'student', component: _student_student_component__WEBPACK_IMPORTED_MODULE_43__["StudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]], canActivateChild: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]], children: [
+    { path: 'student', component: _student_student_component__WEBPACK_IMPORTED_MODULE_50__["StudentComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]], canActivateChild: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]], children: [
             { path: '', redirectTo: "dashboard", pathMatch: 'full' },
-            { path: 'dashboard', component: _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_44__["StudentDashboardComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]] },
-            { path: 'attendance', component: _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_45__["StudentAttendanceComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]] },
-            { path: 'receipts', component: _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_46__["StudentReceiptsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]] },
-            { path: 'receipt', component: _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_47__["StudentShowReceiptComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["StudentAuthGuard"]] },
+            { path: 'dashboard', component: _student_student_dashboard_student_dashboard_component__WEBPACK_IMPORTED_MODULE_51__["StudentDashboardComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]] },
+            { path: 'attendance', component: _student_student_attendance_student_attendance_component__WEBPACK_IMPORTED_MODULE_52__["StudentAttendanceComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]] },
+            { path: 'receipts', component: _student_student_receipts_student_receipts_component__WEBPACK_IMPORTED_MODULE_53__["StudentReceiptsComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]] },
+            { path: 'receipt', component: _student_student_receipts_student_show_receipt_student_show_receipt_component__WEBPACK_IMPORTED_MODULE_54__["StudentShowReceiptComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["StudentAuthGuard"]] },
         ] },
-    { path: 'faculty', component: _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_48__["FacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_42__["FacultuAuthGuard"]] },
-    { path: 'page-not-found', component: _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_38__["PageNotFoundComponent"] },
-    { path: 'server-not-found', component: _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_39__["ServerErrorComponent"] },
+    { path: 'faculty', component: _faculty_faculty_component__WEBPACK_IMPORTED_MODULE_55__["FacultyComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_49__["FacultuAuthGuard"]] },
+    { path: 'page-not-found', component: _errors_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_45__["PageNotFoundComponent"] },
+    { path: 'server-not-found', component: _errors_server_error_server_error_component__WEBPACK_IMPORTED_MODULE_46__["ServerErrorComponent"] },
     { path: '**', redirectTo: 'page-not-found' }
 ];
 var AppRoutes = /** @class */ (function () {
@@ -4571,30 +5390,31 @@ var AuthService = /** @class */ (function () {
         configurable: true
     });
     AuthService.prototype.login = function (email, password) {
-        var _this = this;
-        var data = { api: "login", data: { email: email, password: password } };
-        this.httpPostService.httpPost(data).subscribe(function (response) {
-            var userType = response[0].userType;
-            if (userType === "admin") {
-                _this.loggedIn.next({ user: 'admin', loginValidate: true });
-                _this.router.navigate(['/admin'], { relativeTo: _this.route });
-            }
-            else if (userType === "student") {
-                _this.loggedIn.next({ user: 'student', loginValidate: true });
-                _this.router.navigate(['/student'], { relativeTo: _this.route, queryParams: { id: response[0].student } });
-            }
-            else if (userType === "faculty") {
-                _this.loggedIn.next({ user: 'faculty', loginValidate: true });
-                _this.router.navigate(['/faculty'], { relativeTo: _this.route });
-            }
-            else {
-                _this.loggedIn.next({ user: null, loginValidate: false });
-                _this.router.navigate(['/login'], { relativeTo: _this.route, queryParams: { status: 'false' }, skipLocationChange: true });
-            }
-        }, function (error) {
-            _this.loggedIn.next({ user: null, loginValidate: false });
-            _this.router.navigate(['/login'], { relativeTo: _this.route, queryParams: { status: 'false' }, skipLocationChange: true });
-        });
+        // const data = { api : "login", data : { email, password } }
+        // this.httpPostService.httpPost(data).subscribe((response: any)=>{
+        //   console.log(response);
+        //   const userType = response.user.userType;
+        if (email === "admin" && password === "admin") {
+            this.loggedIn.next({ user: 'admin', loginValidate: true });
+            this.router.navigate(['/admin'], { relativeTo: this.route });
+        }
+        else if (email === "student" && password === "student") {
+            this.loggedIn.next({ user: 'student', loginValidate: true });
+            this.router.navigate(['/student'], { relativeTo: this.route });
+            // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
+        }
+        else if (email === "faculty" && password === "faculty") {
+            this.loggedIn.next({ user: 'faculty', loginValidate: true });
+            this.router.navigate(['/faculty'], { relativeTo: this.route });
+        }
+        else {
+            this.loggedIn.next({ user: null, loginValidate: false });
+            this.router.navigate(['/login'], { relativeTo: this.route, queryParams: { status: 'false' }, skipLocationChange: true });
+        }
+        // },(error)=>{
+        //   this.loggedIn.next({user: null, loginValidate: false});
+        //   this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});
+        // });
     };
     AuthService.prototype.logout = function () {
         this.loggedIn.next({ user: null, loginValidate: false });
@@ -4631,7 +5451,7 @@ module.exports = ".about-image{\r\n  background-image: url('/assets/images/back.
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"about-page\">\r\n     <div class=\"about-image\">\r\n    </div>\r\n    <div class=\"flex-container\">\r\n      <div class=\"info-box\">\r\n          <h2>AIM</h2>\r\n          <p>\r\n              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a \r\n          </p>\r\n      </div>\r\n      <div class=\"info-box\">\r\n          <h2>Our History</h2>\r\n          <p>\r\n              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n          </p>\r\n      </div>\r\n      <div class=\"info-box\">\r\n          <h2>Philosophy</h2>\r\n          <p>\r\n              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a \r\n          </p>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"faculty-container\">\r\n      <h2>Our faculty</h2>\r\n      <div class=\"flex-container\">\r\n        <div class=\"faculty-card\">\r\n            <div class=\"faculty-pic\">\r\n              <img class=\"shadow-lg\" src=\"http://lorempixel.com/640/480/people/\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n            </div>\r\n            <div class=\"faculty-desc\">\r\n              <h5>John Doe</h5>\r\n              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised wo\r\n            </div>\r\n        </div>\r\n        <div class=\"faculty-card\">\r\n          <div class=\"faculty-pic\">\r\n            <img class=\"shadow-lg\" src=\"http://lorempixel.com/640/480/people/\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n          </div>\r\n          <div class=\"faculty-desc\">\r\n            <h5>John Doe</h5>\r\n            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised wo\r\n          </div>\r\n      </div>\r\n      <div class=\"faculty-card\">\r\n        <div class=\"faculty-pic\">\r\n          <img class=\"shadow-lg\" src=\"http://lorempixel.com/640/480/people/\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n        </div>\r\n        <div class=\"faculty-desc\">\r\n          <h5>John Doe</h5>\r\n          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised wo\r\n        </div>\r\n    </div>\r\n    <div class=\"faculty-card\">\r\n      <div class=\"faculty-pic\">\r\n        <img class=\"shadow-lg\" src=\"http://lorempixel.com/640/480/people/\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n      </div>\r\n      <div class=\"faculty-desc\">\r\n        <h5>John Doe</h5>\r\n        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised wo\r\n      </div>\r\n  </div>\r\n        <div class=\"faculty-card\">\r\n            <div class=\"faculty-pic\">\r\n              <img class=\"shadow-lg\" src=\"http://lorempixel.com/640/480/people/\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n            </div>\r\n            <div class=\"faculty-desc\">\r\n              <h5>John Doe</h5>\r\n              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised wo\r\n            </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    \r\n</div>"
+module.exports = "<div class=\"about-page\">\r\n     <div class=\"about-image\">\r\n    </div>\r\n    <div class=\"flex-container\">\r\n      <div class=\"info-box\">\r\n          <h2>AIM</h2>\r\n          <p>\r\n              {{aboutUs.aim}}\r\n          </p>\r\n      </div>\r\n      <div class=\"info-box\">\r\n          <h2>Our History</h2>\r\n          <p>\r\n            {{aboutUs.history}}\r\n          </p>\r\n      </div>\r\n      <div class=\"info-box\">\r\n          <h2>Philosophy</h2>\r\n          <p>\r\n            {{aboutUs.philosophy}}\r\n          </p>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"faculty-container\">\r\n      <h2>Our faculty</h2>\r\n      <div class=\"flex-container\">\r\n        <div class=\"faculty-card\" *ngFor=\"let faculty of faculties\">\r\n            <div class=\"faculty-pic\">\r\n              <img class=\"shadow-lg\" src=\"faculty.facultyImage\" onerror=\"this.src='/assets/images/faculty.png'\">\r\n            </div>\r\n            <div class=\"faculty-desc\">\r\n              <h5>{{faculty.facultyName}}</h5>\r\n              {{faculty.facultyDescription}}\r\n            </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    \r\n</div>"
 
 /***/ }),
 
@@ -4647,12 +5467,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutPageComponent", function() { return AboutPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
 
 
 var AboutPageComponent = /** @class */ (function () {
-    function AboutPageComponent() {
+    function AboutPageComponent(httpPostService) {
+        this.httpPostService = httpPostService;
+        this.faculties = [];
     }
     AboutPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var aboutData = { api: "getAbout", data: {} };
+        this.httpPostService.httpPost(aboutData).subscribe(function (val) {
+            _this.aboutUs = val[0];
+        }, function (error) {
+        });
+        var facultyData = { api: "getFaculties", data: {} };
+        this.httpPostService.httpPost(facultyData).subscribe(function (val) {
+            _this.faculties = val;
+            console.log(_this.faculties);
+        }, function (error) {
+        });
         document.body.classList.add('bg-about');
     };
     AboutPageComponent.prototype.ngOnDestroy = function () {
@@ -4664,7 +5500,7 @@ var AboutPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./about-page.component.html */ "./src/app/content/about-page/about-page.component.html"),
             styles: [__webpack_require__(/*! ./about-page.component.css */ "./src/app/content/about-page/about-page.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__["HttpPostService"]])
     ], AboutPageComponent);
     return AboutPageComponent;
 }());
@@ -4707,13 +5543,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArticlesPageComponent", function() { return ArticlesPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
 
 
 var ArticlesPageComponent = /** @class */ (function () {
-    function ArticlesPageComponent() {
-        this.articles = [{ "image": "image1", "title": "Example1", "body": "It is a long es content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. " }, { "image": "image1", "title": "Example1", "body": "It is a long established fact that a reader " }];
+    function ArticlesPageComponent(httpPostService) {
+        this.httpPostService = httpPostService;
+        this.articles = [];
     }
     ArticlesPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = { api: "getArticles", data: {} };
+        this.httpPostService.httpPost(data).subscribe(function (val) {
+            _this.articles = val;
+        }, function (error) {
+        });
     };
     ArticlesPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4721,7 +5566,7 @@ var ArticlesPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./articles-page.component.html */ "./src/app/content/articles-page/articles-page.component.html"),
             styles: [__webpack_require__(/*! ./articles-page.component.css */ "./src/app/content/articles-page/articles-page.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__["HttpPostService"]])
     ], ArticlesPageComponent);
     return ArticlesPageComponent;
 }());
@@ -4748,7 +5593,7 @@ module.exports = ".branches-page{\r\n    padding: 40px;\r\n}\r\n.branch-card{\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"branches-page\">\r\n    <h2>Our Branches</h2>\r\n    <div class=\"branch-card\" *ngFor=\"let branch of branches\">\r\n      <div class=\"flex-container\">\r\n        <div class=\"branch-img\">\r\n\r\n        </div>\r\n        <div class=\"branch-details\">\r\n          <div class=\"description\">\r\n            <span>{{branch.description}}</span>\r\n          </div>\r\n          <div class=\"detail\">\r\n            <a href=\"mailto:{{branch.mail}}?subject=Class%20Enquiry\"><i class=\"fas fa-envelope\"></i>{{branch.mail}}</a>\r\n            <a><i class=\"fa fa-phone\"></i>{{branch.phone}}</a>\r\n            <a><i class=\"fa fa-map-marker\"></i>{{branch.address}}</a>\r\n            <a><i class=\"fa fa-building\"></i>{{branch.branch}}</a>\r\n          </div>\r\n          <div class=\"batch-details\">\r\n            <div>\r\n              <table>\r\n                  <tr><td class=\"tableHeader\" colspan=\"3\">Weekdays</td></tr>\r\n                  <tr>\r\n                    <th>Days</th>\r\n                    <th>Batch Name</th>\r\n                    <th>Timing</th>\r\n                  </tr>\r\n                <ng-container *ngFor=\"let batch of branch.batches; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType==='Weekdays'\">\r\n                    <td>{{batch.days}}</td>\r\n                    <td>{{batch.batchName}}</td>\r\n                    <td>{{batch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>\r\n            </div>\r\n            <div>\r\n              <table>\r\n                <tr><td class=\"tableHeader\" colspan=\"3\">Weekends</td></tr>\r\n                <tr>\r\n                  <th>Days</th>\r\n                  <th>Batch Name</th>\r\n                  <th>Timing</th>\r\n                </tr>\r\n                <ng-container *ngFor=\"let batch of branch.batches; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType==='Weekends'\">\r\n                    <td>{{batch.days}}</td>\r\n                    <td>{{batch.batchName}}</td>\r\n                    <td>{{batch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>   \r\n            </div> \r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"branches-page\">\r\n    <h2>Our Branches</h2>\r\n    <div class=\"branch-card\" *ngFor=\"let branch of branches\">\r\n      <div class=\"flex-container\">\r\n        <div class=\"branch-img\">\r\n\r\n        </div>\r\n        <div class=\"branch-details\">\r\n          <div class=\"description\">\r\n            <span>{{branch.description}}</span>\r\n          </div>\r\n          <div class=\"detail\">\r\n            <a href=\"mailto:{{branch.email}}?subject=Class%20Enquiry\"><i class=\"fas fa-envelope\"></i>{{branch.email}}</a>\r\n            <a><i class=\"fa fa-phone\"></i>{{branch.phone}}</a>\r\n            <a><i class=\"fa fa-map-marker\"></i>{{branch.address}}</a>\r\n            <a><i class=\"fa fa-building\"></i>{{branch.branch}}</a>\r\n          </div>\r\n          <div class=\"batch-details\">\r\n            <div>\r\n              <table>\r\n                  <tr><td class=\"tableHeader\" colspan=\"3\">Weekdays</td></tr>\r\n                  <tr>\r\n                    <th>Days</th>\r\n                    <th>Batch Name</th>\r\n                    <th>Timing</th>\r\n                  </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType === 'WeekDays'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>\r\n            </div>\r\n            <div>\r\n              <table>\r\n                <tr><td class=\"tableHeader\" colspan=\"3\">Weekends</td></tr>\r\n                <tr>\r\n                  <th>Days</th>\r\n                  <th>Batch Name</th>\r\n                  <th>Timing</th>\r\n                </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType === 'WeekEnds'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>   \r\n            </div> \r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -4764,13 +5609,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BranchesPageComponent", function() { return BranchesPageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
 
 
 var BranchesPageComponent = /** @class */ (function () {
-    function BranchesPageComponent() {
-        this.branches = [{ "_id": "string", "branch": "Thane branch", "city": "Thane", "address": "kasarvadavali", "mail": "dancingSoul@mail.com", "phone": "9876543210", "description": "Fully air conditioned and spacious", "images": ["sring"], "batches": [{ "batchType": "Weekdays", "days": "Mon,Tue", "batchName": "Beginner", "time": "2-3", "fees": "string" }, { "batchType": "Weekends", "days": "Sat,Sun", "batchName": "Intermediate", "time": "3 - 6", "fees": "string" }], "status": "string" }, { "_id": "string", "branch": "Thane branch", "city": "Thane", "address": "kasarvadavali", "mail": "dancingSoul@mail.com", "phone": "9876543210", "description": "Fully air conditioned and spacious", "images": ["sring"], "batches": [{ "batchType": "Weekdays", "days": "Mon,Tue", "batchName": "Beginner", "time": "2-3", "fees": "string" }, { "batchType": "Weekends", "days": "Sat,Sun", "batchName": "Intermediate", "time": "3 - 6", "fees": "string" }], "status": "string" }];
+    function BranchesPageComponent(httpPostService) {
+        this.httpPostService = httpPostService;
+        this.branches = [];
     }
     BranchesPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = { api: "getBranches", data: {} };
+        this.httpPostService.httpPost(data).subscribe(function (val) {
+            _this.branches = val;
+        }, function (error) {
+        });
     };
     BranchesPageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4778,7 +5632,7 @@ var BranchesPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./branches-page.component.html */ "./src/app/content/branches-page/branches-page.component.html"),
             styles: [__webpack_require__(/*! ./branches-page.component.css */ "./src/app/content/branches-page/branches-page.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__["HttpPostService"]])
     ], BranchesPageComponent);
     return BranchesPageComponent;
 }());
@@ -4805,7 +5659,7 @@ module.exports = "/* .flex-container, .image-box, .map-box,.details-box,.form-bo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-container\">\r\n    <div class=\"image-box\">\r\n        \r\n    </div>\r\n    <div class=\"map-box\">\r\n        Maps Loading....\r\n        <agm-map [latitude]='latitude' [longitude]='longitude' \r\n        [mapTypeId]='mapType'>\r\n        <agm-marker [latitude]=\"lat\" [longitude]=\"lng\">\r\n            </agm-marker> \r\n      </agm-map>\r\n    </div>\r\n    <div class=\"details-box\">\r\n        <h1>Contact Us</h1>\r\n        <ul>\r\n            <li><i class=\"fa fa-phone\" aria-hidden=\"true\"></i>9876543210</li>\r\n            <li> <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>dancingSoul.mail.com</li>\r\n            <li><i class=\"fa fa-map-marker\" aria-hidden=\"true\"></i>kasarvadavali,Thane</li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"form-box\">\r\n        <h1>Pitch Us</h1>\r\n            Hello,<br>\r\n            <br>\r\n            <div style=\"float: left;\">My name is&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"userName\" (input)=\"model=$event.target.textContent\" \r\n                 (click)=\"clearText($event)\" \r\n                 (focusout)=\"checkIfEmpty($event,'userName')\">\r\n            </div>\r\n            <div>&nbsp;and my email address is&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"emailId\" (input)=\"model=$event.target.textContent\"\r\n                 (click)=\"clearText($event)\"\r\n                 (focusout)=\"checkIfEmpty($event,'emailId')\">\r\n            </div>\r\n            <div>&nbsp;and i would like to discuss about&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"message\" (input)=\"model=$event.target.textContent\" \r\n                 (click)=\"clearText($event)\"\r\n                 (focusout)=\"checkIfEmpty($event,'message')\">\r\n            </div>\r\n            <div class=\"clearfix\"></div>\r\n            <div class=\"btn\">\r\n                Submit\r\n            </div>\r\n            \r\n            \r\n    </div>\r\n</div>"
+module.exports = "<div class=\"flex-container\">\r\n    <div class=\"image-box\">\r\n        \r\n    </div>\r\n    <div class=\"map-box\">\r\n        Maps Loading....\r\n        <agm-map [latitude]='latitude' [longitude]='longitude' \r\n        [mapTypeId]='mapType'>\r\n        <agm-marker [latitude]=\"lat\" [longitude]=\"lng\">\r\n            </agm-marker> \r\n      </agm-map>\r\n    </div>\r\n    <div class=\"details-box\">\r\n        <h1>Contact Us</h1>\r\n        <ul>\r\n            <li><i class=\"fa fa-phone\" aria-hidden=\"true\"></i>{{contactDetailsJson.phone}}</li>\r\n            <li> <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>{{contactDetailsJson.email}}</li>\r\n            <li><i class=\"fa fa-map-marker\" aria-hidden=\"true\"></i>{{contactDetailsJson.address}}</li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"form-box\">\r\n        <h1>Pitch Us</h1>\r\n            Hello,<br>\r\n            <br>\r\n            <div style=\"float: left;\">My name is&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"userName\" (input)=\"model=$event.target.textContent\" \r\n                 (click)=\"clearText($event)\" \r\n                 (focusout)=\"checkIfEmpty($event,'userName')\">\r\n            </div>\r\n            <div>&nbsp;and my email address is&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"emailId\" (input)=\"model=$event.target.textContent\"\r\n                 (click)=\"clearText($event)\"\r\n                 (focusout)=\"checkIfEmpty($event,'emailId')\">\r\n            </div>\r\n            <div>&nbsp;and i would like to discuss about&nbsp;</div>\r\n            <div contenteditable=\"true\" class=\"input-box\"\r\n                 [textContent]=\"message\" (input)=\"model=$event.target.textContent\" \r\n                 (click)=\"clearText($event)\"\r\n                 (focusout)=\"checkIfEmpty($event,'message')\">\r\n            </div>\r\n            <div class=\"clearfix\"></div>\r\n            <div class=\"btn\" (click)=\"formSubmit()\"  >\r\n                Submit\r\n            </div>\r\n            \r\n            \r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4825,6 +5679,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ContactUsPageComponent = /** @class */ (function () {
     function ContactUsPageComponent() {
+        this.contactDetailsJson = { "phone": "9876543210", "email": "dancingSoul@mail.com", "address": "kasarvadavali,Thane" };
         this.yourName = "your name";
         this.yourEmail = "your e-mail";
         this.yourMessage = "message";
@@ -4857,6 +5712,14 @@ var ContactUsPageComponent = /** @class */ (function () {
         if (inputName === "message" && event.srcElement.innerHTML === "") {
             this.message = this.yourMessage;
         }
+    };
+    ContactUsPageComponent.prototype.reset = function () {
+        this.userName = this.yourName;
+        this.emailId = this.yourEmail;
+        this.message = this.yourMessage;
+    };
+    ContactUsPageComponent.prototype.formSubmit = function () {
+        this.reset();
     };
     ContactUsPageComponent.prototype.ngOnInit = function () {
     };
@@ -4949,7 +5812,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  exams-page works!\r\n</p>\r\n"
+module.exports = "<h3>COMMING SOON...</h3>\r\n"
 
 /***/ }),
 
@@ -5120,7 +5983,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  news-shelter-page works!\r\n</p>\r\n"
+module.exports = "<h3>COMMING SOON...</h3>\r\n"
 
 /***/ }),
 
@@ -5232,7 +6095,7 @@ module.exports = "h2 {\r\n    text-align: left;\r\n}\r\n\r\nh2::after {\r\n    d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-12\">\n        <h2>Error 500</h2>\n        <h3>Server Not Found...</h3>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-12\">\r\n        <h2>Error 500</h2>\r\n        <h3>Server Not Found...</h3>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5277,7 +6140,7 @@ var ServerErrorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2ZhY3VsdHkvZmFjdWx0eS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;\r\n}\r\n\r\nhr {\r\n    border: 1px solid #e67e22;\r\n    margin: 5px 0;\r\n}\r\n\r\ninput .search {\r\n    width: 60%;\r\n    font-size: 80%;\r\n    padding: 1px 3px;\r\n    border-top-left-radius: 5px;\r\n    border-bottom-left-radius: 5px;\r\n    transition: background-color 0.2s;\r\n}\r\n\r\ninput:focus, select:focus, input:hover {\r\n    background-color: rgba(255, 255, 255, 0.75);\r\n    outline: none;\r\n}\r\n\r\n.btn-search {\r\n    outline: none;\r\n    padding: 1px 5px;\r\n    background-color: #e67e22;\r\n    border: 1px solid #e67e22;\r\n    color: #fff;\r\n    border-top-right-radius: 5px;\r\n    border-bottom-right-radius: 5px;\r\n    transition: background-color 0.2s, color 0.2s;\r\n\r\n}\r\n\r\n.btn-search:hover {\r\n    background-color: #e67e22;\r\n    color: #fff;\r\n}\r\n\r\n.student {\r\n    text-decoration: none;\r\n    color: #000;\r\n    -webkit-text-decoration-color: transparent;\r\n            text-decoration-color: transparent;\r\n    transition: -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s;\r\n    transition: text-decoration 0.2s, text-decoration-color 0.2s, -webkit-text-decoration 0.2s, -webkit-text-decoration-color 0.2s;\r\n}\r\n\r\n.student:hover{\r\n    color: #000;\r\n    text-decoration: underline;\r\n    -webkit-text-decoration-color: #e67e22;\r\n            text-decoration-color: #e67e22;\r\n}\r\n\r\nselect {\r\n    padding: 5px 3px;\r\n    border-radius: 5px;\r\n}\r\n\r\nselect.ng-invalid.ng-touched{\r\n  border: 1px solid #e67e22;\r\n}\r\n\r\n.attendance-selector input {\r\n    display: none!important;\r\n}\r\n\r\n.attendance-selector input[type=checkbox] + label {\r\n    display: inline-block;\r\n    font-size: 70%;\r\n    border: 1px solid #e67e22;\r\n    border-radius: 50%;\r\n    background: #fff;\r\n    height: 35px;\r\n    width: 35px;\r\n    padding: 2px;\r\n    margin: 2px;\r\n    line-height: 30px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    transition: background 0.2s, color 0.2s;\r\n}\r\n\r\n.attendance-selector input[type=checkbox]:checked + label {\r\n    background: #e67e22;\r\n    color: #fff;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmFjdWx0eS9mYWN1bHR5LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTO0FBQ2I7O0FBRUE7SUFDSSxlQUFlO0FBQ25COztBQUVBO0lBQ0kseUJBQXlCO0lBQ3pCLGFBQWE7QUFDakI7O0FBRUE7SUFDSSxVQUFVO0lBQ1YsY0FBYztJQUNkLGdCQUFnQjtJQUNoQiwyQkFBMkI7SUFDM0IsOEJBQThCO0lBQzlCLGlDQUFpQztBQUNyQzs7QUFHQTtJQUNJLDJDQUEyQztJQUMzQyxhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGdCQUFnQjtJQUNoQix5QkFBeUI7SUFDekIseUJBQXlCO0lBQ3pCLFdBQVc7SUFDWCw0QkFBNEI7SUFDNUIsK0JBQStCO0lBQy9CLDZDQUE2Qzs7QUFFakQ7O0FBRUE7SUFDSSx5QkFBeUI7SUFDekIsV0FBVztBQUNmOztBQUVBO0lBQ0kscUJBQXFCO0lBQ3JCLFdBQVc7SUFDWCwwQ0FBa0M7WUFBbEMsa0NBQWtDO0lBQ2xDLDRFQUE0RDtJQUE1RCw0REFBNEQ7SUFBNUQsOEhBQTREO0FBQ2hFOztBQUVBO0lBQ0ksV0FBVztJQUNYLDBCQUEwQjtJQUMxQixzQ0FBOEI7WUFBOUIsOEJBQThCO0FBQ2xDOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLGtCQUFrQjtBQUN0Qjs7QUFFQTtFQUNFLHlCQUF5QjtBQUMzQjs7QUFFQTtJQUNJLHVCQUF1QjtBQUMzQjs7QUFFQTtJQUNJLHFCQUFxQjtJQUNyQixjQUFjO0lBQ2QseUJBQXlCO0lBQ3pCLGtCQUFrQjtJQUNsQixnQkFBZ0I7SUFDaEIsWUFBWTtJQUNaLFdBQVc7SUFDWCxZQUFZO0lBQ1osV0FBVztJQUNYLGlCQUFpQjtJQUNqQixrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLHVDQUF1QztBQUMzQzs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQixXQUFXO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9mYWN1bHR5L2ZhY3VsdHkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIioge1xyXG4gICAgbWFyZ2luOiAwO1xyXG59XHJcblxyXG5oMyB7XHJcbiAgICBmb250LXNpemU6IDE1MCU7XHJcbn1cclxuXHJcbmhyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBtYXJnaW46IDVweCAwO1xyXG59XHJcblxyXG5pbnB1dCAuc2VhcmNoIHtcclxuICAgIHdpZHRoOiA2MCU7XHJcbiAgICBmb250LXNpemU6IDgwJTtcclxuICAgIHBhZGRpbmc6IDFweCAzcHg7XHJcbiAgICBib3JkZXItdG9wLWxlZnQtcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXItYm90dG9tLWxlZnQtcmFkaXVzOiA1cHg7XHJcbiAgICB0cmFuc2l0aW9uOiBiYWNrZ3JvdW5kLWNvbG9yIDAuMnM7XHJcbn1cclxuXHJcblxyXG5pbnB1dDpmb2N1cywgc2VsZWN0OmZvY3VzLCBpbnB1dDpob3ZlciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuNzUpO1xyXG4gICAgb3V0bGluZTogbm9uZTtcclxufVxyXG5cclxuLmJ0bi1zZWFyY2gge1xyXG4gICAgb3V0bGluZTogbm9uZTtcclxuICAgIHBhZGRpbmc6IDFweCA1cHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTY3ZTIyO1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U2N2UyMjtcclxuICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgYm9yZGVyLXRvcC1yaWdodC1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlci1ib3R0b20tcmlnaHQtcmFkaXVzOiA1cHg7XHJcbiAgICB0cmFuc2l0aW9uOiBiYWNrZ3JvdW5kLWNvbG9yIDAuMnMsIGNvbG9yIDAuMnM7XHJcblxyXG59XHJcblxyXG4uYnRuLXNlYXJjaDpob3ZlciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTY3ZTIyO1xyXG4gICAgY29sb3I6ICNmZmY7XHJcbn1cclxuXHJcbi5zdHVkZW50IHtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICAgIGNvbG9yOiAjMDAwO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuICAgIHRyYW5zaXRpb246IHRleHQtZGVjb3JhdGlvbiAwLjJzLCB0ZXh0LWRlY29yYXRpb24tY29sb3IgMC4ycztcclxufVxyXG5cclxuLnN0dWRlbnQ6aG92ZXJ7XHJcbiAgICBjb2xvcjogIzAwMDtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiAjZTY3ZTIyO1xyXG59XHJcblxyXG5zZWxlY3Qge1xyXG4gICAgcGFkZGluZzogNXB4IDNweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxufVxyXG5cclxuc2VsZWN0Lm5nLWludmFsaWQubmctdG91Y2hlZHtcclxuICBib3JkZXI6IDFweCBzb2xpZCAjZTY3ZTIyO1xyXG59XHJcblxyXG4uYXR0ZW5kYW5jZS1zZWxlY3RvciBpbnB1dCB7XHJcbiAgICBkaXNwbGF5OiBub25lIWltcG9ydGFudDtcclxufVxyXG5cclxuLmF0dGVuZGFuY2Utc2VsZWN0b3IgaW5wdXRbdHlwZT1jaGVja2JveF0gKyBsYWJlbCB7XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICBmb250LXNpemU6IDcwJTtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNlNjdlMjI7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZmZmO1xyXG4gICAgaGVpZ2h0OiAzNXB4O1xyXG4gICAgd2lkdGg6IDM1cHg7XHJcbiAgICBwYWRkaW5nOiAycHg7XHJcbiAgICBtYXJnaW46IDJweDtcclxuICAgIGxpbmUtaGVpZ2h0OiAzMHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgdHJhbnNpdGlvbjogYmFja2dyb3VuZCAwLjJzLCBjb2xvciAwLjJzO1xyXG59XHJcbiAgXHJcbi5hdHRlbmRhbmNlLXNlbGVjdG9yIGlucHV0W3R5cGU9Y2hlY2tib3hdOmNoZWNrZWQgKyBsYWJlbCB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZTY3ZTIyO1xyXG4gICAgY29sb3I6ICNmZmY7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -5288,7 +6151,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <p>\n    faculty works!\n  </p>\n</div>\n\n"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12 mx-auto\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-12\">\r\n        <h3>Attendance</h3>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form (submit)=\"addAttendance()\" [formGroup]=\"form\">\r\n      <div class=\"row\">\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"branch\" type=\"text\" name=\"branch\" id=\"branch\" formControlName=\"branch\" (change)=\"onSelectBranch()\">\r\n            <option value=\"\">Select Branch</option>\r\n            <option *ngFor=\"let branch of branches\" [value]=\"branch._id\">{{branch.branch}}</option>\r\n          </select>\r\n        </div>\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"batchName\" type=\"text\" name=\"batchName\" id=\"batchName\" formControlName=\"batch\" (change)=\"onSelectBatchName()\">\r\n            <option value=\"\">Select Batch Name</option>\r\n            <ng-container *ngFor=\"let batch of batches\">\r\n              <option [value]=\"batch.batchName\" *ngIf=\"batch.batchType === weekType\">{{batch.batchName}}</option>\r\n            </ng-container>\r\n          </select>\r\n        </div>\r\n        <div class=\"col-md-4 col-sm-12\">\r\n          <select class=\"batchType\" type=\"text\" name=\"batchType\" id=\"batchType\" formControlName=\"weekType\" (change)=\"onSelectBatchType()\">\r\n            <option value=\"weekDays\">Week Day</option>\r\n            <option value=\"weekEnds\">Week End</option>\r\n        </select>\r\n        </div>\r\n      </div>\r\n      <br>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <div class=\"form-group m-1\">\r\n            <label for=\"date\">Select Date : </label>\r\n            <input class=\"date\" type=\"date\" name=\"date\" id=\"date\" formControlName=\"date\">\r\n          </div>\r\n        </div>\r\n        <div class=\"col-md-6 col-sm-12\">\r\n          <br>\r\n          <button type=\"submit\" class=\"btn-submit\">Submit</button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <br>\r\n    <div class=\"row\" *ngIf=\"students.length > 0; else empty_students\">\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <thead>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Student</th>\r\n              <th>Present</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr class=\"student-tr\" *ngFor=\"let student of students, let i = index\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                  {{ student.name }}\r\n              </td>\r\n              <td>\r\n                <div class=\"attendance-selector\">\r\n                    <input type=\"checkbox\" [id]=\"student._id\" class=\"attendance\" (change)=\"markAttendance($event, student._id, i)\">\r\n                    <label [for]=\"student._id\">{{attendance[i]}}</label>\r\n                </div>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <ng-template #empty_students>\r\n      <h5 class=\"pl-3\">{{noStudent}}</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -5304,12 +6167,153 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FacultyComponent", function() { return FacultyComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
 
 
 var FacultyComponent = /** @class */ (function () {
-    function FacultyComponent() {
+    function FacultyComponent(httpPostService, router, route) {
+        this.httpPostService = httpPostService;
+        this.router = router;
+        this.route = route;
+        this.weekType = "weekDays";
+        this.loading = true;
+        this.allStudents = [];
+        this.students = [];
+        this.attendance = [];
+        this.present = [];
+        this.absent = [];
+        this.noStudent = 'Please Select Branch';
+        this.branches = [];
+        this.branch = '';
+        this.batches = [];
+        this.batch = '';
     }
     FacultyComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var date = new Date();
+        this.date = date.getFullYear() + "-" + this.zeroAppend(date.getMonth() + 1) + "-" + this.zeroAppend(date.getDate());
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+            branch: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            }),
+            batch: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            }),
+            weekType: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](this.weekType, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            }),
+            date: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](this.date, {
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            })
+        });
+        var branchData = { api: "getBranches", data: {} };
+        this.httpPostService.httpPost(branchData).subscribe(function (val) {
+            _this.branches = val;
+            if (_this.branches.length > 0) {
+                var studentData = { api: "getStudents", data: {} };
+                _this.httpPostService.httpPost(studentData).subscribe(function (val) {
+                    _this.allStudents = val;
+                    _this.loading = false;
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+        }, function (error) {
+        });
+    };
+    FacultyComponent.prototype.zeroAppend = function (n) {
+        if (n < 10) {
+            return ("0" + n).toString();
+        }
+        return n.toString();
+    };
+    FacultyComponent.prototype.onSelectBranch = function () {
+        var id = this.form.value.branch;
+        if (id !== '') {
+            this.branch = id;
+            this.batches = this.branches.find(function (branch) { return (branch._id === id); }).batch;
+            this.noStudent = 'Please Select ' + this.weekType + ' Batch';
+        }
+    };
+    FacultyComponent.prototype.onSelectBatchName = function () {
+        var batch = this.form.value.batch;
+        if (batch !== '') {
+            this.batch = batch;
+            this.searchStudent();
+        }
+    };
+    FacultyComponent.prototype.onSelectBatchType = function () {
+        var weekType = this.form.value.weekType;
+        if (this.batch !== '') {
+            this.weekType = weekType;
+            this.searchStudent();
+        }
+    };
+    FacultyComponent.prototype.searchStudent = function () {
+        var _this = this;
+        this.loading = true;
+        var students = [];
+        this.allStudents.forEach(function (student) {
+            if ((student.branch === _this.branch) && (student.batchName === _this.batch) && (student.batch === _this.weekType)) {
+                students.push(student);
+            }
+        });
+        if (students.length > 0) {
+            this.students = students;
+            students.forEach(function (student) {
+                _this.absent.push(student._id);
+                _this.attendance.push("A");
+            });
+        }
+        else {
+            this.noStudent = "No Students Found";
+            this.students = [];
+        }
+        this.loading = false;
+    };
+    FacultyComponent.prototype.addAttendance = function () {
+        var _this = this;
+        if (this.form.valid) {
+            this.loading = true;
+            var attendance = {
+                date: this.form.value.date,
+                branch: this.form.value.branch,
+                batch: this.form.value.batch,
+                batchType: this.form.value.weekType,
+                present: this.present,
+                absent: this.absent
+            };
+            console.log(attendance);
+            var data = { api: "saveAttendance", data: attendance };
+            this.httpPostService.httpPost(data).subscribe(function (val) {
+                _this.loading = false;
+            }, function (error) {
+                _this.loading = false;
+            });
+        }
+    };
+    FacultyComponent.prototype.markAttendance = function (event, student, index) {
+        if (event.target.checked) {
+            var i = this.absent.findIndex(function (absentStudent) { return absentStudent === student; });
+            if (i !== undefined) {
+                this.absent.splice(i, 1);
+                this.present.push(student);
+                this.attendance[index] = "P";
+            }
+        }
+        else {
+            var i = this.present.findIndex(function (presentStudent) { return presentStudent === student; });
+            if (i !== undefined) {
+                this.present.splice(i, 1);
+                this.absent.push(student);
+                this.attendance[index] = "A";
+            }
+        }
     };
     FacultyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -5317,7 +6321,9 @@ var FacultyComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./faculty.component.html */ "./src/app/faculty/faculty.component.html"),
             styles: [__webpack_require__(/*! ./faculty.component.css */ "./src/app/faculty/faculty.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_2__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], FacultyComponent);
     return FacultyComponent;
 }());
@@ -5344,7 +6350,7 @@ module.exports = "p {\r\n    margin-top: 10px;\r\n    text-align: center;\r\n}\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n  <p>Developed By <strong>TEAM</strong></p>"
+module.exports = "\r\n  <p>Developed By <strong>TEAM</strong></p>"
 
 /***/ }),
 
@@ -5487,7 +6493,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\n.alert-danger {\r\n    borde
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-md-6 col-sm-10 mx-auto\">\n    <h3 class=\"m-1\">Change Password</h3>\n    <form class=\"login-form\" (submit)=\"changePassword()\" [formGroup]=\"form\">\n      \n      <div class=\"form-group\">\n        <label for=\"username\">Current Password : </label>\n        <input type=\"password\" class=\"password\" name=\"current_password\" id=\"current_password\" formControlName=\"currentPassword\" placeholder=\"CURRENT PASSWORD\">\n        <span *ngIf=\"!form.get('currentPassword').valid && form.get('currentPassword').touched\">*Please enter Current Password</span>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"username\">New Password : </label>\n        <input type=\"password\" class=\"password\" name=\"new_password\" id=\"new_password\" formControlName=\"newPassword\" placeholder=\"NEW PASSWORD\">\n        <span *ngIf=\"!form.get('newPassword').valid && form.get('newPassword').touched\">*Please enter New Password</span>\n      </div>\n      \n      <div class=\"form-group\">\n        <label for=\"password\">Confirm New Password : </label>\n        <input type=\"password\" class=\"password\" name=\"confirm_password\" id=\"confirm_password\" formControlName=\"confirmPassword\" placeholder=\"PASSWORD\">\n        <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*Please enter Confirm Password</span>\n      </div>\n      <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*New Password and Confirm Password Does Not Match</span>\n\n\n      \n      <hr>\n      \n      <button type=\"submit\" class=\"btn-login\">Login</button>\n      \n    </form>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-md-6 col-sm-10 mx-auto\">\r\n    <h3 class=\"m-1\">Change Password</h3>\r\n    <form class=\"login-form\" (submit)=\"changePassword()\" [formGroup]=\"form\">\r\n      \r\n      <div class=\"form-group\">\r\n        <label for=\"username\">Current Password : </label>\r\n        <input type=\"password\" class=\"password\" name=\"current_password\" id=\"current_password\" formControlName=\"currentPassword\" placeholder=\"CURRENT PASSWORD\">\r\n        <span *ngIf=\"!form.get('currentPassword').valid && form.get('currentPassword').touched\">*Please enter Current Password</span>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"username\">New Password : </label>\r\n        <input type=\"password\" class=\"password\" name=\"new_password\" id=\"new_password\" formControlName=\"newPassword\" placeholder=\"NEW PASSWORD\">\r\n        <span *ngIf=\"!form.get('newPassword').valid && form.get('newPassword').touched\">*Please enter New Password</span>\r\n      </div>\r\n      \r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Confirm New Password : </label>\r\n        <input type=\"password\" class=\"password\" name=\"confirm_password\" id=\"confirm_password\" formControlName=\"confirmPassword\" placeholder=\"PASSWORD\">\r\n        <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*Please enter Confirm Password</span>\r\n      </div>\r\n      <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*New Password and Confirm Password Does Not Match</span>\r\n\r\n\r\n      \r\n      <hr>\r\n      \r\n      <button type=\"submit\" class=\"btn-login\">Login</button>\r\n      \r\n    </form>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -5589,7 +6595,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\n.alert-danger {\r\n    borde
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12\">\n    <div class=\"row mt-3\" *ngIf=\"!loginAuth\">\n      <div class=\"col-10 mx-auto\">\n        <div class=\"alert alert-danger alert-dismissible\">\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\n            <span>Invalid Username</span>\n        </div>\n      </div>\n    </div>\n  \n    <div class=\"row mt-3\" *ngIf=\"linkSend\">\n      <div class=\"col-10 mx-auto\">\n        <div class=\"alert alert-success alert-dismissible\">\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\n            <span class=\"text-green\">Reset Password Link Send to your email <strong>Successfully!!!</strong></span>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-md-6 col-sm-10 mx-auto\">\n        <h3 class=\"m-1\">Forgot your Password?</h3>\n        <form class=\"login-form\" (submit)=\"forgotPassword()\" [formGroup]=\"form\">\n          \n          <div class=\"form-group mb-3\">\n            <label for=\"username\">Enter User Name : </label>\n            <input type=\"text\" class=\"username\" name=\"username\" id=\"username\" formControlName=\"forgotPassword\" placeholder=\"USERNAME\">\n            <span *ngIf=\"!form.get('forgotPassword').valid && form.get('forgotPassword').touched\">*Please enter User Name</span>\n          </div>\n          \n          <hr>\n          \n          <button type=\"submit\" class=\"btn-login\">Send Reset Link</button>\n          \n        </form>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12\">\r\n    <div class=\"row mt-3\" *ngIf=\"!loginAuth\">\r\n      <div class=\"col-10 mx-auto\">\r\n        <div class=\"alert alert-danger alert-dismissible\">\r\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\r\n            <span>Invalid Username</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  \r\n    <div class=\"row mt-3\" *ngIf=\"linkSend\">\r\n      <div class=\"col-10 mx-auto\">\r\n        <div class=\"alert alert-success alert-dismissible\">\r\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\r\n            <span class=\"text-green\">Reset Password Link Send to your email <strong>Successfully!!!</strong></span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-10 mx-auto\">\r\n        <h3 class=\"m-1\">Forgot your Password?</h3>\r\n        <form class=\"login-form\" (submit)=\"forgotPassword()\" [formGroup]=\"form\">\r\n          \r\n          <div class=\"form-group mb-3\">\r\n            <label for=\"username\">Enter User Name : </label>\r\n            <input type=\"text\" class=\"username\" name=\"username\" id=\"username\" formControlName=\"forgotPassword\" placeholder=\"USERNAME\">\r\n            <span *ngIf=\"!form.get('forgotPassword').valid && form.get('forgotPassword').touched\">*Please enter User Name</span>\r\n          </div>\r\n          \r\n          <hr>\r\n          \r\n          <button type=\"submit\" class=\"btn-login\">Send Reset Link</button>\r\n          \r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5684,7 +6690,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\n.alert-danger {\r\n    borde
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-12\">\n    \n    <div class=\"row mt-3\" *ngIf=\"!loginAuth\">\n      <div class=\"col-10 mx-auto\">\n        <div class=\"alert alert-danger alert-dismissible\">\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\n            <span>Invalid Username or Password</span>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-md-5 col-sm-10 mx-auto\">\n        <h3 class=\"m-1\">Login</h3>\n        <form class=\"login-form\" (submit)=\"login()\" [formGroup]=\"form\">\n  \n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"form-group\">\n                <label for=\"username\">User Name : </label>\n                <input type=\"text\" class=\"username\" name=\"username\" id=\"username\" formControlName=\"username\" placeholder=\"USERNAME\">\n                <span *ngIf=\"!form.get('username').valid && form.get('username').touched\">*Please enter User Name</span>\n              </div>\n            </div>\n          </div>\n          \n          \n          <div class=\"row\">\n            <div class=\"col-12\">\n              <div class=\"form-group\">\n                <label for=\"password\">Password : </label>\n                <input type=\"password\" class=\"password\" name=\"password\" id=\"password\" formControlName=\"password\" placeholder=\"PASSWORD\">\n                <span *ngIf=\"!form.get('password').valid && form.get('password').touched\">*Please enter Password</span>\n              </div>\n            </div>\n          </div>\n          \n          <hr>\n  \n          <div class=\"row\">\n            <div class=\"col-md-6 col-sm-12\">\n              <button type=\"submit\" class=\"btn-login\">Login</button>\n            </div>\n            <div class=\"col-md-6 col-sm-12\">\n              <a routerLink=\"/forgot_password\">Forgot Password</a>\n            </div>\n          </div>\n          \n        </form>\n      </div>\n    </div>\n    \n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-12\">\r\n    \r\n    <div class=\"row mt-3\" *ngIf=\"!loginAuth\">\r\n      <div class=\"col-10 mx-auto\">\r\n        <div class=\"alert alert-danger alert-dismissible\">\r\n          <button type=\"button\" class=\"close\" (click)=\"alertDismiss()\" data-dismiss=\"alert\">&times;</button>\r\n            <span>Invalid Username or Password</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-md-5 col-sm-10 mx-auto\">\r\n        <h3 class=\"m-1\">Login</h3>\r\n        <form class=\"login-form\" (submit)=\"login()\" [formGroup]=\"form\">\r\n  \r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"username\">User Name : </label>\r\n                <input type=\"text\" class=\"username\" name=\"username\" id=\"username\" formControlName=\"username\" placeholder=\"USERNAME\">\r\n                <span *ngIf=\"!form.get('username').valid && form.get('username').touched\">*Please enter User Name</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          \r\n          \r\n          <div class=\"row\">\r\n            <div class=\"col-12\">\r\n              <div class=\"form-group\">\r\n                <label for=\"password\">Password : </label>\r\n                <input type=\"password\" class=\"password\" name=\"password\" id=\"password\" formControlName=\"password\" placeholder=\"PASSWORD\">\r\n                <span *ngIf=\"!form.get('password').valid && form.get('password').touched\">*Please enter Password</span>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          \r\n          <hr>\r\n  \r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <button type=\"submit\" class=\"btn-login\">Login</button>\r\n            </div>\r\n            <div class=\"col-md-6 col-sm-12\">\r\n              <a routerLink=\"/forgot_password\">Forgot Password</a>\r\n            </div>\r\n          </div>\r\n          \r\n        </form>\r\n      </div>\r\n    </div>\r\n    \r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -5779,7 +6785,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\n.alert-danger {\r\n    borde
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\">\n  <div class=\"col-md-6 col-sm-10 mx-auto\">\n    <h3 class=\"m-1\">Reset Password</h3>\n    <form class=\"login-form\" (submit)=\"resetPassword()\" [formGroup]=\"form\">\n      \n      <div class=\"form-group\">\n        <label for=\"username\">New Password : </label>\n        <input type=\"password\" class=\"password\" name=\"new_password\" id=\"new_password\" formControlName=\"newPassword\" placeholder=\"NEW PASSWORD\">\n        <span *ngIf=\"!form.get('newPassword').valid && form.get('newPassword').touched\">*Please enter New Password</span>\n      </div>\n      \n      <div class=\"form-group\">\n        <label for=\"password\">Confirm New Password : </label>\n        <input type=\"password\" class=\"password\" name=\"confirm_password\" id=\"confirm_password\" formControlName=\"confirmPassword\" placeholder=\"PASSWORD\">\n        <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*Please enter Confirm Password</span>\n      </div>\n      <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*New Password and Confirm Password Does Not Match</span>\n          \n      <hr>\n      \n      <button type=\"submit\" class=\"btn-login\">Send Reset Link</button>\n      \n    </form>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-md-6 col-sm-10 mx-auto\">\r\n    <h3 class=\"m-1\">Reset Password</h3>\r\n    <form class=\"login-form\" (submit)=\"resetPassword()\" [formGroup]=\"form\">\r\n      \r\n      <div class=\"form-group\">\r\n        <label for=\"username\">New Password : </label>\r\n        <input type=\"password\" class=\"password\" name=\"new_password\" id=\"new_password\" formControlName=\"newPassword\" placeholder=\"NEW PASSWORD\">\r\n        <span *ngIf=\"!form.get('newPassword').valid && form.get('newPassword').touched\">*Please enter New Password</span>\r\n      </div>\r\n      \r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Confirm New Password : </label>\r\n        <input type=\"password\" class=\"password\" name=\"confirm_password\" id=\"confirm_password\" formControlName=\"confirmPassword\" placeholder=\"PASSWORD\">\r\n        <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*Please enter Confirm Password</span>\r\n      </div>\r\n      <span *ngIf=\"!form.get('confirmPassword').valid && form.get('confirmPassword').touched\">*New Password and Confirm Password Does Not Match</span>\r\n          \r\n      <hr>\r\n      \r\n      <button type=\"submit\" class=\"btn-login\">Send Reset Link</button>\r\n      \r\n    </form>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -5900,7 +6906,11 @@ var HttpPostService = /** @class */ (function () {
         this.http = http;
     }
     HttpPostService.prototype.httpPost = function (data) {
-        return this.http.post("/dancingSoul", data)
+        return this.http.post("/dancingSoul", data, {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Authorization': "" + localStorage.getItem("access_token")
+            })
+        })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
             console.log(response);
             return response;
@@ -5951,7 +6961,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  student-attendance works!\n</p>\n"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\"> \r\n  <div class=\"col-12 mx-auto\">\r\n    <h3>Attendance</h3>\r\n    <hr>\r\n    <div class=\"row\" *ngIf=\"attendance.length > 0; else empty_attendance\">\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Date</th>\r\n              <th>Attendance</th>>\r\n            </tr>\r\n            <tr class=\"attendance\" *ngFor=\"let atten of attendance; let i = index\" routerLinkActive=\"active\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                {{ atten.date }}\r\n              </td>\r\n              <td>\r\n                {{ checkAttendance(i) }}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <ng-template #empty_attendance>\r\n      <h5 class=\"pl-3\">No Attendance Available</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -5968,19 +6978,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/httpPost.service */ "./src/app/services/httpPost.service.ts");
+
 
 
 
 var StudentAttendanceComponent = /** @class */ (function () {
-    function StudentAttendanceComponent(route, router) {
+    function StudentAttendanceComponent(httpPostService, route, router) {
+        this.httpPostService = httpPostService;
         this.route = route;
         this.router = router;
+        this.attendance = [];
+        this.loading = true;
     }
     StudentAttendanceComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.route.queryParams.
             subscribe(function (params) {
-            var _id = params["id"];
+            var _id = params['id'];
+            var studentData = { api: "getStudent", data: { _id: _id } };
+            _this.httpPostService.httpPost(studentData).subscribe(function (val) {
+                _this.student = val;
+                var studentData = {
+                    branch: _this.student.branch,
+                    batch: _this.student.batchName,
+                    batchType: _this.student.batch
+                };
+                var data = { api: "getAttendance", data: studentData };
+                _this.httpPostService.httpPost(data).subscribe(function (val) {
+                    _this.attendance = val;
+                    _this.loading = false;
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }, function (error) {
+                _this.loading = false;
+            });
         });
+    };
+    StudentAttendanceComponent.prototype.checkAttendance = function (index) {
+        var attendance = this.attendance[index];
+        if (attendance.present.indexOf(this.student._id) != -1) {
+            return "Present";
+        }
+        else if (attendance.absent.indexOf(this.student._id) != -1) {
+            return "Absent";
+        }
+        else {
+            return "Absent";
+        }
     };
     StudentAttendanceComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -5988,7 +7034,8 @@ var StudentAttendanceComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./student-attendance.component.html */ "./src/app/student/student-attendance/student-attendance.component.html"),
             styles: [__webpack_require__(/*! ./student-attendance.component.css */ "./src/app/student/student-attendance/student-attendance.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_httpPost_service__WEBPACK_IMPORTED_MODULE_3__["HttpPostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], StudentAttendanceComponent);
     return StudentAttendanceComponent;
@@ -6016,7 +7063,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  student-dashboard works!\n</p>\n"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\">\r\n  <div class=\"col-10 mx-auto\">\r\n    <div class=\"student\">\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <h3>Profile</h3>\r\n        </div>\r\n      </div>\r\n\r\n      <hr>\r\n\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-md-4 col-sm-10 mx-auto\">\r\n\r\n          <div>\r\n            <div class=\"student-name\">\r\n              <h4>{{student.name}}</h4>\r\n            </div>\r\n\r\n            <div class=\"student-image\">\r\n                <img [src]=\"student.image\" [alt]=\"student.name\" width=\"100%\">\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"col-md-8 col-sm-10 mx-auto\">\r\n\r\n          <div class=\"table-responsive\">\r\n            <table class=\"table table-sm\">\r\n              <tbody>\r\n                <tr>\r\n                  <td>\r\n                    <strong>Birth Date : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.birthDate}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    \r\n                    <strong>Address : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.address}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    <strong>First Guardian Name : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.firstGuardianName}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    <strong>First Guardian Relation : </strong>\r\n                  </td>\r\n                  <td>  \r\n                    <p>{{student.firstGuardianRelation}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr *ngIf=\"student.secondGuardianName != ''\">\r\n                  <td>\r\n                    <strong>Second Guardian Name : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.secondGuardianName}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr *ngIf=\"student.secondGuardianRelation != ''\">\r\n                  <td>\r\n                    <strong>Second Guardian Relation : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.secondGuardianRelation}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr *ngIf=\"student.workPlace != ''\">\r\n                  <td>\r\n                    <strong>School/ College/ Office : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.workPlace}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr *ngIf=\"student.bloodGroup != ''\">\r\n                  <td>\r\n                    <strong>Blood Group : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.bloodGroup}}</p>                      \r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    <strong>Medical History : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.medicalHistory}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    <strong><em>E-</em>mail : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>{{student.email}}</p>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>\r\n                    <strong>Phone : </strong>\r\n                  </td>\r\n                  <td>\r\n                    <p>+91 {{student.phone}}</p>\r\n                  </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          </div>\r\n        </div> \r\n\r\n      </div>\r\n      <hr>\r\n      <div class=\"row\">\r\n        <div class=\"col-12\">\r\n          <h4>CLASS DETAILS</h4>\r\n          <div class=\"row\">\r\n            <div class=\"col-10 mx-auto\">\r\n              <table class=\"table table-sm\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Branch : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{branch.branch}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Batch : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{student.batch}}</p>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Batch Name : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{batch.batchName}}</p> \r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Fees : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>Rs. {{batch.fees}}.00/-</p>      \r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Time : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{batch.time}}</p>                \r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <strong>Status : </strong>\r\n                    </td>\r\n                    <td>\r\n                      <p>{{student.status | uppercase}}</p>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n     \r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -6052,20 +7099,16 @@ var StudentDashboardComponent = /** @class */ (function () {
             var _id = params["id"];
             var studentData = { api: "getStudent", data: { _id: _id } };
             _this.httpPostService.httpPost(studentData).subscribe(function (val) {
-                _this.student = val[0];
+                _this.student = val;
                 var branchData = { api: "getBranch", data: { _id: _this.student.branch } };
                 _this.httpPostService.httpPost(branchData).subscribe(function (val) {
-                    _this.branch = val[0];
+                    _this.branch = val;
                     _this.loading = false;
                 }, function (error) {
                 });
             }, function (error) {
             });
         });
-    };
-    StudentDashboardComponent.prototype.cancel = function () {
-        this.loading = true;
-        this.router.navigate(['/admin', 'student'], { relativeTo: this.route, skipLocationChange: true });
     };
     StudentDashboardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -6102,7 +7145,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\n\n<div class=\"row mt-2\" *ngIf=\"!loading\"> \n  <div class=\"col-12 mx-auto\">\n    <h3>Receipts</h3>\n    <hr>\n    <div class=\"row\" *ngIf=\"receipts.length > 0; else empty_receipts\">\n      <div class=\"table-responsive\">\n        <table class=\"table table-sm table-hover\">\n          <tbody>\n            <tr>\n              <th>ID</th>\n              <th>Amount</th>\n              <th>Month</th>\n              <th>Payment Mode</th>\n            </tr>\n            <tr class=\"receipt\" *ngFor=\"let receipt of receipts; let i = index\" routerLinkActive=\"active\">\n              <td>{{ i+1 }}</td>\n              <td>\n                Rs. {{ receipt.amount }}.00/-\n              </td>\n              <td>\n                {{ receipt.months }}\n              </td>\n              <td>\n                {{ receipt.paymentMode | uppercase }}\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <ng-template #empty_receipts>\n      <h5 class=\"pl-3\">No Receipts Available</h5>\n    </ng-template>\n  </div>\n</div>"
+module.exports = "<img class=\"loading\" src=\"../../../assets/images/Reload-1.3s-78px.svg\" *ngIf=\"loading\">\r\n\r\n<div class=\"row mt-2\" *ngIf=\"!loading\"> \r\n  <div class=\"col-12 mx-auto\">\r\n    <h3>Receipts</h3>\r\n    <hr>\r\n    <div class=\"row\" *ngIf=\"receipts.length > 0; else empty_receipts\">\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-sm table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <th>ID</th>\r\n              <th>Amount</th>\r\n              <th>Month</th>\r\n              <th>Payment Mode</th>\r\n            </tr>\r\n            <tr class=\"receipt\" *ngFor=\"let receipt of receipts; let i = index\" routerLinkActive=\"active\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>\r\n                Rs. {{ receipt.amount }}.00/-\r\n              </td>\r\n              <td>\r\n                {{ receipt.months }}\r\n              </td>\r\n              <td>\r\n                {{ receipt.paymentMode | uppercase }}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <ng-template #empty_receipts>\r\n      <h5 class=\"pl-3\">No Receipts Available</h5>\r\n    </ng-template>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -6175,7 +7218,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  student-show-receipt works!\n</p>\n"
+module.exports = "<p>\r\n  student-show-receipt works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -6231,7 +7274,7 @@ module.exports = "* {\r\n    margin: 0;\r\n}\r\n\r\nh3 {\r\n    font-size: 150%;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-10 mx-auto\">\n    <div class=\"row\">\n      <div class=\"col-12\">\n        <nav>\n          <ul class=\"nav nav-tabs mt-2\">\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"dashboard\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Dashboard</a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"attendance\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Attendance</a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"receipts\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Receipts</a>      \n            </li>\n          </ul>\n        </nav>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-12\">\n        <router-outlet></router-outlet>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-10 mx-auto\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <nav>\r\n          <ul class=\"nav nav-tabs mt-2\">\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" routerLink=\"dashboard\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Dashboard</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" routerLink=\"attendance\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Attendance</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" routerLink=\"receipts\" routerLinkActive=\"active\" queryParamsHandling=\"preserve\">Receipts</a>      \r\n            </li>\r\n          </ul>\r\n        </nav>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -6388,7 +7431,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\DS_DEMO\demo_mean_deploy\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\Projects\Angular Projects\Dancing Soul\demo_mean_deploy\src\main.ts */"./src/main.ts");
 
 
 /***/ })
