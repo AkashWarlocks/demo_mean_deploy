@@ -29,17 +29,4 @@ export class HttpPostService {
 
   }
 
-  public httpImagePost(api: string, data: any) : any {
-    return this.http.post("/dancingSoul", data)
-    .pipe(
-      map((response: any)=>{
-          return response;
-      }),
-      catchError(err => {
-          console.log(err)
-          return throwError("SOMETHING BAD HAPPENED");
-      })
-    );;
-
-  }
 }

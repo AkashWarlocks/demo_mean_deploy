@@ -25,7 +25,7 @@
                     <th>Timing</th>
                   </tr>
                 <ng-container *ngFor="let curBatch of branch.batch; let i = index">
-                  <tr *ngIf="batch.batchType === 'WeekDays'">
+                  <tr *ngIf="curBatch.batchType === 'WeekDays'">
                     <td>{{curBatch.days}}</td>
                     <td>{{curBatch.batchName}}</td>
                     <td>{{curBatch.time}}</td>
@@ -42,7 +42,7 @@
                   <th>Timing</th>
                 </tr>
                 <ng-container *ngFor="let curBatch of branch.batch; let i = index">
-                  <tr *ngIf="batch.batchType === 'WeekEnds'">
+                  <tr *ngIf="curBatch.batchType === 'WeekEnds'">
                     <td>{{curBatch.days}}</td>
                     <td>{{curBatch.batchName}}</td>
                     <td>{{curBatch.time}}</td>
