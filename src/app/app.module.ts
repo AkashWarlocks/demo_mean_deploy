@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { Angular2ImageGalleryModule } from 'angular2-image-gallery';
+// import { JwtModule } from '@auth0/angular-jwt';
 
 //ROUTES
 import { AppRoutes } from './app.routes.module';
@@ -105,12 +106,11 @@ import { FormValidator } from './validators/form.validator';
 
 import { HttpPostService } from './services/httpPost.service';
 
-
-// import { JwtModule } from '@auth0/angular-jwt'; 
-
 // export function tokenGetter() {
-//   return localStorage.getItem('access_token');
+//   const user = JSON.parse(localStorage.getItem('user'));
+//   return user.token;
 // }
+
 @NgModule({
   declarations: [
     AppComponent,

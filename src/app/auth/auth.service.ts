@@ -19,20 +19,26 @@ export class AuthService {
     // const data = { api : "login", data : { email, password } }
     // this.httpPostService.httpPost(data).subscribe((response: any)=>{
     //   console.log(response);
-    //   const userType = response.user.userType;
+    //   const user = response.user.
+    //   const userType = user.userType;
+    //   localStorage.setItem('user', JSON.stringify(user));
 
       if(email === "admin" && password === "admin") {
+      // if(user.userType === "admin") {
         this.loggedIn.next({user: 'admin', loginValidate: true});
         this.router.navigate(['/admin'], {relativeTo: this.route});
       }
       else if(email === "student" && password === "student") {
+      // else if(user.userType === "student") {
         this.loggedIn.next({user: 'student', loginValidate: true});
         this.router.navigate(['/student'], {relativeTo: this.route});
-        // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
+        // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : user._id}});
       }
       else if(email === "faculty" && password === "faculty") {
+        // else if(user.userType === "faculty") {
         this.loggedIn.next({user: 'faculty', loginValidate: true});
         this.router.navigate(['/faculty'], {relativeTo: this.route});
+        // this.router.navigate(['/faculty'], {relativeTo: this.route, queryParams: {id : user._id}});
       }
       else {
         this.loggedIn.next({user: null, loginValidate: false});
@@ -47,6 +53,7 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next({user: null, loginValidate: false});
+    localStorage.removeItem('user');
     this.router.navigate([''], {relativeTo: this.route});
   }
 }
