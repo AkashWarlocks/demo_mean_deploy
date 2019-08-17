@@ -1,7 +1,9 @@
 const express = require('./node_modules/express')
+const dotenv = require('./node_modules/dotenv')
 var bodyParser = require('./node_modules/body-parser')
 //const routes = require('/routes.js')
 
+dotenv.config({path:'./config.env'})
 
 let routes = require('./backend_src/routes/routes')
 
@@ -39,4 +41,6 @@ app.use(routes)
 
 app.listen(port, () => {
     console.log('Server is running on port' + port)
-}) 
+})
+
+console.log(process.env)

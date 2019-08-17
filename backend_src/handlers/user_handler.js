@@ -4,6 +4,8 @@ require('../db/mongoose')
 const User = require('../model/user')
 const Student = require('../model/student')
 const Faculty = require('../model/faculty')
+const bcrypt = require('bcryptjs')
+
 
 hObj.loginUsers = async (req,res) =>{
     console.log(req.body.data)
@@ -36,9 +38,35 @@ hObj.getUsers = auth, async(req,res)=>{
     }
 }
 hObj.changePassword = async(req,res)=>{
+    const updates = Object.keys(req.body.data)
+    const allowedUpdates = ['password']
+    const isValid = updates.every((update)=>allowedUpdates.includes(updates))
 
+    // if(!isValid) {
+    //     return res.status(400).send({"error":"invalid updates"})
+    // }
+    
+    console.log('in here')
+    try {
+        const user = await User.findByCredentials(req.body.data.email, req.body.data.password)
+        console.log (user)
+        if(!user){
+            console.log('here')
+            res.status(401).send({error:"error"})
+        }
+
+        user.password = req.body.data.newPassword
+        user.save()
+
+        
+        res.status(200).send(user)       
+    } catch (error) {
+        res.status(401).send(error)
+}
 }
 hObj.resetPassword = async(req,res)=>{
+
+
 }
 
 hObj.addUsers = async(req,res)=>{

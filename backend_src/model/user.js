@@ -24,7 +24,11 @@ const userSchema = new mongoose.Schema({
                 required:true
             }
         }
-    ]
+    ],
+    resetPasswordToken:{
+        type:String,
+        required:false
+    }
 })
 
 userSchema.methods.generateAuthToken = async function () { 
