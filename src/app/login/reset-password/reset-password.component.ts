@@ -41,9 +41,10 @@ export class ResetPasswordComponent implements OnInit {
       }
       else {
         this.token = params.token;
+        localStorage.setItem("access_token", this.token);
         const data = { api : "validateToken", data : { token : this.token }}
         this.httpPostService.httpPost(data).subscribe((val) => {
-         this.user = val[0].user;
+        //  this.user = val[0].user;
          this.loading = false;
         },
         (error) => {
