@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { Angular2ImageGalleryModule } from 'angular2-image-gallery';
-// import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 
 //ROUTES
 import { AppRoutes } from './app.routes.module';
@@ -106,10 +106,10 @@ import { FormValidator } from './validators/form.validator';
 
 import { HttpPostService } from './services/httpPost.service';
 
-// export function tokenGetter() {
-//   const user = JSON.parse(localStorage.getItem('user'));
-//   return user.token;
-// }
+export function tokenGetter() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user.token;
+}
 
 @NgModule({
   declarations: [
@@ -208,13 +208,13 @@ import { HttpPostService } from './services/httpPost.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk'
     }),
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: tokenGetter,
-    //     whitelistedDomains: ['localhost:4000'],
-    //     blacklistedRoutes: ['localhost:4000/api/auth']
-    //   }
-    // })
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4000'],
+        blacklistedRoutes: ['localhost:4000/api/auth']
+      }
+    })
   ],
 
   providers: [

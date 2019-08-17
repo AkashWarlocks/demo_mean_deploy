@@ -3143,12 +3143,12 @@ var AdminAddPhotosComponent = /** @class */ (function () {
         var title = this.form.value.title;
         var imgData = { title: title };
         var postData = new FormData();
-        postData.append("title", JSON.stringify(imgData));
+        postData.append("title", title);
+        postData.append("api", "addImages");
         for (var i = 0; i < this.uploadImages.length; i++) {
             postData.append("image", this.uploadImages[i], title + i);
         }
-        var data = { api: "addImages", data: postData };
-        this.httpPostService.httpImagePost(data.api, postData)
+        this.httpPostService.httpPost(postData)
             .subscribe(function (responseData) {
             _this.imagePreview = [];
             _this.uploadImages = [];
@@ -3231,7 +3231,7 @@ var AdminGallaryComponent = /** @class */ (function () {
     AdminGallaryComponent.prototype.ngOnInit = function () {
         var _this = this;
         var data = { api: "getImages", data: {} };
-        this.httpPostService.httpImagePost(data.api, data.data)
+        this.httpPostService.httpPost(data)
             .subscribe(function (responseData) {
             _this.images = responseData.imagePath;
             _this.loading = false;
@@ -3254,7 +3254,7 @@ var AdminGallaryComponent = /** @class */ (function () {
         postData.append("data", JSON.stringify(imgData));
         this.loading = true;
         var data = { api: "deleteImage", data: imgData };
-        this.httpPostService.httpImagePost(data.api, data.data)
+        this.httpPostService.httpPost(data)
             .subscribe(function (res) {
             _this.ngOnInit();
         }, function (error) {
@@ -4825,6 +4825,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { JwtModule } from '@auth0/angular-jwt';
 //ROUTES
 
 //GUARDS
@@ -4898,9 +4899,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import { JwtModule } from '@auth0/angular-jwt'; 
 // export function tokenGetter() {
-//   return localStorage.getItem('access_token');
+//   const user = JSON.parse(localStorage.getItem('user'));
+//   return user.token;
 // }
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -5393,19 +5394,25 @@ var AuthService = /** @class */ (function () {
         // const data = { api : "login", data : { email, password } }
         // this.httpPostService.httpPost(data).subscribe((response: any)=>{
         //   console.log(response);
-        //   const userType = response.user.userType;
+        //   const user = response.user.
+        //   const userType = user.userType;
+        //   localStorage.setItem('user', JSON.stringify(user));
         if (email === "admin" && password === "admin") {
+            // if(user.userType === "admin") {
             this.loggedIn.next({ user: 'admin', loginValidate: true });
             this.router.navigate(['/admin'], { relativeTo: this.route });
         }
         else if (email === "student" && password === "student") {
+            // else if(user.userType === "student") {
             this.loggedIn.next({ user: 'student', loginValidate: true });
             this.router.navigate(['/student'], { relativeTo: this.route });
-            // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : response.user._id}});
+            // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : user._id}});
         }
         else if (email === "faculty" && password === "faculty") {
+            // else if(user.userType === "faculty") {
             this.loggedIn.next({ user: 'faculty', loginValidate: true });
             this.router.navigate(['/faculty'], { relativeTo: this.route });
+            // this.router.navigate(['/faculty'], {relativeTo: this.route, queryParams: {id : user._id}});
         }
         else {
             this.loggedIn.next({ user: null, loginValidate: false });
@@ -5418,6 +5425,7 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.logout = function () {
         this.loggedIn.next({ user: null, loginValidate: false });
+        localStorage.removeItem('user');
         this.router.navigate([''], { relativeTo: this.route });
     };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -5593,7 +5601,7 @@ module.exports = ".branches-page{\r\n    padding: 40px;\r\n}\r\n.branch-card{\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"branches-page\">\r\n    <h2>Our Branches</h2>\r\n    <div class=\"branch-card\" *ngFor=\"let branch of branches\">\r\n      <div class=\"flex-container\">\r\n        <div class=\"branch-img\">\r\n\r\n        </div>\r\n        <div class=\"branch-details\">\r\n          <div class=\"description\">\r\n            <span>{{branch.description}}</span>\r\n          </div>\r\n          <div class=\"detail\">\r\n            <a href=\"mailto:{{branch.email}}?subject=Class%20Enquiry\"><i class=\"fas fa-envelope\"></i>{{branch.email}}</a>\r\n            <a><i class=\"fa fa-phone\"></i>{{branch.phone}}</a>\r\n            <a><i class=\"fa fa-map-marker\"></i>{{branch.address}}</a>\r\n            <a><i class=\"fa fa-building\"></i>{{branch.branch}}</a>\r\n          </div>\r\n          <div class=\"batch-details\">\r\n            <div>\r\n              <table>\r\n                  <tr><td class=\"tableHeader\" colspan=\"3\">Weekdays</td></tr>\r\n                  <tr>\r\n                    <th>Days</th>\r\n                    <th>Batch Name</th>\r\n                    <th>Timing</th>\r\n                  </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType === 'WeekDays'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>\r\n            </div>\r\n            <div>\r\n              <table>\r\n                <tr><td class=\"tableHeader\" colspan=\"3\">Weekends</td></tr>\r\n                <tr>\r\n                  <th>Days</th>\r\n                  <th>Batch Name</th>\r\n                  <th>Timing</th>\r\n                </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"batch.batchType === 'WeekEnds'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>   \r\n            </div> \r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"branches-page\">\r\n    <h2>Our Branches</h2>\r\n    <div class=\"branch-card\" *ngFor=\"let branch of branches\">\r\n      <div class=\"flex-container\">\r\n        <div class=\"branch-img\">\r\n\r\n        </div>\r\n        <div class=\"branch-details\">\r\n          <div class=\"description\">\r\n            <span>{{branch.description}}</span>\r\n          </div>\r\n          <div class=\"detail\">\r\n            <a href=\"mailto:{{branch.email}}?subject=Class%20Enquiry\"><i class=\"fas fa-envelope\"></i>{{branch.email}}</a>\r\n            <a><i class=\"fa fa-phone\"></i>{{branch.phone}}</a>\r\n            <a><i class=\"fa fa-map-marker\"></i>{{branch.address}}</a>\r\n            <a><i class=\"fa fa-building\"></i>{{branch.branch}}</a>\r\n          </div>\r\n          <div class=\"batch-details\">\r\n            <div>\r\n              <table>\r\n                  <tr><td class=\"tableHeader\" colspan=\"3\">Weekdays</td></tr>\r\n                  <tr>\r\n                    <th>Days</th>\r\n                    <th>Batch Name</th>\r\n                    <th>Timing</th>\r\n                  </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"curBatch.batchType === 'WeekDays'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>\r\n            </div>\r\n            <div>\r\n              <table>\r\n                <tr><td class=\"tableHeader\" colspan=\"3\">Weekends</td></tr>\r\n                <tr>\r\n                  <th>Days</th>\r\n                  <th>Batch Name</th>\r\n                  <th>Timing</th>\r\n                </tr>\r\n                <ng-container *ngFor=\"let curBatch of branch.batch; let i = index\">\r\n                  <tr *ngIf=\"curBatch.batchType === 'WeekEnds'\">\r\n                    <td>{{curBatch.days}}</td>\r\n                    <td>{{curBatch.batchName}}</td>\r\n                    <td>{{curBatch.time}}</td>\r\n                  </tr>\r\n                </ng-container>\r\n              </table>   \r\n            </div> \r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -6913,16 +6921,6 @@ var HttpPostService = /** @class */ (function () {
         })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
             console.log(response);
-            return response;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) {
-            console.log(err);
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])("SOMETHING BAD HAPPENED");
-        }));
-        ;
-    };
-    HttpPostService.prototype.httpImagePost = function (api, data) {
-        return this.http.post("/dancingSoul", data)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
             return response;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) {
             console.log(err);

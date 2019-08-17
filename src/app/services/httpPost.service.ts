@@ -11,9 +11,12 @@ export class HttpPostService {
   constructor(private http: HttpClient) { }
 
   public httpPost(data: any) : any {
+
+    // data._id = localStorage.user._id;
+    const token = JSON.parse(localStorage.getItem("access_token"));
     return this.http.post("/dancingSoul", data, {
       headers: new HttpHeaders({
-        'Authorization': ""+localStorage.getItem("access_token")
+        'Authorization': ""+token
       })
     })
     .pipe(
@@ -26,7 +29,5 @@ export class HttpPostService {
           return throwError("SOMETHING BAD HAPPENED");
       })
     );;
-
   }
-
 }
