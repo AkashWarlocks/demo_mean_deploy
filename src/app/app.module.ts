@@ -107,8 +107,11 @@ import { FormValidator } from './validators/form.validator';
 import { HttpPostService } from './services/httpPost.service';
 
 export function tokenGetter() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user.token;
+  if(localStorage.getItem('access_token')) {
+    const token = JSON.parse(localStorage.getItem('access_token'));
+    return token;
+  }
+  return;
 }
 
 @NgModule({
