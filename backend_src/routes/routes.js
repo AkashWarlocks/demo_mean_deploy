@@ -136,50 +136,59 @@ router.post('/dancingSoul',(req,res) => {
     }
 
 })
-router.post('/addBranch',auth, (req,res)=>{
+router.post('/addBranch',auth.auth, (req,res)=>{
     console.log("in add branch")
     branchHandler.addBranch(req,res);
 })
 
-// router.post('/addFaculty', (req,res) => {
-//     facultyHandler.addFaculty(req,res)
-// })
+router.post('/addFaculty', (req,res) => {
+    facultyHandler.addFaculty(req,res)
+})
 
-// router.post('/deleteBranch', (req,res)=>{
-//     branchHandler.deleteBranch(req,res)
-// })
+router.post('/deleteBranch', (req,res)=>{
+    branchHandler.deleteBranch(req,res)
+})
 
-// router.post('/deleteFaculty', (req,res)=>{
-//     facultyHandler.deleteFaculty(req,res)
-// })
+router.post('/deleteFaculty', (req,res)=>{
+    facultyHandler.deleteFaculty(req,res)
+})
 
-// router.post('/editFaculty', (req,res)=>{
-//     console.log("inside route - edit faculty")
-//     facultyHandler.editFaculty(req,res)
-// })
+router.post('/editFaculty', (req,res)=>{
+    console.log("inside route - edit faculty")
+    facultyHandler.editFaculty(req,res)
+})
 
-// router.post('/editBranch', (req,res)=>{
-//     branchHandler.editBranch(req,res)
-// })
+router.post('/editBranch', (req,res)=>{
+    branchHandler.editBranch(req,res)
+})
 
-// router.post('/contactUs', (req,res)=>{
-//     contactUsHandler.contactUs(req,res)
-// })
+router.post('/contactUs', (req,res)=>{
+    contactUsHandler.contactUs(req,res)
+})
 
-// router.get('/getBranches',(req,res)=>{
-//     branchHandler.getBranches(req,res)
-// } )
+router.get('/getBranches',(req,res)=>{
+    branchHandler.getBranches(req,res)
+} )
 
-// router.get('/getFaculties',(req,res)=>{
-//     facultyHandler.getFaculties(req,res)
-// })
+router.get('/getFaculties',(req,res)=>{
+    facultyHandler.getFaculties(req,res)
+})
 
-// router.post('/getBranch',(req,res)=>{
-//     branchHandler.getBranch(req,res)
-// })
+router.post('/getBranch',(req,res)=>{
+    branchHandler.getBranch(req,res)
+})
 
 router.post('/login',(req,res)=>{
     userHandler.loginUsers(req,res)
 })
 
+router.post('/forgotPassword',(req,res)=>{
+    userHandler.forgotPassword(req,res)
+})
+router.post('/resetPassword' ,auth.verifyResetPassword,(req,res)=>{
+    userHandler.resetPassword(req,res)
+})
+router.post('/vaildateToken',(req,res)=>{
+        userHandler.validateToken(req,res)
+})
 module.exports = router
