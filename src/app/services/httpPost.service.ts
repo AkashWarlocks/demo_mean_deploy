@@ -13,10 +13,10 @@ export class HttpPostService {
   public httpPost(data: any) : any {
 
     // data._id = localStorage.user._id;
-    const token = JSON.parse(localStorage.getItem("access_token"));
+    // const token = JSON.parse(localStorage.getItem("access_token"));
     return this.http.post("/dancingSoul", data, {
       headers: new HttpHeaders({
-        'Authorization': ""+token
+        'Authorization': ""
       })
     })
     .pipe(
