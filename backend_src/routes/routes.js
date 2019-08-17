@@ -26,7 +26,7 @@ router.get('/getUsers',auth,async (req,res)=>{
         // userHandler.getUsers(req,res)
 })
 
-router.post('/dancingSoul',auth,(req,res) => {
+router.post('/dancingSoul',(req,res) => {
         const api = req.body.api
         console.log(api)
     switch(api){
