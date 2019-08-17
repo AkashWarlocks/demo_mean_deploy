@@ -26,7 +26,7 @@ router.get('/getUsers',auth,async (req,res)=>{
         // userHandler.getUsers(req,res)
 })
 
-router.post('/dancingSoul',(req,res) => {
+router.post('/dancingSoul',auth,(req,res) => {
         const api = req.body.api
         console.log(api)
     switch(api){
@@ -136,10 +136,10 @@ router.post('/dancingSoul',(req,res) => {
     }
 
 })
-// router.post('/addBranches', (req,res)=>{
-//     console.log("in add branch")
-//     branchHandler.addBranch(req,res);
-// })
+router.post('/addBranch',auth, (req,res)=>{
+    console.log("in add branch")
+    branchHandler.addBranch(req,res);
+})
 
 // router.post('/addFaculty', (req,res) => {
 //     facultyHandler.addFaculty(req,res)
