@@ -19,7 +19,7 @@ export class HttpPostService {
     }
     return this.http.post("/dancingSoul", data, {
       headers: new HttpHeaders({
-        'Authorization': ""
+        'Authorization': "Bearer "+token
       })
     })
     .pipe(
