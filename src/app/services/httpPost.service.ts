@@ -17,7 +17,7 @@ export class HttpPostService {
     if(localStorage.getItem("access_token")) {
       token = JSON.parse(localStorage.getItem("access_token"));
     }
-    return this.http.post("/dancingSoul", data, {
+    return this.http.post("/"+data.api, data, {
       headers: new HttpHeaders({
         'Authorization': "Bearer "+token
       })
