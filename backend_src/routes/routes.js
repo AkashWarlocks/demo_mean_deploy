@@ -178,8 +178,8 @@ router.post('/addBranch',auth, (req,res)=>{
 //     branchHandler.getBranch(req,res)
 // })
 
-// router.post('/login/users',(req,res)=>{
-//     userHandler.loginUsers(req,res)
-// })
+router.post('/login',(req,res)=>{
+    userHandler.loginUsers(req,res)
+})
 
 module.exports = router
