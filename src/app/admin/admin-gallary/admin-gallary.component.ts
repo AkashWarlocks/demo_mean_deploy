@@ -16,7 +16,7 @@ export class AdminGallaryComponent implements OnInit {
 
   ngOnInit() {
     const data = { api : "getImages", data : {}}    
-    this.httpPostService.httpImagePost(data.api, data.data)
+    this.httpPostService.httpPost(data)
     .subscribe(responseData => {
       this.images = responseData.imagePath;
       this.loading = false;
@@ -44,7 +44,7 @@ export class AdminGallaryComponent implements OnInit {
 
     this.loading = true;
     const data = { api : "deleteImage", data : imgData}
-    this.httpPostService.httpImagePost(data.api, data.data)
+    this.httpPostService.httpPost(data)
     .subscribe(res => {
       this.ngOnInit();
     },
