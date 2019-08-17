@@ -10,13 +10,38 @@ hObj.sendEmail = async(data) => {
               pass: 'aaouikika'
             }
           });
-    
-          var mailOptions = {
-            from: 'akashgamer96@gmail.com',
-            to: data.Email,
-            subject: 'Support: The Dancing Soul Academy',
-            text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
-          };
+          
+          if (data.function == "newAccount") {
+
+            var mailOptions = {
+              from: 'akashgamer96@gmail.com',
+              to: data.Email,
+              subject: 'Support: The Dancing Soul Academy',
+              text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
+            };
+
+          } else if (data.function == "resetPassword"){
+            var mailOptions = {
+              from: 'akashgamer96@gmail.com',
+              to: data.Email,
+              subject: 'Support: The Dancing Soul Academy',
+              text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
+            };
+          } else if(data.function == "contactUs") {
+            var mailOptions = {
+              from: 'akashgamer96@gmail.com',
+              to: data.Email,
+              subject: 'Support: The Dancing Soul Academy',
+              text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
+            };
+          }
+
+          // var mailOptions = {
+          //   from: 'akashgamer96@gmail.com',
+          //   to: data.Email,
+          //   subject: 'Support: The Dancing Soul Academy',
+          //   text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
+          // };
     
           const info = await transporter.sendMail(mailOptions)
         

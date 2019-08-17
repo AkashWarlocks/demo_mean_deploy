@@ -18,5 +18,9 @@ const auth = async (req,res,next)=>{
         res.status(401).send({error:"Please Authenticate"})
     }
 }
+const resetPasswordToken = async(req,res)=>{
+    token = crypto.randomBytes(32).toString('hex')
+    
+}
 
 module.exports = auth
