@@ -1,7 +1,8 @@
 require('../db/mongoose')
+const auth = require('../middleware/auth')
 const Branch = require('../model/branches')
 let hObj = {}
-hObj.addBranch = async (req,res) => {
+hObj.addBranch =  async (req,res) => {
     console.log("add branch body ",req.body)
 
     const branch = new Branch(req.body.data)

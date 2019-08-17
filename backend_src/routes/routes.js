@@ -136,10 +136,10 @@ router.post('/dancingSoul',(req,res) => {
     }
 
 })
-// router.post('/addBranches', (req,res)=>{
-//     console.log("in add branch")
-//     branchHandler.addBranch(req,res);
-// })
+router.post('/addBranch',auth, (req,res)=>{
+    console.log("in add branch")
+    branchHandler.addBranch(req,res);
+})
 
 // router.post('/addFaculty', (req,res) => {
 //     facultyHandler.addFaculty(req,res)
@@ -178,8 +178,8 @@ router.post('/dancingSoul',(req,res) => {
 //     branchHandler.getBranch(req,res)
 // })
 
-// router.post('/login/users',(req,res)=>{
-//     userHandler.loginUsers(req,res)
-// })
+router.post('/login',(req,res)=>{
+    userHandler.loginUsers(req,res)
+})
 
 module.exports = router
