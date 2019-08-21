@@ -20,12 +20,12 @@ hObj.sendEmail = async(data) => {
               text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
             };
 
-          } else if (data.function == "resetPassword"){
+          } else if (data.req.api == "forgotPassword"){
             var mailOptions = {
               from: 'akashgamer96@gmail.com',
-              to: data.Email,
+              to: data.req.data.email,
               subject: 'Support: The Dancing Soul Academy',
-              text: "Name: "+data.Name+"\nContact: "+data.Contact+"\nEmail: "+data.Email+"\nDescription: "+data.Description+"\n\n\n Thank you for contacting"
+              text: "Reset Password Link https://ds-backup.herokuapp.com/#/reset_password?"+data.token
             };
           } else if(data.function == "contactUs") {
             var mailOptions = {
@@ -44,6 +44,7 @@ hObj.sendEmail = async(data) => {
           // };
     
           const info = await transporter.sendMail(mailOptions)
+          return info,
         
     } catch (error) {
         console.log('Email sent: ' + error);

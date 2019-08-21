@@ -5,7 +5,8 @@ const User = require('../model/user')
 const Student = require('../model/student')
 const Faculty = require('../model/faculty')
 const bcrypt = require('bcryptjs')
-
+const sendemail = require('../handlers/email_handler')
+const auth = require('../middleware/auth')
 
 hObj.loginUsers = async (req,res) =>{
     console.log(req.body.data)
@@ -64,9 +65,55 @@ hObj.changePassword = async(req,res)=>{
         res.status(401).send(error)
 }
 }
+hObj.validateToken = async(req,res)=>{
+    try {
+        const email = auth.verifyResetPassword(req) 
+        res.status(200).send({
+            valid_token:"true",
+            email:email
+        })
+    } catch (error) {
+            
+    }
+    
+}
 hObj.resetPassword = async(req,res)=>{
+    try {
+     const email = await auth.verifyResetPassword(req)   
+     
+     if(!email){
+         throw new Error
+     }
+     const user = User.fin
 
+    } catch (error) {
+        
+    }
 
+}
+hObj.forgotPassword = async(req,res)=>{
+    try {
+        
+        const user = User.findOne({email:req.data.email})
+        if(!user){
+            res.status(400).send({
+                "message":"No user of this Email found"
+                }
+            )
+        }
+        const token = auth.forgetPasswordToken(req)
+        const resettoken = User.findOneAndUpdate({email:req.data.email},{resetPasswordToken:token})
+        if(!resettoken){
+            throw new Error
+        }
+        const email_response = sendemail({req,token})
+        
+
+    } catch (error) {
+        res.status(400).send({
+            "message":error
+        })
+    }
 }
 
 hObj.addUsers = async(req,res)=>{
