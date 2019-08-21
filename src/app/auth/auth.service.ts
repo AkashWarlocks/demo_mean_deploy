@@ -7,6 +7,8 @@ import { HttpPostService } from '../services/httpPost.service';
 export class AuthService {
   private loggedIn: BehaviorSubject<{user: string, loginValidate: boolean}> = new BehaviorSubject<{user: string, loginValidate: boolean}>({user: null, loginValidate: false});
 
+  private tokenExpirationTimer: any;
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -52,10 +54,30 @@ export class AuthService {
     });
   }
 
+  autoLogin() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    if (!user) {
+      return;
+    }
+      const expirationDuration = new Date(user.tokenExpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expirationDuration);
+  }
+
   logout() {
     this.loggedIn.next({user: null, loginValidate: false});
     localStorage.removeItem('user');
     localStorage.removeItem('access_token');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
     this.router.navigate([''], {relativeTo: this.route});
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
   }
 }

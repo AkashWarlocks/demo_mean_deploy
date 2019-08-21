@@ -44,8 +44,13 @@ export class ResetPasswordComponent implements OnInit {
         localStorage.setItem("access_token", this.token);
         const data = { api : "validateToken", data : { token : this.token }}
         this.httpPostService.httpPost(data).subscribe((val) => {
-        //  this.user = val[0].user;
-         this.loading = false;
+          const valid = val[0].valid_token;
+          if(valid === "true") {
+            this.loading = false;
+          }
+          else {
+            this.router.navigate(['/page_not_found'], {relativeTo: this.roure});
+         }
         },
         (error) => {
         
@@ -61,7 +66,7 @@ export class ResetPasswordComponent implements OnInit {
       this.loading = true;
 
       const resetPassword = {
-        user : this.user,
+        // user : this.user,
         password : this.form.value.password,
         token : this.token
       }
