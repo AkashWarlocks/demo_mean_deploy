@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   loading : boolean = true;
 
   constructor(private authService: AuthService,
-              private roure: ActivatedRoute) { }
+              private roure: ActivatedRoute,
+              private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -54,4 +56,5 @@ export class LoginComponent implements OnInit {
   alertDismiss() {
     this.loginAuth = true;
   }
+
 }
