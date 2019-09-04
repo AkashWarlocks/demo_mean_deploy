@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService, AuthResponseData } from '../auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-
   loginAuth: boolean = true;
-
   loading : boolean = true;
+  error: string = null;
 
   constructor(private authService: AuthService,
               private roure: ActivatedRoute,
+              private router: Router,
+              private route: ActivatedRoute,
               private http: HttpClient) { }
 
   ngOnInit() {
@@ -48,13 +50,46 @@ export class LoginComponent implements OnInit {
     }
 
     if(this.form.valid) {
+
+      let authObs: Observable<AuthResponseData>;
       this.loginAuth = true;
-      this.authService.login(this.form.value.username, this.form.value.password);
+
+      authObs = this.authService.login(this.form.value.username, this.form.value.password);
+      
+      authObs.subscribe(
+        resData => {
+          console.log(resData);
+
+            // if(email === "admin" && password === "admin") {
+            if(resData.userType === "admin") {
+              this.router.navigate(['/admin'], {relativeTo: this.route});
+            }
+            // else if(email === "student" && password === "student") {
+            else if(resData.userType === "student") {
+              // this.router.navigate(['/student'], {relativeTo: this.route, queryParams: {id : user._id}});
+            }
+            // else if(email === "faculty" && password === "faculty") {
+            else if(resData.userType === "faculty") {
+              this.router.navigate(['/faculty'], {relativeTo: this.route});
+              // this.router.navigate(['/faculty'], {relativeTo: this.route, queryParams: {id : user._id}});
+            }
+          else {
+            this.router.navigate(['/login'], {relativeTo: this.route, queryParams: { status: 'false'}, skipLocationChange: true});  
+          }
+        },
+        errorMessage => {
+          console.log(errorMessage);
+          this.error = errorMessage;
+          // this.isLoading = false;
+        }
+      );
+    
+      this.form.reset();
+
     }
   }
 
   alertDismiss() {
     this.loginAuth = true;
   }
-
 }

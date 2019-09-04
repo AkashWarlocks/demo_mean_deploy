@@ -118,7 +118,7 @@ export class AdminEditFacultyComponent implements OnInit {
       this.loading = true;
       
       const data = { api : "editFaculty", data : faculty }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.form.reset();
         this.cancel();
       },

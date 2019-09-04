@@ -49,7 +49,7 @@ export class AdminShowBranchComponent implements OnInit {
     if(statusConfirm) {
       this.loading = true;
       const data = { api : "changeBranchStatus", data : { _id, status }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.cancel();
       },
       (error) => {

@@ -53,7 +53,7 @@ export class AdminReplyEnquiryComponent implements OnInit {
       this.loading = true;
       const reply = { email : this.enquiry.email, subject : this.form.value.subject, body : this.form.value.body }
       const data = { api : "sendEnquiryReply", data : reply }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.form.reset();
        this.loading = false;
       },

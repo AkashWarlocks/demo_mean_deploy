@@ -45,7 +45,7 @@ export class AdminShowArticleComponent implements OnInit {
     if(dltConfirm) {
       this.loading = true;
       const data = { api : "deleteArticle", data : { _id : this.article._id }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.cancel();
       },
       (error) => {

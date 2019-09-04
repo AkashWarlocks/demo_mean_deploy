@@ -48,7 +48,7 @@ export class AdminAddNewsComponent implements OnInit {
       this.loading = true;
       const news = { title: this.form.value.title, body : this.form.value.body}
       const data = { api : "addNews", data : news }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.form.reset();
        this.cancel();
       },

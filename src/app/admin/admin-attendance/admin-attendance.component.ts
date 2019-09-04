@@ -148,7 +148,7 @@ export class AdminAttendanceComponent implements OnInit {
       }
       console.log(attendance);
       const data = { api : "saveAttendance", data : attendance}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.loading = false;
         this.form.reset({
           branch : "",

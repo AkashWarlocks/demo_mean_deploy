@@ -32,7 +32,7 @@ export class AdminExamComponent implements OnInit {
     if(deleteConfirm) {
       this.loading = true;
       const data = { api : "deleteExam", data : { _id }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.loading = false;
       },
       (error) => {

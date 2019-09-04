@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '../auth/user.model';
 
 @Component({
   selector: 'app-header',
@@ -10,32 +11,46 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn: boolean;
-  user: string;
+  isAuthenticated: boolean;
+  private userSub: Subscription;
+
+  user: User;
 
   constructor(private authService: AuthService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.authService.isLoggedIn.subscribe((value) => {
-      this.user = value.user;
-      this.isLoggedIn = value.loginValidate;
+
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+      this.user = user;
+      console.log(user, this.isAuthenticated)
     });
+
   }
 
+  
   onLogout() {
     this.authService.logout();
   }
 
+  onLogoutAll() {
+    this.authService.logoutAll();
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+  }
+
   goToHome() {
-    if(this.user === 'admin') {
+    if(this.user.userType === 'admin') {
       this.router.navigate(['/admin/dashboard'], {relativeTo: this.route});
     }
-    else if(this.user === 'faculty') {
+    else if(this.user.userType === 'faculty') {
       this.router.navigate(['/faculty'], {relativeTo: this.route});
     }
-    else if(this.user === 'student') {
+    else if(this.user.userType === 'student') {
       this.router.navigate(['/student/dashboard'], { relativeTo: this.route, queryParamsHandling: "preserve" });
     }
     else {

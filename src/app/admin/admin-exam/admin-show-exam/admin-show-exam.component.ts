@@ -44,7 +44,7 @@ export class AdminShowExamComponent implements OnInit {
     if(dltConfirm) {
       this.loading = true;
       const data = { api : "deleteExam", data : { _id : this.exam._id }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.cancel();
       },
       (error) => {

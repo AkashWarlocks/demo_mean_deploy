@@ -12,10 +12,25 @@ export class HttpPostService {
 
   public httpPost(data: any) : any {
 
-    // data._id = localStorage.user._id;
+    return this.http.post("/"+data.api, data)
+    .pipe(
+      map((response: any)=>{
+          console.log(response);
+          return response;
+      }),
+      catchError(err => {
+          console.log(err)
+          return throwError("SOMETHING BAD HAPPENED");
+      })
+    );
+    
+  }
+
+  public httpPostAuth(data: any) : any {
+
     let token = "";
-    if(localStorage.getItem("access_token")) {
-      token = JSON.parse(localStorage.getItem("access_token"));
+    if(localStorage.getItem('userData')) {
+      token = 'Bearer '+JSON.parse(localStorage.getItem('userData'))._token;
     }
     return this.http.post("/"+data.api, data, {
       headers: new HttpHeaders({
@@ -31,6 +46,6 @@ export class HttpPostService {
           console.log(err)
           return throwError("SOMETHING BAD HAPPENED");
       })
-    );;
+    );
   }
 }

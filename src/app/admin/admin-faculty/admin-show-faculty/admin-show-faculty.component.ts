@@ -44,7 +44,7 @@ export class AdminShowFacultyComponent implements OnInit {
       this.loading = true;
 
       const data = { api : "changeFacultyStatus", data : { _id, status }};
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.cancel();
       },
       (error) => {

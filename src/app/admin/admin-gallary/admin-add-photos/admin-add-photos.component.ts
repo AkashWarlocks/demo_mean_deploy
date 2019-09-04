@@ -66,7 +66,7 @@ export class AdminAddPhotosComponent implements OnInit {
     for(let i = 0; i < this.uploadImages.length; i++) {
       postData.append("image", this.uploadImages[i], title+i);
     }
-    this.httpPostService.httpPost(postData)
+    this.httpPostService.httpPostAuth(postData)
     .subscribe(responseData => {
       this.imagePreview = [];
       this.uploadImages = [];

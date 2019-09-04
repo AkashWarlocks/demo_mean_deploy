@@ -46,7 +46,7 @@ export class AdminAddExamComponent implements OnInit {
       this.loading = true;
       const exam = { title: this.form.value.title, body : this.form.value.body}
       const data = { api : "addExam", data : exam }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.form.reset();
        this.cancel();
       },

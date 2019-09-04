@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ReceiptModule } from '../../../models/receipt.model';
 import { HttpPostService } from '../../../services/httpPost.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-admin-student-receipts',
@@ -41,14 +42,15 @@ export class AdminStudentReceiptsComponent implements OnInit {
     if(dltConfirm) {
       this.loading = true;
       const data = { api : "deleteReceipt", data : { _id }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
-        const data = { api : "getReceipts", data : { student : this.studentId }}
-        this.httpPostService.httpPost(data).subscribe((val) => {
-          this.receipts = val;
-          this.loading = false;
-        },
-        (error) => {              
-        });
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
+        this.ngOnInit();
+        // const data = { api : "getReceipts", data : { student : this.studentId }}
+        // this.httpPostService.httpPost(data).subscribe((val) => {
+        //   this.receipts = val;
+        //   this.loading = false;
+      //   },
+      //   (error) => {              
+      //   });
       },
       (error) => {
        this.loading = false;
