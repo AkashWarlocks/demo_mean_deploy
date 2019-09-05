@@ -53,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
       }
 
       const data = { api : "changePassword", data : changedPassword }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.loading = false;
       },
       (error) => {

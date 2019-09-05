@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactUsPageComponent implements OnInit {
 
-  contactDetailsJson ={"phone":"9876543210","email":"dancingSoul@mail.com","address":"kasarvadavali,Thane"};
+  contactDetailsJson ={"phone":"9876543210","email":"dancingSoul@gmail.com","address":"kasarvadavali,Thane"};
 
   yourName = "your name";
  yourEmail = "your e-mail"
