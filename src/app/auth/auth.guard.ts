@@ -27,19 +27,6 @@ export class AdminAuthGuard implements CanActivate, CanActivateChild {
     );
   }
 
-  // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-  //   return this.authService.isLoggedIn.pipe(
-  //     take(1),
-  //     map((login: {user: string, loginValidate: boolean}) => {
-  //       if (!login.loginValidate && (login.user !== 'admin')) {
-  //         this.router.navigate(['/login']);
-  //         return false;
-  //       }
-  //       return true;
-  //     })
-  //   );
-  // }
-
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) :| boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.canActivate(route, state);
   }
@@ -66,19 +53,6 @@ export class StudentAuthGuard implements CanActivate {
       // })
     );
   }
-
-  // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-  //   return this.authService.isLoggedIn.pipe(
-  //     take(1),
-  //     map((login: {user: string, loginValidate: boolean}) => {
-  //       if (!login.loginValidate && (login.user !== 'student')) {
-  //         this.router.navigate(['/login']);
-  //         return false;
-  //       }
-  //       return true;
-  //     })
-  //   );
-  // }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) :| boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.canActivate(route, state);
@@ -107,19 +81,6 @@ export class FacultuAuthGuard implements CanActivate {
     );
   }
 
-  // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-  //   return this.authService.isLoggedIn.pipe(
-  //     take(1),
-  //     map((login: {user: string, loginValidate: boolean}) => {
-  //       if (!login.loginValidate && (login.user !== 'faculty')) {
-  //         this.router.navigate(['/login']);
-  //         return false;
-  //       }
-  //       return true;
-  //     })
-  //   );
-  // }
-
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) :| boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.canActivate(route, state);
   }
@@ -134,10 +95,10 @@ export class LoginAuthGuard implements CanActivate {
         take(1),
         map(user => {
           const isAuth = !!user;
-          if (isAuth) {
+          if (!isAuth) {
             return true;
           }
-          return this.router.createUrlTree(['/login']);
+          return this.router.createUrlTree(['/']);
         })
         // tap(isAuth => {
         //   if (!isAuth) {
@@ -146,19 +107,6 @@ export class LoginAuthGuard implements CanActivate {
         // })
       );
     }
-
-    // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    //   return this.authService.isLoggedIn.pipe(
-    //     take(1),
-    //     map((login: {user: string, loginValidate: boolean}) => {
-    //       if (login.loginValidate && login.user) {
-    //         this.router.navigate(['/login']);
-    //         return false;
-    //       }
-    //       return true;
-    //     })
-    //   );
-    // }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) :| boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
       return this.canActivate(route, state);

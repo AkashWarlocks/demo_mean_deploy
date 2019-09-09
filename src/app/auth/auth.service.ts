@@ -32,7 +32,7 @@ export class AuthService {
   login(email: string, password: string) {
     const data = { email, password };
     return this.http
-      .post<AuthResponseData>('http://127.0.0.1:3000/login', data)
+      .post<AuthResponseData>('/login', data)
       .pipe(
         catchError(this.handleError),
         tap(resData => {
@@ -90,6 +90,7 @@ export class AuthService {
       _token: string;
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
+    console.log(userData)
     if (!userData) {
       return;
     }
@@ -121,7 +122,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', token);
     console.log(headers)
 
-    return this.http.post("http://127.0.0.1:3000/logout", {}, { headers })
+    return this.http.post("/logout", {}, { headers })
     .subscribe(
       resData => {
         console.log(resData);
