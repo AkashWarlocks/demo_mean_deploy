@@ -14,17 +14,17 @@ let newsHandler = require('../handlers/news_handler')
 let attendanceHandler = require('../handlers/attendance_handler')
 let receiptHandler = require('../handlers/receipt_handler')    
 
-router.get('/getUsers',auth,async (req,res)=>{
+// router.get('/getUsers',auth,async (req,res)=>{
         
-        try {
-                const user = await User.find({})
-                res.send(user)
-            } catch (error) {
-                console.log(error)
-                res.status(400).send()
-            }
-        // userHandler.getUsers(req,res)
-})
+//         try {
+//                 const user = await User.find({})
+//                 res.send(user)
+//             } catch (error) {
+//                 console.log(error)
+//                 res.status(400).send()
+//             }
+//         // userHandler.getUsers(req,res)
+// })
 
 router.post('/dancingSoul',(req,res) => {
         const api = req.body.api
@@ -135,6 +135,9 @@ router.post('/dancingSoul',(req,res) => {
         
     }
 
+})
+router.post('/addUsers',(req,res)=>{
+        userHandler.addUsers(req,res)
 })
 router.post('/addBranch',auth.auth, (req,res)=>{
     console.log("in add branch")

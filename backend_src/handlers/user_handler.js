@@ -6,7 +6,6 @@ const Student = require('../model/student')
 const Faculty = require('../model/faculty')
 const bcrypt = require('bcryptjs')
 const sendemail = require('../handlers/email_handler')
-const auth = require('../middleware/auth')
 
 hObj.loginUsers = async (req,res) =>{
     console.log(req.body.data)
