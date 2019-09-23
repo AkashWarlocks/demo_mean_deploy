@@ -3,7 +3,6 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpPostService } from '../../../services/httpPost.service';
 import { AboutModel } from '../../../models/about.model';
-import { AdminEditPhilosophyComponent } from '../admin-edit-philosophy/admin-edit-philosophy.component';
 
 @Component({
   selector: 'app-admin-edit-aim',
@@ -50,7 +49,7 @@ export class AdminEditAimComponent implements OnInit {
         philosophy : this.about.philosophy
       }
       const data = { api : "editAbout", data : about }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.form.reset();
        this.cancel();
       },

@@ -44,7 +44,7 @@ export class AdminGallaryComponent implements OnInit {
 
     this.loading = true;
     const data = { api : "deleteImage", data : imgData}
-    this.httpPostService.httpPost(data)
+    this.httpPostService.httpPostAuth(data)
     .subscribe(res => {
       this.ngOnInit();
     },

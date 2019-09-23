@@ -157,7 +157,7 @@ export class AdminAddStudentComponent implements OnInit {
       }
 
       const data = { api : "addStudent", data : student }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.cancel();
       },
       (error) => {

@@ -11,7 +11,7 @@
     
     <div class="collapse navbar-collapse" id="navbarResponsive">
 
-      <ul class="main-nav navbar-nav mr-auto" *ngIf="!isLoggedIn && !user">
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="!isAuthenticated && !user">
         <li class="nav-item">
           <a class="nav-link" routerLink="about">About Us</a>
         </li>
@@ -46,15 +46,15 @@
 
       </ul>
 
-      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'admin')">
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isAuthenticated && (user.userType === 'admin')">
 
       </ul>
 
-      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'student')">
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isAuthenticated && (user.userType === 'student')">
         
       </ul>
 
-      <ul class="main-nav navbar-nav mr-auto" *ngIf="isLoggedIn && (user === 'faculty')">
+      <ul class="main-nav navbar-nav mr-auto" *ngIf="isAuthenticated && (user.userType === 'faculty')">
 
       </ul>
 

@@ -51,7 +51,7 @@ export class AdminEditPhilosophyComponent implements OnInit {
         philosophy : this.form.value.philosophy
       }
       const data = { api : "editAbout", data : about }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.form.reset();
         this.cancel();
       },

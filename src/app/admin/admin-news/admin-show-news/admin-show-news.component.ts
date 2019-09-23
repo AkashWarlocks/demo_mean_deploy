@@ -44,7 +44,7 @@ export class AdminShowNewsComponent implements OnInit {
     if(dltConfirm) {
       this.loading = true;
       const data = { api : "deleteNews", data : { _id : this.news._id }}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
         this.cancel();
       },
       (error) => {

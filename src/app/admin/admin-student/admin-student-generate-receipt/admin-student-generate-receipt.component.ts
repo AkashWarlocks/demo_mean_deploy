@@ -112,7 +112,7 @@ export class AdminStudentGenerateReceiptComponent implements OnInit {
       }
 
       const data = { api : "addReceipt", data : receipt }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.monthsTouched = false;
        this.amount = 0;
        this.form.reset({payment_mode: ""});

@@ -178,7 +178,7 @@ export class AdminAddBranchComponent implements OnInit {
       }
 
       const data = { api : "addBranch", data : branch}
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.form.reset();
        this.cancel();
       },

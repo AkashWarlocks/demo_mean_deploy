@@ -72,7 +72,7 @@ export class AdminEditExamComponent implements OnInit {
         body: this.form.value.body
       }
       const data = { api : "editExam", data : editedexam }
-      this.httpPostService.httpPost(data).subscribe((val) => {
+      this.httpPostService.httpPostAuth(data).subscribe((val) => {
        this.cancel();
       },
       (error) => {

@@ -38,8 +38,6 @@ app.use(function (req, res, next) {
 
 app.use(routes)
 
-
 app.listen(port, () => {
     console.log('Server is running on port' + port)
 })
-
