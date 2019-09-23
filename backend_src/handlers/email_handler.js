@@ -44,7 +44,7 @@ hObj.sendEmail = async(data) => {
           // };
     
           const info = await transporter.sendMail(mailOptions)
-          return info,
+          return info
         
     } catch (error) {
         console.log('Email sent: ' + error);
